@@ -21,23 +21,18 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     })
     .when("/myTasks", {
       templateUrl: "my-tasks/my-tasks.html"
-      /*controller: "MyTasksController"*/
     })
     .when("/plannerHub", {
       templateUrl: "planner-hub/planner-hub.html",
-      controller: "PlannerHubController"
     })
     .when("/projectPage", {
       templateUrl: "project-page/project-page.html",
-      controller: "ProjectPageController"
     })
     .when("/storiesStatus", {
       templateUrl: "stories-status/stories-status.html",
-      controller: "StoriesStatusController"
     })
     .when("/userScreen", {
       templateUrl: "user-screen/user-screen.html",
-      controller: "UserScreenController"
     })
     .otherwise({redirectTo: '/login'});
 }]);

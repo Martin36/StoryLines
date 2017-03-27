@@ -1,6 +1,6 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
-<div ng-controller="MyTasksController" style="padding-left: 240px">
+<div class="content" ng-controller="MyTasksController">
   <div class="project" ng-repeat="board in boards">
     <h1 class="title">{{board.name}}</h1>
     <hr>

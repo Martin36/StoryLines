@@ -23,3 +23,22 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+/*Content to the right of the sidebar*/
+.content {
+  padding-left: 240px;
+  padding-right: 20px;
+}
+
+/*The title in each board for a specific project*/
+.title.board {
+  border-width: 0px 0px 2px 0px;
+  border-color: #c6c5c5;
+  border-style: solid;
+  padding-bottom: 10px;
+}
+
+/*Hides the border for the add card buttons*/
+.button.addCard {
+  border-style: none;
+}

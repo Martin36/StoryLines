@@ -2,7 +2,7 @@
 
 <div class="content" ng-controller="MyTasksController">
   <div class="project" ng-repeat="board in boards">
-    <h1 class="title">{{board.name}}</h1>
+    <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns">
       <div class="column is-2 card" ng-repeat="card in board.cards">

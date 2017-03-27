@@ -11,7 +11,7 @@ app.factory('Model', function ($resource) {
   var cards;
   var loadingCounter = 0;
   //Authorize to the trello api
-  this.authorize = function() {
+  this.authorize = function(cb) {
 
     Trello.authorize({
       type: 'popup',
@@ -23,6 +23,7 @@ app.factory('Model', function ($resource) {
       success: function() {
         console.log('Successful authentication');
         loggedIn = true;
+        cb();
       },
       error: function() { console.log('Failed authentication'); }
     });
@@ -30,6 +31,7 @@ app.factory('Model', function ($resource) {
     //loadBoards();
   };
 
+  //this.authorize();
   //TODO: Assign "boards" variable by callback function
   var loadBoards = function (cb) {
 

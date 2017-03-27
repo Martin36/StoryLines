@@ -3,6 +3,14 @@
  */
 
 angular.module('myApp.login', [])
-  .controller('LoginController', function ($scope) {
+  .controller('LoginController', function ($scope, $location, Model) {
 
+    $scope.login = function () {
+      console.log("Login!");
+      Model.authorize(function () {
+        //Change view to my tasks
+        $location.path('/myTasks');
+      });
+
+    };
   });

@@ -6,7 +6,7 @@ angular.module('myApp.myTasks', [])
 
     //TODO: Move this to where it only runs once
     if(!Model.isLoggedIn()){
-      Model.authorize();
+      //Model.authorize();
     }
 
     //TODO: Wait for data to load in model

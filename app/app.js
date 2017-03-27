@@ -17,11 +17,10 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider
     .when("/login", {
-      templateUrl: "login/login.html",
-      controller: "LoginController"
+      templateUrl: "login/login.html"
     })
     .when("/myTasks", {
-      templateUrl: "my-tasks/my-tasks.html",
+      templateUrl: "my-tasks/my-tasks.html"
       /*controller: "MyTasksController"*/
     })
     .when("/plannerHub", {

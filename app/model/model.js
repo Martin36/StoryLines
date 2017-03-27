@@ -6,9 +6,7 @@ app.factory('Model', function ($resource) {
 
   var loggedIn = false;
   var boardsLoaded = false;
-  var cardsLoaded = false;
   var boards;
-  var cards;
   var loadingCounter = 0;
   //Authorize to the trello api
   this.authorize = function(cb) {
@@ -60,6 +58,8 @@ app.factory('Model', function ($resource) {
 
     var success = function(data) {
       boards[boardIndex].cards = data;
+      //Calculate the statistics of the cards for this board
+      //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
         cb();
@@ -71,21 +71,14 @@ app.factory('Model', function ($resource) {
     Trello.get('/boards/' + boardId + '/cards', success, error);
 
   }
+  //TODO: Implement this
+  var cardStats = function (boardIndex) {
+    boards[boardIndex].cardStats = [];
+    //Loop through all the cards and add statistics for each
+    for(var i = 0; i < boards[boardIndex].cards.length; i++){
 
-  var loadAllCards = function(cb){
-
-    // Get all of the information about the boards you have access to
-    var success = function(data) {
-      cards = data;
-      cardsLoaded = true;
-      cb();
-    };
-    var error = function(errorMsg) {
-      console.log(errorMsg);
-    };
-    Trello.get('/member/me/cards', success, error);
-
-  };
+    }
+  }
 
   this.loadData = function (cb) {
     loadBoards(cb);
@@ -98,19 +91,6 @@ app.factory('Model', function ($resource) {
       //loadBoards(cb);
     }else{
       return boards;
-    }
-  };
-
-  //Returns the cards from the board with "boardId"
-  this.getCards = function (boardId) {
-    if(!cardsLoaded){
-      console.error("Cards not loaded");
-      //loadBoards(cb);
-    }else{
-      //Return only the cards that belongs to the board with "boardId"
-      return cards.filter(function (card) {
-        return card.idBoard === boardId;
-      });
     }
   };
 

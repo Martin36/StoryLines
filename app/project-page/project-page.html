@@ -1,12 +1,24 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
-// TODO: Show specific project
 <div class="content">
+  <!-- TODO: Show Project title -->
+  <div class="columns">
+    <div class="column has-text-centered">
+      <p class="title is-3">
+        {{projectTitle}}
+      </p>
+    </div>
+  </div>
+
+  <!--Load the boards -->
   <div class="columns">
     <div class="column has-text-centered" ng-repeat="board in boardTypes">
-      <p class="title board">
+      <p class="title is-4 board">
         {{board}}
       </p>
+
+      <!-- TODO: Load cards for the specific board -->
+
       <a class="button addCard">
         <span class="icon is-medium">
           <i class="fa fa-plus-square"></i>

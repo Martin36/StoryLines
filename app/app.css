@@ -41,4 +41,5 @@
 /*Hides the border for the add card buttons*/
 .button.addCard {
   border-style: none;
+  margin-top: 10px;
 }

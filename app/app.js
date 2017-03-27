@@ -4,6 +4,7 @@
 var app = angular.module('myApp', [
   'ngRoute',
   'ngResource',
+  'chart.js',
   'myApp.login',
   'myApp.sidebar',
   'myApp.myTasks',

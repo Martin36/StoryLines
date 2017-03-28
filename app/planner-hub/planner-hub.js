@@ -3,11 +3,15 @@
  */
 angular.module('myApp.plannerHub', [])
   .controller('PlannerHubController', function ($scope, Model) {
+    Chart.defaults.global.responsive = true;
     //For testing
     $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
     $scope.data = [300, 500, 100];
     //Displays the legend for the doughnut chart
-    $scope.options = {legend: {display:true}};
+    $scope.options = {
+      legend: {display:true},
+      responsive: true
+    };
 
 
     $scope.boards = Model.getBoards();

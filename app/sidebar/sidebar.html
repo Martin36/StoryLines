@@ -13,30 +13,33 @@
       </p>
       <!-- TODO: Add the navigation buttons -->
       <div class="column">
+        <!-- Show all main pages you can navigate to -->
+        <p class="menu-label">Pages</p>
+        <ul class="menu-list">
+          <li ng-repeat="page in pages">
+            <a ng-click="changeView(page.link)">
+            {{page.name}}
+          </a>
+          </li>
+        </ul>
+
         <p class="menu-label">
-          General
+          Projects
         </p>
         <ul class="menu-list">
-          <li><a>Dashboard</a></li>
-          <li><a>Customers</a></li>
+          <li><a>Project 1</a></li>
+          <li><a>Project 2</a></li>
+          <li><a>Project 3</a></li>
+          <li><a>Project 4</a></li>
         </ul>
+
         <p class="menu-label">
           Administration
         </p>
         <ul class="menu-list">
-          <li><a>Team Settings</a></li>
-
-          <li><a>Invitations</a></li>
-          <li><a>Cloud Storage Environment Settings</a></li>
-          <li><a>Authentication</a></li>
-        </ul>
-        <p class="menu-label">
-          Transactions
-        </p>
-        <ul class="menu-list">
-          <li><a>Payments</a></li>
-          <li><a>Transfers</a></li>
-          <li><a>Balance</a></li>
+          <li><a>Trello status</a></li>
+          <li><a>Firebase thing. Google?</a></li>
+          <li><a>Settings</a></li>
         </ul>
       </div>
 
@@ -48,7 +51,7 @@
           <span>Profile</span>
         </a>
       </p>
-      
+
     </div>
   </div>
 </div>

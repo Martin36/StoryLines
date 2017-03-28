@@ -1,6 +1,6 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
-<div class="content">
+<div class="our-content">
   <!-- TODO: Show Project title -->
   <div class="columns">
     <div class="column has-text-centered">
@@ -12,18 +12,22 @@
 
   <!--Load the boards -->
   <div class="columns">
-    <div class="column has-text-centered" ng-repeat="board in boardTypes">
+    <div class="column has-text-centered" ng-repeat="board in boards">
       <p class="title is-4 board">
-        {{board}}
+        {{board.name}}
       </p>
 
-      <!-- TODO: Load cards for the specific board -->
+      <!-- TODO: Show cards for the specific board -->
+      <div ng-repeat="card in board.cards" class="column is-12">
+        {{card.text}}
+      </div>
 
-      <a class="button addCard">
+      <a ng-click="addCard(board.name)" class="button addCard">
         <span class="icon is-medium">
           <i class="fa fa-plus-square"></i>
         </span>
       </a>
     </div>
+    <!-- End of boards repeat -->
   </div>
 </div>

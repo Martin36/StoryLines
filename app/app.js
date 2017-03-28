@@ -28,6 +28,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     })
     .when("/projectPage", {
       templateUrl: "project-page/project-page.html",
+      controller: "ProjectPageController"
     })
     .when("/storiesStatus", {
       templateUrl: "stories-status/stories-status.html",

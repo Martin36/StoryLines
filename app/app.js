@@ -10,7 +10,6 @@ var app = angular.module('myApp', [
   'myApp.myTasks',
   'myApp.plannerHub',
   'myApp.projectPage',
-  'myApp.storiesStatus',
   'myApp.userScreen'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
@@ -29,9 +28,6 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     .when("/projectPage", {
       templateUrl: "project-page/project-page.html",
       controller: "ProjectPageController"
-    })
-    .when("/storiesStatus", {
-      templateUrl: "stories-status/stories-status.html",
     })
     .when("/userScreen", {
       templateUrl: "user-screen/user-screen.html",

@@ -8,13 +8,12 @@ angular.module('myApp.sidebar', [])
       "name": "Planner Hub",
       "link": "plannerHub"
     },{
-      "name": "Stories Status",
-      "link": "storiesStatus"
+      "name": "My Stories",
+      "link": "myStories"
     }];
 
     $scope.changeView = function(page) {
       // console.log("Navigating to: "+page);
       $location.path('/' + page);
     }
-
 });

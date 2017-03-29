@@ -16,7 +16,7 @@ angular.module('myApp.projectPage', [])
         "cards": []
       }];
 
-      // TODO: Load project from id in adress field??
+      // TODO: Load project from id in adress field
       $scope.projectTitle = "Test Project"
 
       $scope.addCard = function(boardType) {

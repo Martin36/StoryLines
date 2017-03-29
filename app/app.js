@@ -7,7 +7,7 @@ var app = angular.module('myApp', [
   'chart.js',
   'myApp.login',
   'myApp.sidebar',
-  'myApp.myTasks',
+  'myApp.myStories',
   'myApp.plannerHub',
   'myApp.projectPage',
   'myApp.userScreen'
@@ -19,8 +19,8 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     .when("/login", {
       templateUrl: "login/login.html"
     })
-    .when("/myTasks", {
-      templateUrl: "my-tasks/my-tasks.html"
+    .when("/myStories", {
+      templateUrl: "my-stories/my-stories.html"
     })
     .when("/plannerHub", {
       templateUrl: "planner-hub/planner-hub.html",

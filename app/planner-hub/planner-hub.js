@@ -9,8 +9,10 @@ angular.module('myApp.plannerHub', [])
     //Displays the legend for the doughnut chart
     $scope.options = {legend: {display:true}};
 
-
-    $scope.boards = Model.getBoards();
+    Model.loadData(function() {
+      $scope.boards = Model.getBoards();
+      $scope.$apply();
+    });
   //  console.log($scope.boards[0]);
     //console.log($scope.boards[0].cards);
     //TODO: Figure out why this is needed for it to work

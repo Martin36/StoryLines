@@ -9,7 +9,10 @@ angular.module('myApp.login', [])
       console.log("Login!");
       Model.authorize(function () {
         //Change view to my tasks
-        $location.path('/myTasks');
+        // $location.path('/myStories');
+
+        // TODO: This will fail to load boards
+        $location.path('/plannerHub');
       });
 
     };

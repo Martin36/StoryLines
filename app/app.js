@@ -35,7 +35,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     .otherwise({redirectTo: '/login'});
 }]).
 // Directive for focus switching
-// Source: https://jsfiddle.net/7L8vqf8u/3/
+// Source: http://www.jomendez.com/2015/10/05/focus-on-input-field-in-angularjs-mini-challenge-8-answer/
 directive('focusMe', function($timeout, $parse) {
   return {
     link: function(scope, element, attrs) {

@@ -3,10 +3,15 @@
 <div class="our-content">
   <!-- TODO: Show Project title -->
   <div class="columns">
+    <!-- Project title with edit button -->
     <div class="column has-text-centered">
-      <p class="title is-3">
-        {{projectTitle}}
-      </p>
+      <input ng-model="projectTitle" ng-init="editMode=false" ng-disabled="!editMode"
+             ng-blur="editTitle()" focus-me="isOpen"
+             class="title is-3 has-text-centered">
+        <span ng-click="editTitle()" class="icon is-medium">
+          <i class="fa fa-pencil"></i>
+        </span>
+      </input>
     </div>
   </div>
 

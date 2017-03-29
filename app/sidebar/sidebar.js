@@ -13,7 +13,7 @@ angular.module('myApp.sidebar', [])
     }];
 
     $scope.changeView = function(page) {
-      console.log("Navigating to: "+page);
+      // console.log("Navigating to: "+page);
       $location.path('/' + page);
     }
 

@@ -33,4 +33,23 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: "user-screen/user-screen.html",
     })
     .otherwise({redirectTo: '/login'});
-}]);
+}]).
+// Directive for focus switching
+// Source: https://jsfiddle.net/7L8vqf8u/3/
+directive('focusMe', function($timeout, $parse) {
+  return {
+    link: function(scope, element, attrs) {
+      var model = $parse(attrs.focusMe);
+      scope.$watch(model, function(value) {
+        if(value === true) {
+          $timeout(function() {
+            element[0].focus();
+          });
+        }
+      });
+      element.bind('blur', function() {
+        scope.$apply(model.assign(scope, false));
+      })
+    }
+  };
+});

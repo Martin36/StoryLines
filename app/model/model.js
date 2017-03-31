@@ -87,7 +87,7 @@ app.factory('Model', function ($resource) {
   this.getBoards = function () {
     //Check if boards are not loaded
     if(!boardsLoaded){
-      console.error("Boards not loaded");
+      //console.error("Boards not loaded");
       //loadBoards(cb);
     }else{
       return boards;

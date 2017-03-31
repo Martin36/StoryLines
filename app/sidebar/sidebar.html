@@ -29,7 +29,9 @@
         <ul class="menu-list">
           <!-- Runs the function assigned to board in controller -->
           <li ng-repeat="board in boards()">
-            <a>{{board.name}}</a>
+            <a ng-click="goProjectPage(board.id)">
+              {{board.name}}
+            </a>
           </li>
         </ul>
 

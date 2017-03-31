@@ -25,7 +25,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     .when("/plannerHub", {
       templateUrl: "planner-hub/planner-hub.html",
     })
-    .when("/projectPage", {
+    .when("/projectPage/:projectId", {
       templateUrl: "project-page/project-page.html",
       controller: "ProjectPageController"
     })

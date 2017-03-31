@@ -36,6 +36,7 @@ app.factory('Model', function ($resource) {
     // Get all of the information about the boards you have access to
     var success = function(data) {
       boards = data;
+      // console.log(boards);
       //cb(boards);
       boardsLoaded = true;
       for(var i = 0; i < boards.length; i++){

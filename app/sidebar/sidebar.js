@@ -21,4 +21,8 @@ angular.module('myApp.sidebar', [])
       // console.log("Navigating to: "+page);
       $location.path('/' + page);
     }
+
+    $scope.goProjectPage = function(boardId) {
+      $location.path('/projectPage/'+boardId);
+    }
 });

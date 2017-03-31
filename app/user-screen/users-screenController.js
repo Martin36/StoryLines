@@ -1,4 +1,4 @@
-angular.module('Storylines.User')
+angular.module('myApp.User')
     .controller('UsersCtrl', function ($scope, $log, UsersModel, $timeout) {
         var myUsers = this;
 

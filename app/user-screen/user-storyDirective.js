@@ -1,4 +1,4 @@
-angular.module('Storylines.User')
+angular.module('SmyApp.User')
     .directive('userstory',
         function ($rootScope, StoriesModel, $log) {
             var linker = function (scope, element, attrs) {

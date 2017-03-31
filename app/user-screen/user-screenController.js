@@ -1,5 +1,5 @@
 
-angular.module('Storylines.User')
+angular.module('myApp.User')
     .controller('UserCtrl',
         function ($routeParams, user, stories) {
             var myUser = this;

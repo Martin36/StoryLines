@@ -95,6 +95,14 @@ app.factory('Model', function ($resource) {
     }
   };
 
+  // Get board with specific id from the ones loaded.
+  this.getBoard = function(id) {
+    for(var i = 0; i < boards.length; i++) {
+      if(boards[i].id == id)
+        return boards[i];
+    }
+  }
+
   this.isLoggedIn = function () {
     return loggedIn;
   };

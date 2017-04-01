@@ -5,9 +5,9 @@
   <div class="columns">
     <!-- Project title with edit button -->
     <div class="column has-text-centered">
-      <input ng-model="projectTitle" ng-init="editMode=false" ng-disabled="!editMode"
+      <input ng-model="project.name" ng-init="editMode=false" ng-disabled="!editMode"
              ng-blur="editTitle()" focus-me="isOpen"
-             class="title is-3 has-text-centered">
+             class="title is-3 has-text-centered" size="{{project.name.length}}">
         <span ng-click="editTitle()" class="icon is-medium">
           <i class="fa fa-pencil"></i>
         </span>

@@ -3,7 +3,8 @@
  */
 
 angular.module('myApp.login', [])
-  .controller('LoginController', function ($scope, $location, Model) {
+  .controller('LoginController', function ($scope, $location,
+    $firebaseAuth, Model) {
 
     $scope.login = function () {
       console.log("Login!");

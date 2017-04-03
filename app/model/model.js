@@ -8,9 +8,9 @@ app.factory('Model', function ($resource) {
   var boardsLoaded = false;
   var boards;
   var loadingCounter = 0;
+  
   //Authorize to the trello api
   this.authorize = function(cb) {
-
     Trello.authorize({
       type: 'popup',
       name: 'Getting Started Application',
@@ -25,9 +25,16 @@ app.factory('Model', function ($resource) {
       },
       error: function() { console.log('Failed authentication'); }
     });
-
-    //loadBoards();
   };
+
+  // Initialize Firebase
+  var firebaseConf = {
+    apiKey: " AIzaSyAnGNc08nedi09D3T-vSW-kLN_lFFEjcDA",
+    authDomain: "storylines-784ba.firebaseapp.com",
+    databaseURL: "https://storylines-784ba.firebaseio.com/",
+    storageBucket: "gs://storylines-784ba.appspot.com"
+  };
+  firebase.initializeApp(firebaseConf);
 
   //this.authorize();
   //TODO: Assign "boards" variable by callback function

@@ -68,6 +68,9 @@ app.factory('Model', function ($resource) {
 
     var success = function(data) {
       boards[boardIndex].cards = data;
+      //TODO: Uncomment this when function is implemented
+      //boards[boardIndex].myCards = getUsersCards(boardIndex);
+
       //Calculate the statistics of the cards for this board
       //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
@@ -81,6 +84,11 @@ app.factory('Model', function ($resource) {
     Trello.get('/boards/' + boardId + '/cards', success, error);
 
   }
+  //TODO: Return all the cards that is assigned to the logged in user
+  var getUsersCards = function(boardIndex){
+
+  }
+
   //TODO: Implement this
   var cardStats = function (boardIndex) {
     boards[boardIndex].cardStats = [];
@@ -98,7 +106,6 @@ app.factory('Model', function ($resource) {
     //Check if boards are not loaded
     if(!boardsLoaded){
       //console.error("Boards not loaded");
-      //loadBoards(cb);
     }else{
       return boards;
     }

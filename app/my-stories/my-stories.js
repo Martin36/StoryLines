@@ -6,7 +6,9 @@ angular.module('myApp.myStories', [])
     //TODO: Wait for data to load in model
     Model.loadData(function () {
       $scope.boards = Model.getBoards();
+      
       //console.log($scope.boards[0].cards);
+      /*
         Trello.get('organization/'+orgId+'/boards/?token='+token+'&lists=open', function(boards) {
         $.each(boards, function(ix, board) {
             Trello.get('boards/'+board.id+'/lists?cards=all&token='+token, function(lists) {
@@ -17,7 +19,7 @@ angular.module('myApp.myStories', [])
             });
         });
     });
-});
+});*/
       //TODO: Figure out why this is needed for it to work
       $scope.$apply();
     });

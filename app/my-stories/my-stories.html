@@ -1,8 +1,9 @@
-<ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
-
+ <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
+<script src="https://api.trello.com/1/members/me?fields=username,fullName,url&boards=all&board_fields=name&organizations=all&organization_fields=displayName&key=[application_key]&token=[optional_auth_token]"></script>
+<script src="https://api.trello.com/1/boards/4eea4ffc91e31d1746000046/lists?cards=open&card_fields=name&fields=name&key=[application_key]&token=[optional_auth_token]"> </script>
 <div class="our-content" ng-controller="MyStoriesController">
   <div class="project" ng-repeat="board in boards">
-    <h1 id="rowHeader" class="title">{{board.name}}</h1>
+    <h1 id="rowHeader" class="title">{{board.name}}</h1>   
     <hr>
       <div class="columns">
       <div class="card" ng-repeat="card in board.cards">
@@ -16,16 +17,19 @@
       </span>
     </a>
   </header>
- <!-- <div class="card-content">
+ <div class="card-content"> 
     <div class="content">
-      
+       
     </div>
-  </div> -->
+  </div> 
   <footer class="card-footer">
     <a class="card-footer-item">Save</a>
   </footer>
 </div>
-      </div>  
+      </div> 
+    </div>
+</div>
+    
    <!-- <div class="columns">
       <div class="column is-2 card" ng-repeat="card in board.cards">
         <h5 class="title is-5">{{card.name}}
@@ -34,6 +38,4 @@
 </span> </h5>
       </div>
     </div> -->
-  </div>
-</div>
 

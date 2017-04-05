@@ -50,7 +50,6 @@ app.factory('Model', function ($resource) {
       console.log(errorMsg);
     };
     Trello.get('/member/me/boards', success, error);
-
   };
 
   var loadCards = function (boardIndex, cb) {
@@ -84,7 +83,7 @@ app.factory('Model', function ($resource) {
   this.loadData = function (cb) {
     loadBoards(cb);
   }
-
+ 
   this.getBoards = function () {
     //Check if boards are not loaded
     if(!boardsLoaded){

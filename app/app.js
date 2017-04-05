@@ -30,8 +30,25 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: "project-page/project-page.html",
       controller: "ProjectPageController"
     })
-    .when("/userScreen", {
+  .when("/userScreen", {
       templateUrl: "user-screen/user-screen.html",
+      controller: "UserScreenController",
+      controllerAs: 'myUser',
+    })
+  .when("/userScreen/:userId", {
+    templateUrl: "user-screen/user-screen.html",
+    controller: "UserScreenController",
+    resolve: {
+                user: function ($route, $routeParams, UsersModel) {
+                    var userId = $route.current.params['userId']
+                               ? $route.current.params['userId']
+                               : $routeParams['userId'];
+                    return UsersModel.fetch(userId);
+                },
+                stories: function ($rootScope, StoriesModel) {
+                    return StoriesModel.all();
+                }
+            }
     })
     .otherwise({redirectTo: '/login'});
 }]);

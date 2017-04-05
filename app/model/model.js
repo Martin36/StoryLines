@@ -38,10 +38,8 @@ app.factory('Model', function ($resource) {
   };
   firebase.initializeApp(config);
 
-  //this.authorize();
   //TODO: Assign "boards" variable by callback function
   var loadBoards = function (cb) {
-
     // Get all of the information about the boards you have access to
     var success = function(data) {
       boards = data;
@@ -59,7 +57,6 @@ app.factory('Model', function ($resource) {
       console.log(errorMsg);
     };
     Trello.get('/member/me/boards', success, error);
-
   };
 
   var loadCards = function (boardIndex, cb) {
@@ -81,12 +78,12 @@ app.factory('Model', function ($resource) {
     Trello.get('/boards/' + boardId + '/cards', success, error);
 
   }
+
   //TODO: Implement this
   var cardStats = function (boardIndex) {
     boards[boardIndex].cardStats = [];
     //Loop through all the cards and add statistics for each
     for(var i = 0; i < boards[boardIndex].cards.length; i++){
-
     }
   }
 
@@ -110,6 +107,16 @@ app.factory('Model', function ($resource) {
       if(boards[i].id == id)
         return boards[i];
     }
+  }
+
+  // Give the board with the id a new name
+  this.changeBoardName = function(id, newName) {
+    Trello.put('boards/'+id+'/name?value='+newName);
+  }
+
+  // Create a new board and post it to Trello
+  this.createNewBoard = function() {
+    Trello.post('/boards?name=New Project');
   }
 
   this.isLoggedIn = function () {

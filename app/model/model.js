@@ -8,6 +8,7 @@ app.factory('Model', function ($resource) {
   var boardsLoaded = false;
   var boards;
   var loadingCounter = 0;
+  var listTypes = ['To Do','In Progress','Verifying','Done'];
 
   //Authorize to the trello api
   this.authorize = function(cb) {
@@ -97,6 +98,7 @@ app.factory('Model', function ($resource) {
       //console.error("Boards not loaded");
       //loadBoards(cb);
     }else{
+      console.log("Get boards call!");
       return boards;
     }
   };
@@ -114,9 +116,16 @@ app.factory('Model', function ($resource) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
 
+  // TODO: getBoard() from sidebar gets called before the new board is added to boads.
   // Create a new board and post it to Trello
   this.createNewBoard = function() {
-    Trello.post('/boards?name=New Project');
+    Trello.post('/boards?name=New Project', function(board) {
+      for(var i = 0; i < listTypes.length; i++) {
+        //Some how three additional lists are added in trello. Translated to swedeish.
+        Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
+      }
+      boards.push(board); // Add new board to array
+    });
   }
 
   this.isLoggedIn = function () {

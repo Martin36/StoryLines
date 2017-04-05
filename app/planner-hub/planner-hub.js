@@ -2,7 +2,7 @@
  * Created by marti on 2017-03-25.
  */
 angular.module('myApp.plannerHub', [])
-  .controller('PlannerHubController', function ($scope, Model) {
+  .controller('PlannerHubController', function ($scope, $firebaseObject, Model) {
     //For testing
     $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
     $scope.data = [300, 500, 100];
@@ -17,6 +17,14 @@ angular.module('myApp.plannerHub', [])
     //console.log($scope.boards[0].cards);
     //TODO: Figure out why this is needed for it to work
 //      $scope.$apply();
+
+
+    var ref = firebase.database().ref();
+    var obj = $firebaseObject(ref);
+
+    $scope.data = obj;
+    // Three-way binding
+    obj.$bindTo($scope, "data");
 
 
   });

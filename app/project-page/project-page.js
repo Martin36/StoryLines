@@ -1,5 +1,5 @@
 angular.module('myApp.projectPage', [])
-  .controller('ProjectPageController', function ($scope, $routeParams,Model) {
+  .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
       // Temporary board structure in project
       $scope.boards = [{
@@ -33,7 +33,19 @@ angular.module('myApp.projectPage', [])
       }
 
       $scope.editTitle = function(){
+        toggleEdit();
+      }
+
+      // Save the new title on trello
+      $scope.saveTitle = function(){
+        Trello.put('boards/'+$routeParams.projectId+
+          '/name?value='+$scope.project.name);
+        toggleEdit();
+      }
+
+      function toggleEdit(){
         $scope.editMode = !$scope.editMode;
         $scope.isOpen = !$scope.isOpen;
       }
+
   });

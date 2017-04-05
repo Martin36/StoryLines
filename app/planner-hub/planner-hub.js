@@ -19,12 +19,12 @@ angular.module('myApp.plannerHub', [])
 //      $scope.$apply();
 
 
-    var ref = firebase.database().ref();
-    var obj = $firebaseObject(ref);
-
-    $scope.data = obj;
-    // Three-way binding
-    obj.$bindTo($scope, "data");
+    // var ref = firebase.database().ref();
+    // var obj = $firebaseObject(ref);
+    //
+    // $scope.data = obj;
+    // // Three-way binding
+    // obj.$bindTo($scope, "data");
 
 
   });

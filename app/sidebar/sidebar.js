@@ -17,12 +17,17 @@ angular.module('myApp.sidebar', [])
     // to a new one im model.
     $scope.boards = Model.getBoards;
 
+    // Change view to the given page
     $scope.changeView = function(page) {
-      // console.log("Navigating to: "+page);
       $location.path('/' + page);
     }
 
+    // Go to a specific project page
     $scope.goProjectPage = function(boardId) {
       $location.path('/projectPage/'+boardId);
+    }
+
+    $scope.newProject = function() {
+        Model.createNewBoard();
     }
 });

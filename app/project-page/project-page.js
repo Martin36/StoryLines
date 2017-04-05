@@ -38,8 +38,7 @@ angular.module('myApp.projectPage', [])
 
       // Save the new title on trello
       $scope.saveTitle = function(){
-        Trello.put('boards/'+$routeParams.projectId+
-          '/name?value='+$scope.project.name);
+        Model.changeBoardName($routeParams.projectId, $scope.project.name);
         toggleEdit();
       }
 

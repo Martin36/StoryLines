@@ -98,9 +98,9 @@ app.factory('Model', function ($resource) {
     for(var i = 0; i < boards.length; i++){
       //Create array for holding the stats
       boards[i].cardStats = {
-        highPriority : 0,
         mediumPriority : 0,
-        lowPriority : 0
+        lowPriority : 0,
+        highPriority : 0
       };
       //Loop through all the cards and add statistics for each
       for(var j = 0; j < boards[i].cards.length; j++){

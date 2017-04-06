@@ -5,14 +5,14 @@ angular.module('myApp.plannerHub', [])
   .controller('PlannerHubController', function ($scope, Model) {
     Chart.defaults.global.responsive = true;
     //For testing
-    $scope.labels = ["High Priority", "Medium Priority", "Low Priority"];
+    $scope.labels = ["Medium Priority", "Low Priority", "High Priority"];
     $scope.data = [300, 500, 100];
     //Displays the legend for the doughnut chart
     $scope.options = {
       legend: {display:true},
       responsive: true
     };
-
+    $scope.colors = [ '#949FB1', '#4D5360', '#DCDCDC'];
     Model.loadData(function() {
       $scope.boards = Model.getBoards();
       for(var i = 0; i < $scope.boards.length; i++){

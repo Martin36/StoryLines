@@ -40,6 +40,11 @@
   margin-bottom: 10px;
 }
 
+/*For the edit title button icon*/
+.title .icon {
+  margin-left: 10px;
+}
+
 /*Hides the border for the add card buttons*/
 .button.addCard {
   border-style: none;

@@ -1,10 +1,7 @@
-/**
- * Created by marti on 2017-03-25.
- */
 angular.module('myApp.projectPage', [])
-  .controller('ProjectPageController', function ($scope, Model) {
+  .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-      // Temporary board structure
+      // Temporary board structure in project
       $scope.boards = [{
         "name": "To Do",
         "cards": []
@@ -19,22 +16,35 @@ angular.module('myApp.projectPage', [])
         "cards": []
       }];
 
-      // TODO: Load project from id in adress field??
-      $scope.projectTitle = "Test Project"
+      // Get project from model
+      $scope.project = Model.getBoard($routeParams.projectId);
 
       $scope.addCard = function(boardType) {
         // Find the right board to add the card too
         for(var i = 0; i < $scope.boards.length; i++) {
           if($scope.boards[i].name == boardType){
-
             // Dummy object for testing purpous
             var newCard = {}
             newCard["text"] = boardType + " Card\n" +
               "Nr: " + $scope.boards[i].cards.length;
-
             $scope.boards[i].cards.push(newCard);
           }
         }
+      }
+
+      $scope.editTitle = function(){
+        toggleEdit();
+      }
+
+      // Save the new title on trello
+      $scope.saveTitle = function(){
+        Model.changeBoardName($routeParams.projectId, $scope.project.name);
+        toggleEdit();
+      }
+
+      function toggleEdit(){
+        $scope.editMode = !$scope.editMode;
+        $scope.isOpen = !$scope.isOpen;
       }
 
   });

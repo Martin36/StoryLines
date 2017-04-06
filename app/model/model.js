@@ -4,13 +4,14 @@
 
 app.factory('Model', function ($resource) {
 
+  var useCardStats = true;
   var loggedIn = false;
   var boardsLoaded = false;
   var boards;
   var loadingCounter = 0;
+
   //Authorize to the trello api
   this.authorize = function(cb) {
-
     Trello.authorize({
       type: 'popup',
       name: 'Getting Started Application',
@@ -25,17 +26,25 @@ app.factory('Model', function ($resource) {
       },
       error: function() { console.log('Failed authentication'); }
     });
-
-    //loadBoards();
   };
 
-  //this.authorize();
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAnGNc08nedi09D3T-vSW-kLN_lFFEjcDA",
+    authDomain: "storylines-784ba.firebaseapp.com",
+    databaseURL: "https://storylines-784ba.firebaseio.com",
+    projectId: "storylines-784ba",
+    storageBucket: "storylines-784ba.appspot.com",
+    messagingSenderId: "631528991893"
+  };
+  firebase.initializeApp(config);
+
   //TODO: Assign "boards" variable by callback function
   var loadBoards = function (cb) {
-
     // Get all of the information about the boards you have access to
     var success = function(data) {
       boards = data;
+      // console.log(boards);
       //cb(boards);
       boardsLoaded = true;
       for(var i = 0; i < boards.length; i++){
@@ -49,7 +58,6 @@ app.factory('Model', function ($resource) {
       console.log(errorMsg);
     };
     Trello.get('/member/me/boards', success, error);
-
   };
 
   var loadCards = function (boardIndex, cb) {
@@ -58,11 +66,19 @@ app.factory('Model', function ($resource) {
 
     var success = function(data) {
       boards[boardIndex].cards = data;
+      //TODO: Uncomment this when function is implemented
+      //boards[boardIndex].myCards = getUsersCards(boardIndex);
+
       //Calculate the statistics of the cards for this board
       //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
-        cb();
+        if(useCardStats){
+          cardStats(cb);
+        }
+        else{
+          cb();
+        }
       }
     };
     var error = function(errorMsg) {
@@ -71,14 +87,53 @@ app.factory('Model', function ($resource) {
     Trello.get('/boards/' + boardId + '/cards', success, error);
 
   }
-  //TODO: Implement this
-  var cardStats = function (boardIndex) {
-    boards[boardIndex].cardStats = [];
-    //Loop through all the cards and add statistics for each
-    for(var i = 0; i < boards[boardIndex].cards.length; i++){
+  //TODO: Return all the cards that is assigned to the logged in user
+  var getUsersCards = function(boardIndex){
 
-    }
   }
+
+  //TODO: Implement this
+  var cardStats = function (cb) {
+
+    for(var i = 0; i < boards.length; i++){
+      //Create array for holding the stats
+      boards[i].cardStats = {
+        highPriority : 0,
+        mediumPriority : 0,
+        lowPriority : 0
+      };
+      //Loop through all the cards and add statistics for each
+      for(var j = 0; j < boards[i].cards.length; j++){
+        var card = boards[i].cards[j];
+        //Check the label of the card
+        var labels = card.labels;
+        if(labels.length == 0){
+          //Give "unlabeled" cards low priority
+          boards[i].cardStats.lowPriority++;
+        }
+        for(var k = 0; k < labels.length; k++){
+          if(labels[k].name.toLowerCase() == "high priority"){
+            boards[i].cardStats.highPriority++;
+            break;
+          }
+          else if(labels[k].name.toLowerCase() == "medium priority"){
+            boards[i].cardStats.mediumPriority++;
+            break;
+          }
+          else if(labels[k].name.toLowerCase() == "low priority"){
+            boards[i].cardStats.lowPriority++;
+            break;
+          }
+          else if(k == labels.length-1){
+            //If it is the last label and it is none of the above then give it low priority
+            boards[i].cardStats.lowPriority++;
+            break;
+          }
+        }
+      }
+    }
+    cb();
+  };
 
   this.loadData = function (cb) {
     loadBoards(cb);
@@ -87,12 +142,29 @@ app.factory('Model', function ($resource) {
   this.getBoards = function () {
     //Check if boards are not loaded
     if(!boardsLoaded){
-      console.error("Boards not loaded");
-      //loadBoards(cb);
+      //console.error("Boards not loaded");
     }else{
       return boards;
     }
   };
+
+  // Get board with specific id from the ones loaded.
+  this.getBoard = function(id) {
+    for(var i = 0; i < boards.length; i++) {
+      if(boards[i].id == id)
+        return boards[i];
+    }
+  }
+
+  // Give the board with the id a new name
+  this.changeBoardName = function(id, newName) {
+    Trello.put('boards/'+id+'/name?value='+newName);
+  }
+
+  // Create a new board and post it to Trello
+  this.createNewBoard = function() {
+    Trello.post('/boards?name=New Project');
+  }
 
   this.isLoggedIn = function () {
     return loggedIn;

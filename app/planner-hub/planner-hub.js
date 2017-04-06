@@ -13,12 +13,23 @@ angular.module('myApp.plannerHub', [])
       responsive: true
     };
 
-
-    $scope.boards = Model.getBoards();
+    Model.loadData(function() {
+      $scope.boards = Model.getBoards();
+      console.log($scope.boards[0]);
+      $scope.$apply();
+    });
   //  console.log($scope.boards[0]);
     //console.log($scope.boards[0].cards);
     //TODO: Figure out why this is needed for it to work
 //      $scope.$apply();
+
+
+    // var ref = firebase.database().ref();
+    // var obj = $firebaseObject(ref);
+    //
+    // $scope.data = obj;
+    // // Three-way binding
+    // obj.$bindTo($scope, "data");
 
 
   });

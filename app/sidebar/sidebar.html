@@ -4,7 +4,7 @@
     <div class="sidebar">
       <!-- Back button -->
       <p class="field">
-        <a class="button is-medium is-primary">
+        <a ng-click="newProject()" class="button is-medium is-primary">
           <span class="icon">
             <i class="fa fa-plus-square"></i>
           </span>
@@ -27,10 +27,12 @@
           Projects
         </p>
         <ul class="menu-list">
-          <li><a>Project 1</a></li>
-          <li><a>Project 2</a></li>
-          <li><a>Project 3</a></li>
-          <li><a>Project 4</a></li>
+          <!-- Runs the function assigned to board in controller -->
+          <li ng-repeat="board in boards()">
+            <a ng-click="goProjectPage(board.id)">
+              {{board.name}}
+            </a>
+          </li>
         </ul>
 
         <p class="menu-label">
@@ -41,6 +43,14 @@
           <li><a>Firebase thing. Google?</a></li>
           <li><a>Settings</a></li>
         </ul>
+      </div>
+
+      <div class="columns">
+        <div class="column is-offset-4">
+          <figure class="image is-64x64">
+            <img src="img/storyphants.png">
+          </figure>
+        </div>
       </div>
 
       <p id="profile" class="field">

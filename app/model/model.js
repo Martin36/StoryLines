@@ -44,15 +44,10 @@ app.factory('Model', function ($resource) {
     // Get all of the information about the boards you have access to
     var success = function(data) {
       boards = data;
-      // console.log(boards);
-      //cb(boards);
-      boardsLoaded = true;
       for(var i = 0; i < boards.length; i++){
-        loadCards(i, cb);
+        loadLists(i, cb);
+        //loadCards(i, cb);
       }
-      //loadAllCards(cb);
-      //loadCards(cd);
-      //console.log(data);
     };
     var error = function(errorMsg) {
       console.log(errorMsg);
@@ -60,6 +55,21 @@ app.factory('Model', function ($resource) {
     Trello.get('/member/me/boards', success, error);
   };
 
+  var loadLists = function (boardIndex, cb) {
+
+    var boardId = boards[boardIndex].id;
+
+    var success = function (data) {
+      boards[boardIndex].lists = data;
+      loadCards(boardIndex, cb);
+    };
+    var error = function(errorMsg) {
+      console.log(errorMsg);
+    };
+    Trello.get('/boards/' + boardId + '/lists', success, error);
+
+  }
+  
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
     var boardId = boards[boardIndex].id;
@@ -92,7 +102,6 @@ app.factory('Model', function ($resource) {
 
   }
 
-  //TODO: Implement this
   var cardStats = function (cb) {
 
     for(var i = 0; i < boards.length; i++){
@@ -112,6 +121,10 @@ app.factory('Model', function ($resource) {
           boards[i].cardStats.lowPriority++;
         }
         for(var k = 0; k < labels.length; k++){
+          //Remove the "done cards"
+          if(labels[k].name.toLowerCase() == "done") {
+            break;
+          }
           if(labels[k].name.toLowerCase() == "high priority"){
             boards[i].cardStats.highPriority++;
             break;
@@ -132,6 +145,7 @@ app.factory('Model', function ($resource) {
         }
       }
     }
+    boardsLoaded = true;
     cb();
   };
 

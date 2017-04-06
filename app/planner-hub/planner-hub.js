@@ -13,20 +13,19 @@ angular.module('myApp.plannerHub', [])
       responsive: true
     };
     $scope.colors = [ '#949FB1', '#4D5360', '#DCDCDC'];
-    Model.loadData(function() {
+    if(Model.boardsLoaded()){
       $scope.boards = Model.getBoards();
-      for(var i = 0; i < $scope.boards.length; i++){
-        $scope.boards[i].statsData = Object.values($scope.boards[i].cardStats);
-      }
-      console.log($scope.boards[0]);
-      //Extract the values in the data from the boards
-      $scope.$apply();
-    });
-  //  console.log($scope.boards[0]);
-    //console.log($scope.boards[0].cards);
-    //TODO: Figure out why this is needed for it to work
-//      $scope.$apply();
-
+    }else{
+      Model.loadData(function() {
+        $scope.boards = Model.getBoards();
+        for(var i = 0; i < $scope.boards.length; i++){
+          $scope.boards[i].statsData = Object.values($scope.boards[i].cardStats);
+        }
+        console.log($scope.boards[0]);
+        //Extract the values in the data from the boards
+        $scope.$apply();
+      });
+    }
 
     // var ref = firebase.database().ref();
     // var obj = $firebaseObject(ref);

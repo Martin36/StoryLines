@@ -11,6 +11,7 @@ angular.module('myApp.plannerHub', [])
 
     Model.loadData(function() {
       $scope.boards = Model.getBoards();
+      console.log($scope.boards[0]);
       $scope.$apply();
     });
   //  console.log($scope.boards[0]);

@@ -4,6 +4,7 @@
 
 app.factory('Model', function ($resource) {
 
+  var useCardStats = true;
   var loggedIn = false;
   var boardsLoaded = false;
   var boards;
@@ -72,7 +73,12 @@ app.factory('Model', function ($resource) {
       //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
-        cb();
+        if(useCardStats){
+          cardStats(cb);
+        }
+        else{
+          cb();
+        }
       }
     };
     var error = function(errorMsg) {
@@ -87,13 +93,47 @@ app.factory('Model', function ($resource) {
   }
 
   //TODO: Implement this
-  var cardStats = function (boardIndex) {
-    boards[boardIndex].cardStats = [];
-    //Loop through all the cards and add statistics for each
-    for(var i = 0; i < boards[boardIndex].cards.length; i++){
+  var cardStats = function (cb) {
 
+    for(var i = 0; i < boards.length; i++){
+      //Create array for holding the stats
+      boards[i].cardStats = {
+        highPriority : 0,
+        mediumPriority : 0,
+        lowPriority : 0
+      };
+      //Loop through all the cards and add statistics for each
+      for(var j = 0; j < boards[i].cards.length; j++){
+        var card = boards[i].cards[j];
+        //Check the label of the card
+        var labels = card.labels;
+        if(labels.length == 0){
+          //Give "unlabeled" cards low priority
+          boards[i].cardStats.lowPriority++;
+        }
+        for(var k = 0; k < labels.length; k++){
+          if(labels[k].name.toLowerCase() == "high priority"){
+            boards[i].cardStats.highPriority++;
+            break;
+          }
+          else if(labels[k].name.toLowerCase() == "medium priority"){
+            boards[i].cardStats.mediumPriority++;
+            break;
+          }
+          else if(labels[k].name.toLowerCase() == "low priority"){
+            boards[i].cardStats.lowPriority++;
+            break;
+          }
+          else if(k == labels.length-1){
+            //If it is the last label and it is none of the above then give it low priority
+            boards[i].cardStats.lowPriority++;
+            break;
+          }
+        }
+      }
     }
-  }
+    cb();
+  };
 
   this.loadData = function (cb) {
     loadBoards(cb);

@@ -111,6 +111,13 @@ app.factory('Model', function ($resource) {
         lowPriority : 0,
         highPriority : 0
       };
+      //Get the id of the list named "done"
+      var doneListIdArray = boards[i].lists.filter(function (obj) {
+        return obj.name.toLowerCase() == "done";
+      });
+      if(doneListIdArray.length != 0){
+        var doneListId = doneListIdArray[0].id;
+      }
       //Loop through all the cards and add statistics for each
       for(var j = 0; j < boards[i].cards.length; j++){
         var card = boards[i].cards[j];
@@ -119,6 +126,12 @@ app.factory('Model', function ($resource) {
         if(labels.length == 0){
           //Give "unlabeled" cards low priority
           boards[i].cardStats.lowPriority++;
+        }
+        //Remove all the cards that are in the "done" list
+        if(doneListId != undefined){
+          if(card.idList == doneListId){
+            break;
+          }
         }
         for(var k = 0; k < labels.length; k++){
           //Remove the "done cards"

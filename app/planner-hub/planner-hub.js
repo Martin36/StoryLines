@@ -5,7 +5,7 @@ angular.module('myApp.plannerHub', [])
   .controller('PlannerHubController', function ($scope, Model) {
     Chart.defaults.global.responsive = true;
     //For testing
-    $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    $scope.labels = ["High Priority", "Medium Priority", "Low Priority"];
     $scope.data = [300, 500, 100];
     //Displays the legend for the doughnut chart
     $scope.options = {
@@ -15,7 +15,11 @@ angular.module('myApp.plannerHub', [])
 
     Model.loadData(function() {
       $scope.boards = Model.getBoards();
+      for(var i = 0; i < $scope.boards.length; i++){
+        $scope.boards[i].statsData = Object.values($scope.boards[i].cardStats);
+      }
       console.log($scope.boards[0]);
+      //Extract the values in the data from the boards
       $scope.$apply();
     });
   //  console.log($scope.boards[0]);

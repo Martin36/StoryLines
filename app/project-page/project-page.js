@@ -2,36 +2,18 @@
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-      // Temporary list structure in project
-      $scope.lists = [{
-        "name": "To Do",
-        "cards": []
-        }, {
-        "name": "In Progress",
-        "cards": []
-        }, {
-        "name": "Verifying",
-        "cards": []
-        }, {
-        "name": "Done",
-        "cards": []
-      }];
-
       // Get 'this' board from model
       $scope.board = Model.getBoard($routeParams.boardId);
 
-      $scope.addCard = function(listType) {
+      // TODO: Add card to specific list in this board with API PUSH
+      $scope.addCard = function(listName) {
         // Find the right list to add the card too
-        for(var i = 0; i < $scope.lists.length; i++) {
-          if($scope.lists[i].name == listType){
-            // Dummy object for testing purpous
-            var newCard = {}
-            newCard["text"] = listType + " Card\n" +
-              "Nr: " + $scope.lists[i].cards.length;
-            $scope.lists[i].cards.push(newCard);
-            // console.log("Card added to: "+listType+", Length: "+ $scope.lists[i].cards.length);
-          }
-        }
+        // for(var i = 0; i < $scope.lists.length; i++) {
+        //   if($scope.lists[i].name == listName){
+            // Add card to API
+            Model.addNewCard($routeParams.boardId, listName, listName);
+        //   }
+        // }
       }
 
       $scope.editTitle = function(){
@@ -40,8 +22,35 @@ angular.module('myApp.projectPage', [])
 
       // Save the new title on trello
       $scope.saveTitle = function(){
-        Model.changeBoardName($routeParams.boardId, $scope.project.name);
+        Model.changeBoardName($routeParams.boardId, $scope.board.name);
         toggleEdit();
+      }
+
+      $scope.isValidList = function(listName) {
+        // var validLists = Model.getListTypes();
+        // for(var i = 0; i < validLists.length; i++) {
+        //   if(validLists[i] == listName){
+        //     console.log(validLists[i] + " " + listNames);
+        //     return true;
+        //   }
+        //   return false;
+        // }
+        switch (listName) {
+          case "To Do":
+              return true;
+            break;
+          case "In Progress":
+              return true;
+            break;
+          case "Verifying":
+              return true;
+            break;
+          case "Done":
+              return true;
+            break;
+          default:
+            return false;
+        }
       }
 
       // Toggles the edit mode for project title
@@ -49,5 +58,6 @@ angular.module('myApp.projectPage', [])
         $scope.editMode = !$scope.editMode;
         $scope.isOpen = !$scope.isOpen;
       }
+
 
   });

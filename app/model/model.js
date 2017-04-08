@@ -202,12 +202,41 @@ app.factory('Model', function ($resource) {
     });
   }
 
+  // Adds a new card to the api
+  this.addNewCard = function(boardId, listName, cardName) {
+    // Go throught all boards
+    for(var i = 0; i < boards.length; i++){
+      // Find board with the correct id
+      if(boards[i].id == boardId){
+        // Go through all lists in that board
+        for(var j = 0; j < boards[i].lists.length; j++) {
+          // Find the correct list
+          if(boards[i].lists[j].name == listName) {
+            // Add new card to API
+            console.log("New card added!");
+            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName);
+
+            //Add to model too, should use webhook instead
+            var newCard = {}
+            newCard["name"] = cardName;
+            newCard["idList"] = boards[i].lists[j].id;
+            boards[i].cards.push(newCard);
+          }
+        }
+      }
+    }
+  }
+
   this.isLoggedIn = function () {
     return loggedIn;
   };
 
   this.boardsLoaded = function () {
     return boardsLoaded;
+  };
+
+  this.getListTypes = function() {
+    return listTypes;
   };
 
   return this;

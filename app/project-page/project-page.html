@@ -16,24 +16,32 @@
   </div>
 
   <!--Display the different lists -->
+  <!-- TODO: Filter to show only the four lists -->
   <div class="columns">
-    <div class="column has-text-centered" ng-repeat="list in lists">
-      <p class="title is-4 board">
-        {{list.name}}
-      </p>
-      <!-- TODO: Show cards for the specific lists in this board -->
-      <div ng-repeat="card in list.cards" class="column is-12">
-        <div class="card fixed-height-card">
-          <span>
-          {{card.text}}
+    <div class="column has-text-centered" ng-repeat="list in board.lists">
+      <span ng-if="isValidList(list.name)">
+        <p class="title is-4 board">
+          {{list.name}}
+        </p>
+        <!-- Go through all cards -->
+        <span ng-repeat="card in board.cards">
+          <!-- Only show cards that are assigned to this list -->
+          <span ng-if="card.idList==list.id">
+            <div class="column is-12">
+              <div class="card fixed-height-card">
+                <span>
+                  {{card.name}}
+                </span>
+              </div>
+            </div>
           </span>
-        </div>
-      </div>
-      <a ng-click="addCard(list.name)" class="button addCard">
-        <span class="icon is-medium">
-          <i class="fa fa-plus-square"></i>
         </span>
-      </a>
+        <a ng-click="addCard(list.name)" class="button addCard">
+          <span class="icon is-medium">
+            <i class="fa fa-plus-square"></i>
+          </span>
+        </a>
+      </span>
     </div>
     <!-- End of boards repeat -->
   </div>

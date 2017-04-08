@@ -16,30 +16,38 @@
   </div>
 
   <!--Display the different lists -->
+  <!-- TODO: Always show the default lists and see if there exists cards for those -->
+  <!-- TODO: Filter to show only the four lists -->
   <div class="columns">
-    <div class="column has-text-centered" ng-repeat="list in lists">
-      <p class="title is-4 board">
-        {{list.name}}
-      </p>
-      <!-- TODO: Show cards for the specific lists in this board -->
-      <div ng-repeat="card in list.cards" class="column is-12">
-        <div class="card fixed-height-card">
-          <p class="card-header-title">
-            {{card.text}}
-              </p>
-          <a ng-click="" class="card-header-icon">
-            <span class="icon">
-              <i class="fa fa-angle-down"></i>
-            </span>
-          </a>
-        </div>
-      </div>
-      <a ng-click="addCard(list.name)" class="button addCard">
-        <span class="icon is-medium">
-          <i class="fa fa-plus-square"></i>
+      <div class="column has-text-centered" ng-repeat="list in listsToShow">
+        <p class="title is-4 board">
+          {{list}}
+        </p>
+        <!-- Go through all cards -->
+        <span ng-repeat="card in board.cards">
+          <!-- Only show cards that are assigned to this list -->
+          <span ng-if="card.idList==listId(list)">
+            <div class="column is-12">
+              <div class="card fixed-height-card">
+                <p class="card-header-title">
+                  {{card.text}}
+                </p>
+                <a ng-click="" class="card-header-icon">
+                  <span class="icon">
+                    <i class="fa fa-angle-down"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </span>
         </span>
-      </a>
-    <!-- End of boards repeat -->
+        <a ng-click="addCard(list)" class="button addCard">
+          <span class="icon is-medium">
+            <i class="fa fa-plus-square"></i>
+          </span>
+        </a>
+      </div>
     </div>
+
   </div>
 </div>

@@ -168,7 +168,7 @@ app.factory('Model', function ($resource) {
   this.loadData = function (cb) {
     loadBoards(cb);
   }
- 
+
   this.getBoards = function () {
     //Check if boards are not loaded
     if(!boardsLoaded){
@@ -195,13 +195,36 @@ app.factory('Model', function ($resource) {
   // TODO: getBoard() from sidebar gets called before the new board is added to boads.
   // Create a new board and post it to Trello
   this.createNewBoard = function() {
-    Trello.post('/boards?name=New Project', function(board) {
+    Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
       for(var i = 0; i < listTypes.length; i++) {
-        //Some how three additional lists are added in trello. Translated to swedeish.
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
       boards.push(board); // Add new board to array
     });
+  }
+
+  // Adds a new card to the api
+  this.addNewCard = function(boardId, listName, cardName) {
+    // Go throught all boards
+    for(var i = 0; i < boards.length; i++){
+      // Find board with the correct id
+      if(boards[i].id == boardId){
+        // Go through all lists in that board
+        for(var j = 0; j < boards[i].lists.length; j++) {
+          // Find the correct list
+          if(boards[i].lists[j].name == listName) {
+            // Add new card to API
+            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName);
+
+            //Add to model too, should use webhook instead
+            var newCard = {}
+            newCard["name"] = cardName;
+            newCard["idList"] = boards[i].lists[j].id;
+            boards[i].cards.push(newCard);
+          }
+        }
+      }
+    }
   }
 
   this.isLoggedIn = function () {
@@ -212,8 +235,25 @@ app.factory('Model', function ($resource) {
     return boardsLoaded;
   };
 
-  //Function for the user screen
+  // Returns the list with the name from the board with the id
+  this.getListId = function(boardId, listName) {
+    for(var i = 0; i < boards.length; i++) {
+      if(boards[i].id == boardId) {
+        for(var j = 0; j < boards[i].lists.length; j++) {
+          if(boards[i].lists[j].name == listName) {
+            return boards[i].lists[j].id;
+          }
+        }
+      }
+    }
+    return listTypes;
+  };
 
+  this.getListsToShow = function() {
+    return listTypes;
+  }
+
+  //Function for the user screen
   //TODO: Implement this function to add a user to the specified board
   this.addUser = function(boardId, userName){
     //GET /1/members/[idMember or username]

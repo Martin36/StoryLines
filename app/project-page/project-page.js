@@ -2,36 +2,17 @@
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-      // Temporary list structure in project
-      $scope.lists = [{
-        "name": "To Do",
-        "cards": []
-        }, {
-        "name": "In Progress",
-        "cards": []
-        }, {
-        "name": "Verifying",
-        "cards": []
-        }, {
-        "name": "Done",
-        "cards": []
-      }];
-
       // Get 'this' board from model
       $scope.board = Model.getBoard($routeParams.boardId);
+      $scope.listsToShow = Model.getListsToShow();
 
-      $scope.addCard = function(listType) {
-        // Find the right list to add the card too
-        for(var i = 0; i < $scope.lists.length; i++) {
-          if($scope.lists[i].name == listType){
-            // Dummy object for testing purpous
-            var newCard = {}
-            newCard["text"] = listType + " Card\n" +
-              "Nr: " + $scope.lists[i].cards.length;
-            $scope.lists[i].cards.push(newCard);
-            // console.log("Card added to: "+listType+", Length: "+ $scope.lists[i].cards.length);
-          }
-        }
+      $scope.listId = function(listName) {
+        return Model.getListId($routeParams.boardId, listName);
+      }
+
+      // TODO: Add card to specific list in this board with API PUSH
+      $scope.addCard = function(listName) {
+        Model.addNewCard($routeParams.boardId, listName, listName);
       }
 
       $scope.editTitle = function(){
@@ -40,7 +21,7 @@ angular.module('myApp.projectPage', [])
 
       // Save the new title on trello
       $scope.saveTitle = function(){
-        Model.changeBoardName($routeParams.boardId, $scope.project.name);
+        Model.changeBoardName($routeParams.boardId, $scope.board.name);
         toggleEdit();
       }
 
@@ -49,9 +30,9 @@ angular.module('myApp.projectPage', [])
         $scope.editMode = !$scope.editMode;
         $scope.isOpen = !$scope.isOpen;
       }
+
       //TODO: Add the code for showing the dropdown
       $scope.showDropdown = function(){
 
       }
-
   });

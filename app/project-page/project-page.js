@@ -6,6 +6,7 @@ angular.module('myApp.projectPage', [])
       $scope.board = Model.getBoard($routeParams.boardId);
       $scope.listsToShow = Model.getListsToShow();
       $scope.showEdit = false;
+      $scope.clickedCard;
 
       $scope.listId = function(listName) {
         return Model.getListId($routeParams.boardId, listName);
@@ -26,7 +27,8 @@ angular.module('myApp.projectPage', [])
         toggleEdit();
       };
 
-      $scope.showEditBox = function () {
+      $scope.showEditBox = function (card) {
+        $scope.clickedCard = card;
         $scope.showEdit = true;
       };
       //TODO: Save the edits then exit

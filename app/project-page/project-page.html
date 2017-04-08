@@ -41,7 +41,7 @@
                   <div class="bu-dropdown-body">
                     <nav class="menu">
                       <ul class="menu-list">
-                        <li><a ng-click="showEditBox()">Edit</a></li>
+                        <li><a ng-click="showEditBox(card)">Edit</a></li>
                         <li><a>Delete</a></li>
                         <li><a>Move</a></li>
                       </ul>
@@ -65,7 +65,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Modal title</p>
+        <p class="modal-card-title">{{clickedCard.name}}</p>
         <button ng-click="cancel()" class="delete"></button>
       </header>
       <section class="modal-card-body">

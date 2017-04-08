@@ -33,6 +33,6 @@ angular.module('myApp.projectPage', [])
 
       //TODO: Add the code for showing the dropdown
       $scope.showDropdown = function(){
-
+        $("#")
       }
   });

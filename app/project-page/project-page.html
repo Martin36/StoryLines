@@ -8,7 +8,7 @@
       <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
              ng-blur="saveTitle()" focus-me="isOpen"
              class="title is-3 has-text-centered" size="{{board.name.length}}">
-        <span ng-click="editTitle()" class="icon is-medium">
+      <span ng-click="editTitle()" class="icon is-medium">
           <i class="fa fa-pencil"></i>
         </span>
       </input>
@@ -19,12 +19,12 @@
   <!-- TODO: Always show the default lists and see if there exists cards for those -->
   <!-- TODO: Filter to show only the four lists -->
   <div class="columns">
-      <div class="column has-text-centered" ng-repeat="list in listsToShow">
-        <p class="title is-4 board">
-          {{list}}
-        </p>
-        <!-- Go through all cards -->
-        <span ng-repeat="card in board.cards">
+    <div class="column has-text-centered" ng-repeat="list in listsToShow">
+      <p class="title is-4 board">
+        {{list}}
+      </p>
+      <!-- Go through all cards -->
+      <span ng-repeat="card in board.cards">
           <!-- Only show cards that are assigned to this list -->
           <span ng-if="card.idList==listId(list)">
             <div class="column is-12">
@@ -32,22 +32,37 @@
                 <p class="card-header-title">
                   {{card.name}}
                 </p>
-                <a ng-click="" class="card-header-icon">
-                  <span class="icon">
-                    <i class="fa fa-angle-down"></i>
-                  </span>
-                </a>
+                <div class="bu-dropdown">
+                  <a class="card-header-icon">
+                    <span class="icon">
+                      <i class="fa fa-angle-down"></i>
+                    </span>
+                  </a>
+                  <div class="bu-dropdown-body">
+                    <nav class="menu">
+                      <ul class="menu-list">
+                        <li><a>Menu item</a></li>
+                        <li><a>Menu item</a></li>
+                        <li><a>Menu item</a></li>
+                        <li><a>Menu item</a></li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-content">
+
               </div>
             </div>
           </span>
         </span>
-        <a ng-click="addCard(list)" class="button addCard">
+      <a ng-click="addCard(list)" class="button addCard">
           <span class="icon is-medium">
             <i class="fa fa-plus-square"></i>
           </span>
-        </a>
-      </div>
+      </a>
     </div>
-
   </div>
+
+</div>
 </div>

@@ -49,5 +49,9 @@ angular.module('myApp.projectPage', [])
         $scope.editMode = !$scope.editMode;
         $scope.isOpen = !$scope.isOpen;
       }
+      //TODO: Add the code for showing the dropdown
+      $scope.showDropdown = function(){
+
+      }
 
   });

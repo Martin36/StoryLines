@@ -1,13 +1,13 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
 <div class="our-content">
-  <!-- TODO: Show Project title -->
+  <!-- TODO: Show board title -->
   <div class="columns">
-    <!-- Project title with edit button -->
+    <!-- Board title with edit button -->
     <div class="column has-text-centered">
-      <input ng-model="project.name" ng-init="editMode=false" ng-disabled="!editMode"
+      <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
              ng-blur="saveTitle()" focus-me="isOpen"
-             class="title is-3 has-text-centered" size="{{project.name.length}}">
+             class="title is-3 has-text-centered" size="{{board.name.length}}">
         <span ng-click="editTitle()" class="icon is-medium">
           <i class="fa fa-pencil"></i>
         </span>
@@ -15,34 +15,39 @@
     </div>
   </div>
 
-  <!--Load the boards -->
+  <!--Display the different lists -->
+  <!-- TODO: Always show the default lists and see if there exists cards for those -->
+  <!-- TODO: Filter to show only the four lists -->
   <div class="columns">
-    <div class="column has-text-centered" ng-repeat="board in boards">
-      <p class="title is-4 board">
-        {{board.name}}
-      </p>
-
-      <!-- TODO: Show cards for the specific board -->
-      <div ng-repeat="card in board.cards" class="column is-12">
-        <div class="card fixed-height-card">
-          <span>
-          {{card.text}}
+      <div class="column has-text-centered" ng-repeat="list in listsToShow">
+        <p class="title is-4 board">
+          {{list}}
+        </p>
+        <!-- Go through all cards -->
+        <span ng-repeat="card in board.cards">
+          <!-- Only show cards that are assigned to this list -->
+          <span ng-if="card.idList==listId(list)">
+            <div class="column is-12">
+              <div class="card fixed-height-card">
+                <p class="card-header-title">
+                  {{card.text}}
+                </p>
+                <a ng-click="" class="card-header-icon">
+                  <span class="icon">
+                    <i class="fa fa-angle-down"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
           </span>
-          <span class="icon is-small">
-            <i class="fa-angle-down"></i>
-          </span>
-          <div class="dropdown-content">
-            <a href="#">Delete</a>
-          </div>
-        </div>
-      </div>
-
-      <a ng-click="addCard(board.name)" class="button addCard">
-        <span class="icon is-medium">
-          <i class="fa fa-plus-square"></i>
         </span>
-      </a>
+        <a ng-click="addCard(list)" class="button addCard">
+          <span class="icon is-medium">
+            <i class="fa fa-plus-square"></i>
+          </span>
+        </a>
+      </div>
     </div>
-    <!-- End of boards repeat -->
+
   </div>
 </div>

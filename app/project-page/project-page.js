@@ -1,35 +1,18 @@
+// We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-      // Temporary board structure in project
-      $scope.boards = [{
-        "name": "To Do",
-        "cards": []
-        }, {
-        "name": "In Progress",
-        "cards": []
-        }, {
-        "name": "Verifying",
-        "cards": []
-        }, {
-        "name": "Done",
-        "cards": []
-      }];
+      // Get 'this' board from model
+      $scope.board = Model.getBoard($routeParams.boardId);
+      $scope.listsToShow = Model.getListsToShow();
 
-      // Get project from model
-      $scope.project = Model.getBoard($routeParams.projectId);
+      $scope.listId = function(listName) {
+        return Model.getListId($routeParams.boardId, listName);
+      }
 
-      $scope.addCard = function(boardType) {
-        // Find the right board to add the card too
-        for(var i = 0; i < $scope.boards.length; i++) {
-          if($scope.boards[i].name == boardType){
-            // Dummy object for testing purpous
-            var newCard = {}
-            newCard["text"] = boardType + " Card\n" +
-              "Nr: " + $scope.boards[i].cards.length;
-            $scope.boards[i].cards.push(newCard);
-          }
-        }
+      // TODO: Add card to specific list in this board with API PUSH
+      $scope.addCard = function(listName) {
+        Model.addNewCard($routeParams.boardId, listName, listName);
       }
 
       $scope.editTitle = function(){
@@ -38,13 +21,18 @@ angular.module('myApp.projectPage', [])
 
       // Save the new title on trello
       $scope.saveTitle = function(){
-        Model.changeBoardName($routeParams.projectId, $scope.project.name);
+        Model.changeBoardName($routeParams.boardId, $scope.board.name);
         toggleEdit();
       }
 
+      // Toggles the edit mode for project title
       function toggleEdit(){
         $scope.editMode = !$scope.editMode;
         $scope.isOpen = !$scope.isOpen;
       }
 
+      //TODO: Add the code for showing the dropdown
+      $scope.showDropdown = function(){
+
+      }
   });

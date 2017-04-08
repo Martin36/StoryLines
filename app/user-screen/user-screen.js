@@ -2,11 +2,12 @@
  * Created by Jori on 2017-03-31.
  */
 
- /** The sub-module myApp.userScreen construction uses the angular.module method call 
+ /** The sub-module myApp.userScreen construction uses the angular.module method call
  * that takes the name of the new module as a string and an array of its dependencies
  */
 angular.module('myApp.userScreen', [])
-  .controller('UserScreenController', function ($routeParams, $rootScope, $log, user, stories, $scope, Model) {
+  .controller('UserScreenController', function ($routeParams, $rootScope, $scope, Model) {
+/*
         var myUser = this;
 
             myUser.userId = $routeParams['userId'];
@@ -53,4 +54,5 @@ angular.module('myApp.userScreen', [])
                 controllerAs: 'userStory',
                 link: linker
             };
+            */
         });

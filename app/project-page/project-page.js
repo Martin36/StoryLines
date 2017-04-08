@@ -29,6 +29,7 @@ angular.module('myApp.projectPage', [])
             newCard["text"] = listType + " Card\n" +
               "Nr: " + $scope.lists[i].cards.length;
             $scope.lists[i].cards.push(newCard);
+            // console.log("Card added to: "+listType+", Length: "+ $scope.lists[i].cards.length);
           }
         }
       }

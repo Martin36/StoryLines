@@ -70,7 +70,7 @@ app.factory('Model', function ($resource) {
     Trello.get('/boards/' + boardId + '/lists', success, error);
 
   }
-  
+
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
     var boardId = boards[boardIndex].id;
@@ -172,7 +172,7 @@ app.factory('Model', function ($resource) {
     if(!boardsLoaded){
       //console.error("Boards not loaded");
     }else{
-      console.log("Get boards call!");
+      // console.log("Get boards call!");
       return boards;
     }
   };

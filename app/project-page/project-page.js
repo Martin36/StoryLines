@@ -4,16 +4,15 @@ angular.module('myApp.projectPage', [])
 
       // Get 'this' board from model
       $scope.board = Model.getBoard($routeParams.boardId);
+      $scope.listsToShow = Model.getListsToShow();
+
+      $scope.listId = function(listName) {
+        return Model.getListId($routeParams.boardId, listName);
+      }
 
       // TODO: Add card to specific list in this board with API PUSH
       $scope.addCard = function(listName) {
-        // Find the right list to add the card too
-        // for(var i = 0; i < $scope.lists.length; i++) {
-        //   if($scope.lists[i].name == listName){
-            // Add card to API
-            Model.addNewCard($routeParams.boardId, listName, listName);
-        //   }
-        // }
+        Model.addNewCard($routeParams.boardId, listName, listName);
       }
 
       $scope.editTitle = function(){
@@ -26,38 +25,14 @@ angular.module('myApp.projectPage', [])
         toggleEdit();
       }
 
-      $scope.isValidList = function(listName) {
-        // var validLists = Model.getListTypes();
-        // for(var i = 0; i < validLists.length; i++) {
-        //   if(validLists[i] == listName){
-        //     console.log(validLists[i] + " " + listNames);
-        //     return true;
-        //   }
-        //   return false;
-        // }
-        switch (listName) {
-          case "To Do":
-              return true;
-            break;
-          case "In Progress":
-              return true;
-            break;
-          case "Verifying":
-              return true;
-            break;
-          case "Done":
-              return true;
-            break;
-          default:
-            return false;
-        }
-      }
-
       // Toggles the edit mode for project title
       function toggleEdit(){
         $scope.editMode = !$scope.editMode;
         $scope.isOpen = !$scope.isOpen;
       }
 
+      //TODO: Add the code for showing the dropdown
+      $scope.showDropdown = function(){
 
+      }
   });

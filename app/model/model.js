@@ -193,9 +193,8 @@ app.factory('Model', function ($resource) {
   // TODO: getBoard() from sidebar gets called before the new board is added to boads.
   // Create a new board and post it to Trello
   this.createNewBoard = function() {
-    Trello.post('/boards?name=New Project', function(board) {
+    Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
       for(var i = 0; i < listTypes.length; i++) {
-        //Some how three additional lists are added in trello. Translated to swedeish.
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
       boards.push(board); // Add new board to array
@@ -213,7 +212,6 @@ app.factory('Model', function ($resource) {
           // Find the correct list
           if(boards[i].lists[j].name == listName) {
             // Add new card to API
-            console.log("New card added!");
             Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName);
 
             //Add to model too, should use webhook instead
@@ -235,9 +233,35 @@ app.factory('Model', function ($resource) {
     return boardsLoaded;
   };
 
-  this.getListTypes = function() {
+  // Returns the list with the name from the board with the id
+  this.getListId = function(boardId, listName) {
+    for(var i = 0; i < boards.length; i++) {
+      if(boards[i].id == boardId) {
+        for(var j = 0; j < boards[i].lists.length; j++) {
+          if(boards[i].lists[j].name == listName) {
+            return boards[i].lists[j].id;
+          }
+        }
+      }
+    }
     return listTypes;
   };
+
+  this.getListsToShow = function() {
+    return listTypes;
+  }
+
+  //Function for the user screen
+  //TODO: Implement this function to add a user to the specified board
+  this.addUser = function(boardId, userName){
+    //GET /1/members/[idMember or username]
+
+  }
+
+  //TODO: Make this function remove a user from the board
+  this.removeUser = function(boardId, memberId){
+    //DELETE /1/boards/[board_id]/members/[idMember]
+  }
 
   return this;
 

@@ -17,7 +17,8 @@ var app = angular.module('myApp', [
   'myApp.myStories',
   'myApp.plannerHub',
   'myApp.projectPage',
-  'myApp.userScreen'
+  'myApp.userScreen',
+  'bulma'
 ]).
 
 // Passing in $routeProvider, responsible for the configuration of routes

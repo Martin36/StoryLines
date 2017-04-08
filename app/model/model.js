@@ -100,7 +100,9 @@ app.factory('Model', function ($resource) {
   }
   //TODO: Return all the cards that is assigned to the logged in user
   var getUsersCards = function(boardIndex){
-
+ for(var i = 0; i < boards[boardIndex].cards.length; i++) {
+     
+ }
   }
 
   var cardStats = function (cb) {

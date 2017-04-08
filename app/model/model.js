@@ -210,6 +210,20 @@ app.factory('Model', function ($resource) {
     return boardsLoaded;
   };
 
+  //Function for the user screen
+
+  //TODO: Implement this function to add a user to the specified board
+  this.addUser = function(boardId, userName){
+    //GET /1/members/[idMember or username]
+
+  }
+
+  //TODO: Make this function remove a user from the board
+  this.removeUser = function(boardId, memberId){
+    //DELETE /1/boards/[board_id]/members/[idMember]
+  }
+
+
   return this;
 
 });

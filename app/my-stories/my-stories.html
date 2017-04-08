@@ -1,33 +1,25 @@
- <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
+<ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
 <div class="our-content" ng-controller="MyStoriesController">
   <div class="project" ng-repeat="board in boards">
-    <h1 id="rowHeader" class="title">{{board.name}}</h1>   
+    <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns">
       <div class="card" ng-repeat="card in board.cards">
-
-  <header class="card-header ">
-    <p class="card-header-title">
-      {{card.name}}
-        </p>
-    <a class="card-header-icon">
-      <span class="icon">
-        <i class="fa fa-angle-down"></i>
-      </span>
-    </a>
-  </header>
- <div class="card-content"> 
-    <div class="content">
-       
+        <header class="card-header">
+          <p class="card-header-title">
+            {{card.name}}
+              </p>
+          <a class="card-header-icon">
+            <span class="icon">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </a>
+        </header>
+        <footer class="card-footer">
+          <a class="card-footer-item">Done</a>
+        </footer>
+      </div>
     </div>
-  </div> 
-  <footer class="card-footer">
-    <a class="card-footer-item">Done</a>
-  </footer>
+  </div>
 </div>
-      </div> 
-    </div>
-</div>
-    
-

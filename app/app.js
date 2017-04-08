@@ -11,7 +11,8 @@ var app = angular.module('myApp', [
   'myApp.myStories',
   'myApp.plannerHub',
   'myApp.projectPage',
-  'myApp.userScreen'
+  'myApp.userScreen',
+    'bulma'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

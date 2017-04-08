@@ -83,9 +83,19 @@ app.factory('Model', function ($resource) {
   }
   //TODO: Return all the cards that is assigned to the logged in user
   var getUsersCards = function(boardIndex){
-
+ for(var i = 0; i < boards[boardIndex].cards.length; i++) {
+     
+ }
   }
-
+ //TODO: Remove cards from my-stories page
+  this.removecard=function(boardIndex){
+                            
+                            }
+  
+  //TODO: move cards from todo list to doing list
+ var moveCards=function(boardIndex){
+     
+ }
   //TODO: Implement this
   var cardStats = function (boardIndex) {
     boards[boardIndex].cardStats = [];

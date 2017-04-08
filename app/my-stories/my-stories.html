@@ -6,23 +6,38 @@
     <hr>
       <div class="columns">
       <div class="card" ng-repeat="card in board.cards">
-  <header class="card-header ">
+  <header class="button card-header">
     <p class="card-header-title">
       {{card.name}}
         </p>
-    <a class="card-header-icon">
+       <div class="bu-dropdown">
+           <a class=" card-header-icon">
       <span class="icon">
         <i class="fa fa-angle-down"></i>
       </span>
-    </a>
-  </header>
+           </a>
+            <div class="bu-dropdown-body">
+     <div class="bu-is-right">
+    <nav class="menu">
+      <ul class="menu-list">
+        <li><a> Labels </a></li>
+          <ul>
+              <li> colors </li>
+          </ul>
+        <li><a> Attach</a></li>
+        <li><a> Delete </a></li>
+      </ul>
+    </nav>
+  </div>
+      </div>
+      </div>
+          </header>
  <!-- <div class="card-content">
     <div class="content">
-
     </div>
   </div> -->
   <footer class="card-footer">
-    <a class="card-footer-item">Save</a>
+    <a class="card-footer-item">Done</a>
   </footer>
 </div>
       </div>

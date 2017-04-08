@@ -28,3 +28,7 @@
     text-decoration: none;
     display: block;
 }
+
+.modal-background {
+    opacity: 0.5; !important;
+}

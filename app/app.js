@@ -12,7 +12,7 @@ var app = angular.module('myApp', [
   'myApp.plannerHub',
   'myApp.projectPage',
   'myApp.userScreen',
-    'bulma'
+  'bulma'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

@@ -21,10 +21,8 @@
     <nav class="menu">
       <ul class="menu-list">
         <li><a> Labels </a></li>
-          <ul>
-              <li> colors </li>
-          </ul>
-        <li><a> Attach</a></li>
+        <li><a ng-click="showdetails()">Details</a></li>
+        <li><a> Attach </a></li>
         <li><a> Delete </a></li>
       </ul>
     </nav>
@@ -32,22 +30,27 @@
       </div>
       </div>
           </header>
- <!-- <div class="card-content">
-    <div class="content">
-    </div>
-  </div> -->
   <footer class="card-footer">
     <a class="card-footer-item">Done</a>
   </footer>
+          <!-- popup window -->
+  <div class="modal is-active" ng-if="showModal">
+<!--  <div class="modal-background"></div>-->
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+      <button class="delete"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button is-success" ng-click="save()">Save changes</a>
+      <a class="button" ng-click="cancel()">Cancel</a>
+    </footer>
+  </div>
+</div>    
 </div>
       </div>
-   <!-- <div class="columns">
-      <div class="column is-2 card" ng-repeat="card in board.cards">
-        <h5 class="title is-5">{{card.name}}
-          <span class="icon is-small">
-  <i class="fa fa-plus"></i>
-</span> </h5>
-      </div>
-    </div> -->
   </div>
 </div>

@@ -1,10 +1,17 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
+// Declaration of myApp as single top-level module; myApp will connect sub-modules and apply application-wide
+// configuration settings.
+// Sub-module dependencies are being declared, too (for every myApp feature); for back-end communication and
+// authentication Node.js and perhaps Firebase will be used; to enable them
+// we need to inject the sub-modules firebase, auth0, angular-jwt, and angular-storage
+// (comments by Jori, April 03, 2017)
+
 var app = angular.module('myApp', [
   'ngRoute',
   'ngResource',
   'chart.js',
+  'firebase',
   'myApp.login',
   'myApp.sidebar',
   'myApp.myStories',
@@ -12,6 +19,13 @@ var app = angular.module('myApp', [
   'myApp.projectPage',
   'myApp.userScreen'
 ]).
+
+// Passing in $routeProvider, responsible for the configuration of routes
+// Routes are configured by calling $routeProvider.when and passing in a route (URL string), as well as
+// a configuration object for that particular route
+// The route configuration object is responsible for associating a template and a controller
+// to a particular route (comment by Jori, April 03, 2017)
+
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
@@ -25,31 +39,33 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     .when("/plannerHub", {
       templateUrl: "planner-hub/planner-hub.html",
     })
-    .when("/projectPage/:projectId", {
+    .when("/projectPage/:boardId", {
       templateUrl: "project-page/project-page.html",
       controller: "ProjectPageController"
     })
-    .when("/userScreen", {
+  .when("/userScreen", {
       templateUrl: "user-screen/user-screen.html",
+      controller: "UserScreenController",
+      controllerAs: 'myUser',
     })
+  .when("/userScreen/:userId", {
+    templateUrl: "user-screen/user-screen.html",
+    controller: "UserScreenController",
+    resolve: {
+                user: function ($route, $routeParams, UsersModel) {
+                    var userId = $route.current.params['userId']
+                               ? $route.current.params['userId']
+                               : $routeParams['userId'];
+                    return UsersModel.fetch(userId);
+                },
+                stories: function ($rootScope, StoriesModel) {
+                    return StoriesModel.all();
+                }
+            }
+    })
+
+
+  // In case there is no route match, a fallback is being defined using otherwise method on $routeProvider
+// if a route cannot be matched a redirect to the root of the application occurs (comment by Jori, April 03, 2017)
     .otherwise({redirectTo: '/login'});
-}]).
-// Directive for focus switching
-// Source: http://www.jomendez.com/2015/10/05/focus-on-input-field-in-angularjs-mini-challenge-8-answer/
-directive('focusMe', function($timeout, $parse) {
-  return {
-    link: function(scope, element, attrs) {
-      var model = $parse(attrs.focusMe);
-      scope.$watch(model, function(value) {
-        if(value === true) {
-          $timeout(function() {
-            element[0].focus();
-          });
-        }
-      });
-      element.bind('blur', function() {
-        scope.$apply(model.assign(scope, false));
-      })
-    }
-  };
-});
+}]);

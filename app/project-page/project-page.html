@@ -1,13 +1,13 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
 <div class="our-content">
-  <!-- TODO: Show Project title -->
+  <!-- TODO: Show board title -->
   <div class="columns">
-    <!-- Project title with edit button -->
+    <!-- Board title with edit button -->
     <div class="column has-text-centered">
-      <input ng-model="project.name" ng-init="editMode=false" ng-disabled="!editMode"
-             ng-blur="editTitle()" focus-me="isOpen"
-             class="title is-3 has-text-centered" size="{{project.name.length}}">
+      <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
+             ng-blur="saveTitle()" focus-me="isOpen"
+             class="title is-3 has-text-centered" size="{{board.name.length}}">
         <span ng-click="editTitle()" class="icon is-medium">
           <i class="fa fa-pencil"></i>
         </span>
@@ -15,24 +15,31 @@
     </div>
   </div>
 
-  <!--Load the boards -->
+  <!--Display the different lists -->
   <div class="columns">
-    <div class="column has-text-centered" ng-repeat="board in boards">
+    <div class="column has-text-centered" ng-repeat="list in lists">
       <p class="title is-4 board">
-        {{board.name}}
+        {{list.name}}
       </p>
-
-      <!-- TODO: Show cards for the specific board -->
-      <div ng-repeat="card in board.cards" class="column is-12">
-        {{card.text}}
+      <!-- TODO: Show cards for the specific lists in this board -->
+      <div ng-repeat="card in list.cards" class="column is-12">
+        <div class="card fixed-height-card">
+          <p class="card-header-title">
+            {{card.text}}
+              </p>
+          <a ng-click="" class="card-header-icon">
+            <span class="icon">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </a>
+        </div>
       </div>
-
-      <a ng-click="addCard(board.name)" class="button addCard">
+      <a ng-click="addCard(list.name)" class="button addCard">
         <span class="icon is-medium">
           <i class="fa fa-plus-square"></i>
         </span>
       </a>
-    </div>
     <!-- End of boards repeat -->
+    </div>
   </div>
 </div>

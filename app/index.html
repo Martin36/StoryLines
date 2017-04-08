@@ -6,7 +6,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <!-- Tab settings -->
+  <title>Storylines</title>
+  <link rel="shortcut icon" href="img/storyphants.ico"/>
+
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -21,6 +24,8 @@
   <link rel="stylesheet" href="login/login.css">
   <link rel="stylesheet" href="sidebar/sidebar.css">
   <link rel="stylesheet" href="my-stories/my-stories.css">
+  <link rel="stylesheet" href="planner-hub/planner-hub.css">
+  <link rel="stylesheet" href="project-page/project-page.css">
 
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -28,8 +33,6 @@
   <ul class="menu" style="margin-left: 260px">
     <li><a href="#!/login">Login</a></li>
     <li><a href="#!/myStories">My Stories</a></li>
-    <li><a href="#!/plannerHub">Planner Hub</a></li>
-    <li><a href="#!/projectPage">Project Page</a></li>
     <li><a href="#!/userScreen">User Screen</a></li>
   </ul>
 
@@ -52,9 +55,16 @@
   <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="https://api.trello.com/1/client.js?key=d55de169d8cbf243f781b431c5b458e0"></script>
 
+  <!-- Firebase -->
+  <script src="bower_components/firebase/firebase.js"></script>
+
+  <!-- Angularfire -->
+  <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
+
   <!-- Project scripts -->
   <script src="app.js"></script>
   <script src="model/model.js"></script>
+  <script src="directives/directives.js"></script>
 
   <script src="login/login.js"></script>
   <script src="my-stories/my-stories.js"></script>

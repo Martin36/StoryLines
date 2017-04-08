@@ -1,5 +1,5 @@
-angular.module('myApp.User')
-    .controller('UsersCtrl', function ($scope, $log, UsersModel, $timeout) {
+angular.module('myApp.usersScreen')
+    .controller('UsersScreenController', function ($scope, $log, UsersModel, $timeout) {
         var myUsers = this;
 
         myUsers.newUser = { name: '', email: '' };

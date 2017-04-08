@@ -24,7 +24,11 @@
 
       <!-- TODO: Show cards for the specific board -->
       <div ng-repeat="card in board.cards" class="column is-12">
-        {{card.text}}
+        <div class="card fixed-height-card">
+          <span>
+          {{card.text}}
+          </span>
+        </div>
       </div>
 
       <a ng-click="addCard(board.name)" class="button addCard">

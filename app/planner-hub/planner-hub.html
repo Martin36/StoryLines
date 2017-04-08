@@ -2,11 +2,18 @@
 
 <div id="plannerHubView" class="our-content" ng-controller="PlannerHubController">
   <!-- <h1>{{data.name}}</h1> -->
+  <!-- Header part -->
   <div class="columns">
-    <div class="column" ng-repeat="board in boards">
+    <div class="column is-3 chart-title" ng-repeat="board in boards">
       <h1 class="title">{{board.name}}</h1>
+    </div>
+  </div>
+  <!-- Chart part -->
+  <div class="columns">
+    <div class="column is-3" ng-repeat="board in boards">
       <canvas id="doughnut" class="chart chart-doughnut"
-              chart-data="data" chart-labels="labels" chart-options="options">
+              chart-data="board.statsData" chart-labels="labels"
+              chart-options="options" >
       </canvas>
     </div>
 

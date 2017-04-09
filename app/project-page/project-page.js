@@ -6,7 +6,8 @@ angular.module('myApp.projectPage', [])
       $scope.board = Model.getBoard($routeParams.boardId);
       $scope.listsToShow = Model.getListsToShow();
       $scope.showEdit = false;
-      $scope.clickedCard;
+      //$scope.clickedCard;
+      $scope.desc = "";
 
       $scope.listId = function(listName) {
         return Model.getListId($routeParams.boardId, listName);
@@ -33,6 +34,7 @@ angular.module('myApp.projectPage', [])
       };
       //TODO: Save the edits then exit
       $scope.save = function () {
+        //console.log($scope.desc);
         $scope.showEdit = false;
       };
       $scope.cancel = function(){

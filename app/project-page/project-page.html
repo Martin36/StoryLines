@@ -73,7 +73,9 @@
         <div class="field">
           <label class="label">Description</label>
           <p class="control">
-            <textarea class="textarea" placeholder="Write the description of the card here"></textarea>
+            <textarea data-ng-model="$parent.desc" class="textarea"
+                      placeholder="Write the description of the card here">
+            </textarea>
           </p>
         </div>
       </section>

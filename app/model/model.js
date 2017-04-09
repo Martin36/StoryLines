@@ -201,7 +201,7 @@ app.factory('Model', function ($resource) {
       }
       boards.push(board); // Add new board to array
     });
-  }
+  };
 
   // Adds a new card to the api
   this.addNewCard = function(boardId, listName, cardName) {
@@ -258,12 +258,17 @@ app.factory('Model', function ($resource) {
   this.addUser = function(boardId, userName){
     //GET /1/members/[idMember or username]
 
-  }
+  };
 
   //TODO: Make this function remove a user from the board
   this.removeUser = function(boardId, memberId){
     //DELETE /1/boards/[board_id]/members/[idMember]
-  }
+  };
+
+  //Adds description to the card
+  this.addDescriptionToCard = function(cardId, description){
+    Trello.put("cards/"+cardId+"/desc?value="+description);
+  };
 
   return this;
 

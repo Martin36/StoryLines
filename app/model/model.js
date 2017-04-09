@@ -217,7 +217,7 @@ app.factory('Model', function ($resource) {
             Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName);
 
             //Add to model too, should use webhook instead
-            var newCard = {}
+            var newCard = {};
             newCard["name"] = cardName;
             newCard["idList"] = boards[i].lists[j].id;
             boards[i].cards.push(newCard);
@@ -269,6 +269,10 @@ app.factory('Model', function ($resource) {
   this.addDescriptionToCard = function(cardId, description){
     Trello.put("cards/"+cardId+"/desc?value="+description);
   };
+  
+  this.deleteCard = function (cardId) {
+    Trello.delete("cards/"+cardId);
+  }
 
   return this;
 

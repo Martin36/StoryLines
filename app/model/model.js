@@ -10,6 +10,8 @@ app.factory('Model', function ($resource) {
   var boards;
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
+  var userToken;
+  var userId;
 
   //Authorize to the trello api
   this.authorize = function(cb) {
@@ -272,7 +274,40 @@ app.factory('Model', function ($resource) {
   
   this.deleteCard = function (cardId) {
     Trello.delete("cards/"+cardId);
-  }
+  };
+
+  var createWebhook = function () {
+    //this.loadUserId();
+    var success = function (data) {
+      console.log(data);
+    };
+    var error = function(errorMsg) {
+      console.log(errorMsg);
+    };
+//    Trello.get('/members/'+userId+'/tokens', success, error);
+    //TODO: Make this work
+    var token = Trello.token();
+/*
+     $.post("https://api.trello.com/1/tokens/"+token+"/webhooks/?key=d55de169d8cbf243f781b431c5b458e0", {
+     description: "My first webhook",
+     callbackURL: "http://localhost:63342/trelloCallback",
+     idModel: "4d5ea62fd76aa1136000000c"
+     });
+ */
+  };
+
+  this.loadUserId = function () {
+    //First get the userId
+    var success = function (data) {
+      userId = data.id;
+      createWebhook();
+    };
+    var error = function(errorMsg) {
+      console.log(errorMsg);
+    };
+    Trello.get('/member/me', success, error);
+
+  };
 
   return this;
 

@@ -23,8 +23,9 @@
       <p class="title is-4 board">
         {{list}}
       </p>
-      <!-- Go through all cards -->
-      <span ng-repeat="card in board.cards">
+      <div class="card-wrapper">
+        <!-- Go through all cards -->
+        <span ng-repeat="card in board.cards">
           <!-- Only show cards that are assigned to this list -->
           <span ng-if="card.idList==listId(list)">
             <div class="column is-12">
@@ -54,6 +55,7 @@
             </div>
           </span>
         </span>
+      </div>
       <a ng-click="addCard(list)" class="button addCard">
           <span class="icon is-medium">
             <i class="fa fa-plus-square"></i>

@@ -197,7 +197,9 @@ app.factory('Model', function ($cookies, $resource) {
     if(!boardsLoaded){
       //Check if the boards are loaded in the cookies
       var boardIds = $cookies.get("boardIds");
-      //if()
+      if(boardIds != undefined){
+
+      }
 
       //console.error("Boards not loaded");
     }else{

@@ -19,12 +19,13 @@ angular.module('myApp.login', [])
   // });
 
   $scope.login = function () {
-    console.log("Login!");
-    Model.authorize(function () {
-      //Change view to my tasks
-      // $location.path('/myStories');
-      // TODO: This will fail to load boards
+    if(Model.isLoggedIn()){
       $location.path('/plannerHub');
-    });
+    }else{
+      Model.authorize(function () {
+        $location.path('/plannerHub');
+        //$scope.$apply();
+      }, false);
+    }
   };
 });

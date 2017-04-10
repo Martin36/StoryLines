@@ -15,7 +15,7 @@ app.factory('Model', function ($cookies, $resource) {
   var userId;
 
   //Authorize to the trello api
-  this.authorize = function(cb) {
+  this.authorize = function(cb, shouldLoadBoards) {
     Trello.authorize({
       type: 'popup',
       name: 'Getting Started Application',
@@ -26,7 +26,12 @@ app.factory('Model', function ($cookies, $resource) {
       success: function() {
         console.log('Successful authentication');
         loggedIn = true;
-        cb();
+        if(shouldLoadBoards){
+          loadBoards(cb);
+        }else{
+          cb();
+        }
+        //cb();
       },
       error: function() { console.log('Failed authentication'); }
     });
@@ -43,7 +48,6 @@ app.factory('Model', function ($cookies, $resource) {
   };
   firebase.initializeApp(config);
 
-  //TODO: Assign "boards" variable by callback function
   var loadBoards = function (cb) {
     // Get all of the information about the boards you have access to
     var success = function(data) {
@@ -100,7 +104,8 @@ app.factory('Model', function ($cookies, $resource) {
     };
     Trello.get('/boards/' + boardId + '/cards', success, error);
 
-  }
+  };
+
   //TODO: Return all the cards that is assigned to the logged in user
   var getUsersCards = function(boardIndex){
 
@@ -166,45 +171,24 @@ app.factory('Model', function ($cookies, $resource) {
         }
       }
     }
-    storeBoardIds(cb);
-  };
-  //Stores the ids of the boards in the cookies
-  var storeBoardIds = function (cb) {
-    //First store the board ids
-    var boardIds = [];
-    for (var i = 0; i < boards.length; i++){
-      boardIds.push(boards[i].id);
-    }
-    $cookies.putObject("boardIds", boardIds);
-    //Then also store the card stats
-    var cardStats = [];
-    for (var i = 0; i < boards.length; i++){
-      cardStats.push(boards[i].cardStats);
-    }
-    $cookies.putObject("cardStats", cardStats);
-
-    //console.log($cookies.get("boardIds"));
     boardsLoaded = true;
     cb();
   };
 
   this.loadData = function (cb) {
-    loadBoards(cb);
-  }
+    if(loggedIn){
+      //Check if the boards are already loaded
+      if(boardsLoaded){cb();}
+      loadBoards(cb);
+    }else{
+      //Authorize the user if not logged in
+      this.authorize(cb, true);
+    }
+  };
 
   this.getBoards = function () {
-    //Check if boards are not loaded
-    if(!boardsLoaded){
-      //Check if the boards are loaded in the cookies
-      var boardIds = $cookies.get("boardIds");
-      if(boardIds != undefined){
-
-      }
-
-      //console.error("Boards not loaded");
-    }else{
-
-      // console.log("Get boards call!");
+    //Check if boards are loaded
+    if(boardsLoaded){
       return boards;
     }
   };
@@ -262,7 +246,7 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   this.boardsLoaded = function () {
-    return $cookies.get("boards") != undefined;
+    return boardsLoaded;
     //return boardsLoaded;
   };
 

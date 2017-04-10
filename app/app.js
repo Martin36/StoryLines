@@ -8,6 +8,7 @@
 // (comments by Jori, April 03, 2017)
 
 var app = angular.module('myApp', [
+  'ngCookies',
   'ngRoute',
   'ngResource',
   'chart.js',

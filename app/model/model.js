@@ -286,8 +286,16 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.put("cards/"+cardId+"/desc?value="+description);
   };
   
-  this.deleteCard = function (cardId) {
+  this.deleteCard = function (boardId, cardId) {
     Trello.delete("cards/"+cardId);
+    //Also delete from the model
+    for(var i = 0; i < boards.length; i++){
+      if(boards[i].id == boardId){
+        boards[i].cards = boards[i].cards.filter(function (card) {
+          return card.id != cardId;
+        });
+      }
+    }
   };
 
   var createWebhook = function () {

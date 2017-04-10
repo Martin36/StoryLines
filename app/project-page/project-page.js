@@ -56,7 +56,7 @@ angular.module('myApp.projectPage', [])
     };
 
     $scope.deleteCard = function(card){
-      Model.deleteCard(card.id);
+      Model.deleteCard($routeParams.boardId, card.id);
     };
     // Toggles the edit mode for project title
     function toggleEdit(){

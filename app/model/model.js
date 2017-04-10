@@ -2,12 +2,13 @@
  * Created by marti on 2017-03-26.
  */
 
-app.factory('Model', function ($resource) {
+app.factory('Model', function ($cookies, $resource) {
 
   var useCardStats = true;
   var loggedIn = false;
   var boardsLoaded = false;
-  var boards;
+  var boards = [];
+  //console.log($cookies.get("boards"));
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
   var userToken = "61c5712689f36a04e71985d0b266f82b661eb51c3ea4d32464efe769f702b5d8";
@@ -71,7 +72,7 @@ app.factory('Model', function ($resource) {
     };
     Trello.get('/boards/' + boardId + '/lists', success, error);
 
-  }
+  };
 
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
@@ -102,10 +103,12 @@ app.factory('Model', function ($resource) {
   }
   //TODO: Return all the cards that is assigned to the logged in user
   var getUsersCards = function(boardIndex){
- for(var i = 0; i < boards[boardIndex].cards.length; i++) {
+
+    for(var i = 0; i < boards[boardIndex].cards.length; i++) {
      
- }
-  }
+    }
+
+  };
 
   var cardStats = function (cb) {
 
@@ -163,6 +166,24 @@ app.factory('Model', function ($resource) {
         }
       }
     }
+    storeBoardIds(cb);
+  };
+  //Stores the ids of the boards in the cookies
+  var storeBoardIds = function (cb) {
+    //First store the board ids
+    var boardIds = [];
+    for (var i = 0; i < boards.length; i++){
+      boardIds.push(boards[i].id);
+    }
+    $cookies.putObject("boardIds", boardIds);
+    //Then also store the card stats
+    var cardStats = [];
+    for (var i = 0; i < boards.length; i++){
+      cardStats.push(boards[i].cardStats);
+    }
+    $cookies.putObject("cardStats", cardStats);
+
+    //console.log($cookies.get("boardIds"));
     boardsLoaded = true;
     cb();
   };
@@ -174,8 +195,13 @@ app.factory('Model', function ($resource) {
   this.getBoards = function () {
     //Check if boards are not loaded
     if(!boardsLoaded){
+      //Check if the boards are loaded in the cookies
+      var boardIds = $cookies.get("boardIds");
+      //if()
+
       //console.error("Boards not loaded");
     }else{
+
       // console.log("Get boards call!");
       return boards;
     }
@@ -234,7 +260,8 @@ app.factory('Model', function ($resource) {
   };
 
   this.boardsLoaded = function () {
-    return boardsLoaded;
+    return $cookies.get("boards") != undefined;
+    //return boardsLoaded;
   };
 
   // Returns the list with the name from the board with the id

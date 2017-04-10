@@ -3,9 +3,11 @@
  */
 
 angular.module('myApp.login', [])
-  .controller('LoginController', function ($scope, $location,
+  .controller('LoginController', function ($cookies, $scope, $location,
     $firebaseAuth, Model) {
 
+  //Remove cookies
+  $cookies.remove("boards");
 
   // Authenticate with google to firebase
   // TODO: Custom token from trello login maybe??

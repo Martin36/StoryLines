@@ -28,7 +28,7 @@ angular.module('myApp.plannerHub', [])
         $scope.$apply();
       });
     }
-
+   // console.log($scope.boards);
     // var ref = firebase.database().ref();
     // var obj = $firebaseObject(ref);
     //

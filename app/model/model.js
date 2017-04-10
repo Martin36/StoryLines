@@ -179,7 +179,7 @@ app.factory('Model', function ($cookies, $resource) {
     if(loggedIn){
       //Check if the boards are already loaded
       if(boardsLoaded){cb();}
-      loadBoards(cb);
+      else{loadBoards(cb);}
     }else{
       //Authorize the user if not logged in
       this.authorize(cb, true);
@@ -308,19 +308,6 @@ app.factory('Model', function ($cookies, $resource) {
      callbackURL: "http://localhost:63342/StoryLines/app/index.html?_ijt=8l5f822ie37itbr2gq2uk8spct#!/login",
      idModel: "4d5ea62fd76aa1136000000c"
      });
-  };
-
-  this.loadUserId = function () {
-    //First get the userId
-    var success = function (data) {
-      userId = data.id;
-      createWebhook();
-    };
-    var error = function(errorMsg) {
-      console.log(errorMsg);
-    };
-    Trello.get('/member/me', success, error);
-
   };
 
   return this;

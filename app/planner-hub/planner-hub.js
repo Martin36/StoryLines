@@ -2,7 +2,7 @@
  * Created by marti on 2017-03-25.
  */
 angular.module('myApp.plannerHub', [])
-  .controller('PlannerHubController', function ($scope, Model) {
+  .controller('PlannerHubController', function ($scope, $timeout, Model) {
     Chart.defaults.global.responsive = true;
 
     $scope.labels = ["Medium Priority", "Low Priority", "High Priority"];
@@ -15,7 +15,6 @@ angular.module('myApp.plannerHub', [])
     $scope.colors = [ '#949FB1', '#4D5360', '#DCDCDC'];
 
     var loadBoards = function () {
-      console.log(Model.boardsLoaded());
       Model.loadData(function(){
         $scope.boards = Model.getBoards();
         for(var i = 0; i < $scope.boards.length; i++){
@@ -26,8 +25,12 @@ angular.module('myApp.plannerHub', [])
         $scope.$apply();
       });
     };
+    if(Model.boardsLoaded()){
+      $scope.boards = Model.getBoards();
+    }else{
+      loadBoards();
+    }
 
-    loadBoards();
     /*
     if(!Model.isLoggedIn()){
       Model.authorize(function () {

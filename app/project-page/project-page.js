@@ -2,9 +2,17 @@
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-      // Get 'this' board from model
-      $scope.board = Model.getBoard($routeParams.boardId);
-      $scope.listsToShow = Model.getListsToShow();
+      //Check if data is loaded
+      Model.loadData(function () {
+        // Get 'this' board from model
+
+        console.log(Model.boardsLoaded());
+        console.log(Model.isLoggedIn());
+        $scope.board = Model.getBoard($routeParams.boardId);
+        $scope.listsToShow = Model.getListsToShow();
+        //$scope.$apply();
+      });
+
       $scope.showEdit = false;
       //$scope.clickedCard;
       $scope.desc = "";

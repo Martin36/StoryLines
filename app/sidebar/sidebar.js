@@ -38,7 +38,7 @@ angular.module('myApp.sidebar', [])
     $scope.newProject = function() {
 
       Model.createNewBoard(function () {
-        console.log($scope.boards());
+        //console.log($scope.boards());
         $scope.$digest();
       });
       

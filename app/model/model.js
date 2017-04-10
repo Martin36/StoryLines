@@ -206,14 +206,15 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
 
-  // TODO: getBoard() from sidebar gets called before the new board is added to boads.
+  // TODO: getBoard() from sidebar gets called before the new board is added to boards.
   // Create a new board and post it to Trello
-  this.createNewBoard = function() {
+  this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
       for(var i = 0; i < listTypes.length; i++) {
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
       boards.push(board); // Add new board to array
+      cb();
     });
   };
 

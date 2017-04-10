@@ -36,7 +36,13 @@ angular.module('myApp.sidebar', [])
     }
 
     $scope.newProject = function() {
-        Model.createNewBoard();
+
+      Model.createNewBoard(function () {
+        console.log($scope.boards());
+        $scope.$digest();
+      });
+      
+
     }
 
     function setId(id){

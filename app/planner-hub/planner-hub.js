@@ -14,19 +14,23 @@ angular.module('myApp.plannerHub', [])
     };
     $scope.colors = [ '#949FB1', '#4D5360', '#DCDCDC'];
 
+    var addBoardsData = function () {
+      $scope.boards = Model.getBoards();
+      for(var i = 0; i < $scope.boards.length; i++){
+        $scope.boards[i].statsData = Object.values($scope.boards[i].cardStats);
+      }
+    }
+
     var loadBoards = function () {
       Model.loadData(function(){
-        $scope.boards = Model.getBoards();
-        for(var i = 0; i < $scope.boards.length; i++){
-          $scope.boards[i].statsData = Object.values($scope.boards[i].cardStats);
-        }
+        addBoardsData();
         console.log($scope.boards[0]);
         //Extract the values in the data from the boards
         $scope.$apply();
       });
     };
     if(Model.boardsLoaded()){
-      $scope.boards = Model.getBoards();
+      addBoardsData();
     }else{
       loadBoards();
     }

@@ -5,7 +5,7 @@ angular.module('myApp.plannerHub', [])
   .controller('PlannerHubController', function ($scope, Model) {
     Chart.defaults.global.responsive = true;
 
-    Model.loadUserId();
+ //   Model.loadUserId();
 
     $scope.labels = ["Medium Priority", "Low Priority", "High Priority"];
 

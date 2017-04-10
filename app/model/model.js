@@ -10,7 +10,7 @@ app.factory('Model', function ($resource) {
   var boards;
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
-  var userToken;
+  var userToken = "61c5712689f36a04e71985d0b266f82b661eb51c3ea4d32464efe769f702b5d8";
   var userId;
 
   //Authorize to the trello api
@@ -287,13 +287,14 @@ app.factory('Model', function ($resource) {
 //    Trello.get('/members/'+userId+'/tokens', success, error);
     //TODO: Make this work
     var token = Trello.token();
-/*
-     $.post("https://api.trello.com/1/tokens/"+token+"/webhooks/?key=d55de169d8cbf243f781b431c5b458e0", {
+
+    console.log(token);
+
+     $.post("https://api.trello.com/1/tokens/"+userToken+"/webhooks/?key=d55de169d8cbf243f781b431c5b458e0", {
      description: "My first webhook",
-     callbackURL: "http://localhost:63342/trelloCallback",
+     callbackURL: "http://localhost:63342/StoryLines/app/index.html?_ijt=8l5f822ie37itbr2gq2uk8spct#!/login",
      idModel: "4d5ea62fd76aa1136000000c"
      });
- */
   };
 
   this.loadUserId = function () {

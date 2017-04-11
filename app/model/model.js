@@ -278,8 +278,8 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   //Adds description to the card
-  this.addDescriptionToCard = function(cardId, description){
-    Trello.put("cards/"+cardId+"/desc?value="+description);
+  this.addDescriptionToCard = function(card){
+    Trello.put("cards/"+card.id+"/desc?value="+card.desc);
   };
   
   this.deleteCard = function (boardId, cardId) {

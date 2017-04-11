@@ -5,3 +5,7 @@
 .chart-title{
     text-align: center;
 }
+
+.fixed-width{
+    width: 75%;
+}

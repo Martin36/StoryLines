@@ -19,6 +19,6 @@ angular.module('myApp.myStories', [])
         $scope.cancel = function () {
             $scope.showModal = false;
         };
+        $scope.styleOptions = {"1":"blue","2":"violet","3":"yellow","4":"red"};
     });
-
   });

@@ -7,7 +7,7 @@
     <div class="columns">
       <div class="card" ng-repeat="card in board.cards">
 
-  <header class="button card-header">
+  <header class="card-header">
     <p class="card-header-title">
       {{card.name}}
         </p>
@@ -22,15 +22,23 @@
     <nav class="menu">
       <ul class="menu-list">
         <li>
-<div class="field">
-  <p class="control">
-    <span class="select">
-      <select>
-        <option>Labels</option>
-        <option>With options</option>
-      </select>
-    </span>
-    </p>  </div> </li>
+<div class="field-body">
+    <div class="field is-narrow">
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select id="followUp" ng-model="selectedValue"
+    ng-class="styleOptions[selectedValue]">
+              <option value=""></option>
+            <option class="fa  fa-flag blue" value="1" ng-click="">One &#xf024;</option>
+   <option class="fa  fa-flag violet" value="2">Two &#xf024;</option>
+   <option class="fa  fa-flag yellow" value="3">Three &#xf024;</option>
+   <option class="fa  fa-flag red" value="4">Four &#xf024;</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
         <li><a ng-click="showdetails()">Details</a></li>
         <li><a> Attach </a></li>
         <li><a> Delete </a></li>

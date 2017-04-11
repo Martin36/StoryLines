@@ -213,7 +213,9 @@ app.factory('Model', function ($cookies, $resource) {
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
       boards.push(board); // Add new board to array
-      cb();
+      //Add empty cards array to board
+      loadLists(boards.length-1, cb);
+      //cb();
     });
   };
 

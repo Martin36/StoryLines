@@ -26,7 +26,13 @@ angular.module('myApp.myStories', [])
     }else{
       loadBoards();
     }
-
-  });
+    
+    $scope.removeID =function()
+    {
+        var iE1= angular.element(document.querySelector('#card1'));
+        iE1.remove();
+    }
+    }
+);
 
 

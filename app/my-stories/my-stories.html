@@ -6,40 +6,40 @@
     <hr>
     <div class="columns">
       <div class="card" id="card1" ng-repeat="card in board.cards">
-<header class="card-header" ng-style="myStyle">
-    <p class="card-header-title"  >
+<div class="card-content" ng-style="myStyle">
+    <p class="subtitle ">
       {{card.name}}
-        </p>
+    </p>
        <div class="bu-dropdown">
            <a class="card-header-icon">
-      <span class="icon">
-        <i class="fa fa-angle-down"></i>
-      </span>
+            <span class="icon">
+                <i class="fa fa-angle-down"></i>
+            </span>
            </a>
-            <div class="bu-dropdown-body">
-     <div class="bu-is-right">
+        <div class="bu-dropdown-body">
+        <div class="bu-is-right">
     <nav class="menu">
-      <ul class="menu-list">
-     <li>
-       <select class="select is-fullwidth"> 
-            <option ng-click="myStyle={background:'#00d1b2'}"><input type="button" class="button is-primary" value="Primary" > </option> 
-             <option ng-click="myStyle={background:'#3273dc'}"><input type="button" class="button is-info"  value="Info" > </option>
+    <ul class="menu-list">
+        <li>
+        <select class="select is-fullwidth"> 
+            <option ng-click="myStyle={background:'#00d1b2'}"><input type="button" class="button is-primary" value="Primary"> </option> 
+            <option ng-click="myStyle={background:'#3273dc'}"><input type="button" class="button is-info"  value="Info" > </option>
             <option><input type="button" class="button is-success" value=" Success" ng-click="myStyle={background:'#23d160'}">
-                   </option>
-             <option> <input type="button" class="button is-warning" value="Warning" ng-click="myStyle={background:'#ffdd57'}"> 
-                 </option> 
-              <option> <input type="button" class="button is-danger" value="Danger" ng-click="myStyle={background:'#ff3860'}"> 
-              </option> 
+            </option>
+            <option> <input type="button" class="button is-warning" value="Warning" ng-click="myStyle={background:'#ffdd57'}"> 
+            </option> 
+            <option> <input type="button" class="button is-danger" value="Danger" ng-click="myStyle={background:'#ff3860'}"> 
+            </option> 
         </select>
-    </li>
+        </li>
         <li><a ng-click="showdetails()">Details</a></li>
         <li><a ng-click="removeID()"> Delete </a></li>
-      </ul>
+    </ul>
     </nav>
   </div>
       </div>
       </div>
-          </header>
+</div>
   <footer class="card-footer">
     <a class="card-footer-item">Done</a>
   </footer>

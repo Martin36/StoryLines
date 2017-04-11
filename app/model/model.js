@@ -205,7 +205,6 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
 
-  // TODO: getBoard() from sidebar gets called before the new board is added to boards.
   // Create a new board and post it to Trello
   this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
@@ -220,24 +219,7 @@ app.factory('Model', function ($cookies, $resource) {
         //Adds lists to board
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
-      //cb();
     });
-  };
-
-  this.updateBoard = function (boardId, cb) {
-    for(var i = 0; i < boards.length; i++){
-      if(boards[i].id == boardId){
-        var success = function (data) {
-          cb(data);
-        }
-
-        var error = function (errorMsg) {
-          console.log(errorMsg);
-        }
-
-        Trello.get("boards/"+boardId, success, error);
-      }
-    }
   };
 
   var getNewCards = function (boardId, cb) {
@@ -269,19 +251,11 @@ app.factory('Model', function ($cookies, $resource) {
           if(boards[i].lists[j].name == listName) {
             // Add new card to API
             Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName, function () {
+              //When the card is added to the API, add the card to our model
               addNewCards(boardId, cb);
             }, function (errorMsg) {
               console.log(errorMsg)
             });
-
-            //Add to model too, should use webhook instead
-            //TODO: This card will not look the same as the ones in the API
-            /*
-            var newCard = {};
-            newCard["name"] = cardName;
-            newCard["idList"] = boards[i].lists[j].id;
-            boards[i].cards.push(newCard);
-            */
           }
         }
       }

@@ -1,6 +1,13 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
 <div id="plannerHubView" class="our-content" ng-controller="PlannerHubController">
+
+  <div class="loader-frame" ng-if="loading">
+    <div class="loader1"></div>
+    <div class="loader2"></div>
+  </div>
+
+
   <!-- <h1>{{data.name}}</h1> -->
   <!-- Header part -->
   <div class="columns">

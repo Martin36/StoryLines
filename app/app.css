@@ -51,6 +51,43 @@
   margin-top: 10px;
 }
 
-.hero{
-  box-shadow: 10px;
+/* Loading symbol */
+
+.loader-frame {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  position: relative;
 }
+
+.loader1, .loader2 {
+  position: absolute;
+  border: 5px solid transparent;
+  border-radius: 50%;
+}
+
+.loader1 {
+  width: 70px;
+  height: 70px;
+  border-top: 5px solid gray;
+  border-bottom: 5px solid gray;
+  animation: clockwisespin 2s linear 3;
+}
+
+.loader2 {
+  width: 60px;
+  height: 60px;
+  border-left: 5px solid darkturquoise;
+  border-right: 5px solid darkturquoise;
+  top: 5px; left: 5px;
+  animation: anticlockwisespin 2s linear 3;
+}
+
+@keyframes clockwisespin {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+@keyframes anticlockwisespin {
+   from {transform: rotate(0deg);}
+   to {transform: rotate(-360deg);}
+ }

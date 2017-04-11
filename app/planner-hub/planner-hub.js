@@ -4,7 +4,9 @@
 angular.module('myApp.plannerHub', [])
   .controller('PlannerHubController', function ($scope, $timeout, Model) {
     Chart.defaults.global.responsive = true;
-    $scope.loading = true;
+    if(!Model.boardsLoaded()){
+      $scope.loading = true;
+    }
     $scope.labels = ["Medium Priority", "Low Priority", "High Priority"];
 
     //Displays the legend for the doughnut chart

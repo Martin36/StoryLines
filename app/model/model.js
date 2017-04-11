@@ -216,8 +216,41 @@ app.factory('Model', function ($cookies, $resource) {
     });
   };
 
+  this.updateBoard = function (boardId, cb) {
+    for(var i = 0; i < boards.length; i++){
+      if(boards[i].id == boardId){
+        var success = function (data) {
+          cb(data);
+        }
+
+        var error = function (errorMsg) {
+          console.log(errorMsg);
+        }
+
+        Trello.get("boards/"+boardId, success, error);
+      }
+    }
+  };
+
+  var getNewCards = function (boardId, cb) {
+    for(var i = 0; i < boards.length; i++){
+      if(boards[i].id == boardId){
+        var success = function (cards) {
+          cb(cards);
+        }
+
+        var error = function (errorMsg) {
+          console.log(errorMsg);
+        }
+
+        Trello.get('/boards/' + boardId + '/cards', success, error);
+      }
+    }
+
+  }
+
   // Adds a new card to the api
-  this.addNewCard = function(boardId, listName, cardName) {
+  this.addNewCard = function(boardId, listName, cardName, cb) {
     // Go throught all boards
     for(var i = 0; i < boards.length; i++){
       // Find board with the correct id
@@ -227,19 +260,47 @@ app.factory('Model', function ($cookies, $resource) {
           // Find the correct list
           if(boards[i].lists[j].name == listName) {
             // Add new card to API
-            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName);
+            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName, function () {
+              addNewCards(boardId, cb);
+            }, function (errorMsg) {
+              console.log(errorMsg)
+            });
 
             //Add to model too, should use webhook instead
+            //TODO: This card will not look the same as the ones in the API
+            /*
             var newCard = {};
             newCard["name"] = cardName;
             newCard["idList"] = boards[i].lists[j].id;
             boards[i].cards.push(newCard);
+            */
           }
         }
       }
     }
-  }
 
+
+  };
+
+  function addNewCards(boardId, cb) {
+    getNewCards(boardId, function(newCards){
+      var boardIndex = findBoardIndex(boardId);
+      boards[boardIndex].cards = newCards;
+      //Default this card to low priority
+      boards[boardIndex].cardStats.lowPriority++;
+      cb();
+    });
+
+  }
+  
+  function findBoardIndex(boardId) {
+    for(var i = 0; i < boards.length; i++){
+      if(boards[i].id == boardId){
+        return i;
+      }
+
+    }
+  }
   this.isLoggedIn = function () {
     return loggedIn;
   };
@@ -287,7 +348,7 @@ app.factory('Model', function ($cookies, $resource) {
   }
   
   this.deleteCard = function (boardId, cardId) {
-    //Trello.delete("cards/"+cardId);
+    Trello.delete("cards/"+cardId);
     //Also delete from the model
     for(var i = 0; i < boards.length; i++){
       if(boards[i].id == boardId){

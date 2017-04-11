@@ -28,7 +28,10 @@ angular.module('myApp.projectPage', [])
 
     // TODO: Add card to specific list in this board with API PUSH
     $scope.addCard = function(listName) {
-      Model.addNewCard($routeParams.boardId, listName, listName);
+      Model.addNewCard($routeParams.boardId, listName, listName, function () {
+        $scope.board = Model.getBoard($routeParams.boardId);
+        $scope.$apply();
+      });
     };
 
     $scope.editTitle = function(){

@@ -34,3 +34,8 @@
     overflow-x: hidden;
     height: 50vh;
 }
+
+.no-box{
+    border: 0 solid;
+    background: none;
+}

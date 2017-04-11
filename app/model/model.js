@@ -11,8 +11,6 @@ app.factory('Model', function ($cookies, $resource) {
   //console.log($cookies.get("boards"));
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
-  var userToken = "61c5712689f36a04e71985d0b266f82b661eb51c3ea4d32464efe769f702b5d8";
-  var userId;
 
   //Authorize to the trello api
   this.authorize = function(cb, shouldLoadBoards) {
@@ -248,7 +246,6 @@ app.factory('Model', function ($cookies, $resource) {
 
   this.boardsLoaded = function () {
     return boardsLoaded;
-    //return boardsLoaded;
   };
 
   // Returns the list with the name from the board with the id
@@ -267,7 +264,7 @@ app.factory('Model', function ($cookies, $resource) {
 
   this.getListsToShow = function() {
     return listTypes;
-  }
+  };
 
   //Function for the user screen
   //TODO: Implement this function to add a user to the specified board
@@ -281,12 +278,16 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   //Adds description to the card
-  this.addDescriptionToCard = function(cardId, description){
-    Trello.put("cards/"+cardId+"/desc?value="+description);
+  this.addDescriptionToCard = function(card){
+    Trello.put("cards/"+card.id+"/desc?value="+card.desc);
   };
   
+  this.changeNameOfCard = function (card) {
+    Trello.put("cards/"+card.id +"/name?value="+card.name);
+  }
+  
   this.deleteCard = function (boardId, cardId) {
-    Trello.delete("cards/"+cardId);
+    //Trello.delete("cards/"+cardId);
     //Also delete from the model
     for(var i = 0; i < boards.length; i++){
       if(boards[i].id == boardId){

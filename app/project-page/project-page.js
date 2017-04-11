@@ -47,8 +47,9 @@ angular.module('myApp.projectPage', [])
     };
     //TODO: Save the edits then exit
     $scope.save = function () {
-      //console.log($scope.desc);
-      Model.addDescriptionToCard($scope.clickedCard.id, $scope.desc);
+      //console.log($scope.clickedCard.desc);
+      Model.addDescriptionToCard($scope.clickedCard);
+      Model.changeNameOfCard($scope.clickedCard);
       $scope.showEdit = false;
     };
     $scope.cancel = function(){

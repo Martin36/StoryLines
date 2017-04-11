@@ -7,7 +7,7 @@
     <div class="column has-text-centered">
       <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
              ng-blur="saveTitle()" focus-me="isOpen"
-             class="title is-3 has-text-centered" size="{{board.name.length}}">
+             class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
       <span ng-click="editTitle()" class="icon is-medium">
           <i class="fa fa-pencil"></i>
         </span>
@@ -73,9 +73,18 @@
       <section class="modal-card-body">
         <!-- Content ... -->
         <div class="field">
+          <label class="label">Name</label>
+          <p class="control">
+            <input data-ng-model="clickedCard.name" class="input" type="text"
+                      placeholder="Name of the card">
+            </input>
+          </p>
+        </div>
+
+        <div class="field">
           <label class="label">Description</label>
           <p class="control">
-            <textarea data-ng-model="$parent.desc" class="textarea"
+            <textarea data-ng-model="clickedCard.desc" class="textarea"
                       placeholder="Write the description of the card here">
             </textarea>
           </p>

@@ -2,37 +2,67 @@
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-      // Get 'this' board from model
+    var loadBoards = function () {
+      Model.loadData(function(){
+        $scope.board = Model.getBoard($routeParams.boardId);
+        $scope.listsToShow = Model.getListsToShow();
+        $scope.$apply();
+      });
+    };
+
+    //Check if data is loaded
+    if(Model.boardsLoaded()){
       $scope.board = Model.getBoard($routeParams.boardId);
       $scope.listsToShow = Model.getListsToShow();
+    }else{
+      loadBoards();
+    }
 
-      $scope.listId = function(listName) {
-        return Model.getListId($routeParams.boardId, listName);
-      }
+    $scope.showEdit = false;
+    //$scope.clickedCard;
+    $scope.desc = "";
 
-      // TODO: Add card to specific list in this board with API PUSH
-      $scope.addCard = function(listName) {
-        Model.addNewCard($routeParams.boardId, listName, listName);
-      }
+    $scope.listId = function(listName) {
+      return Model.getListId($routeParams.boardId, listName);
+    };
 
-      $scope.editTitle = function(){
-        toggleEdit();
-      }
+    // TODO: Add card to specific list in this board with API PUSH
+    $scope.addCard = function(listName) {
+      Model.addNewCard($routeParams.boardId, listName, listName);
+    };
 
-      // Save the new title on trello
-      $scope.saveTitle = function(){
-        Model.changeBoardName($routeParams.boardId, $scope.board.name);
-        toggleEdit();
-      }
+    $scope.editTitle = function(){
+      toggleEdit();
+    };
 
-      // Toggles the edit mode for project title
-      function toggleEdit(){
-        $scope.editMode = !$scope.editMode;
-        $scope.isOpen = !$scope.isOpen;
-      }
+    // Save the new title on trello
+    $scope.saveTitle = function(){
+      Model.changeBoardName($routeParams.boardId, $scope.board.name);
+      toggleEdit();
+    };
 
-      //TODO: Add the code for showing the dropdown
-      $scope.showDropdown = function(){
+    $scope.showEditBox = function (card) {
+      $scope.clickedCard = card;
+      $scope.showEdit = true;
+    };
+    //TODO: Save the edits then exit
+    $scope.save = function () {
+      //console.log($scope.desc);
+      Model.addDescriptionToCard($scope.clickedCard.id, $scope.desc);
+      $scope.showEdit = false;
+    };
+    $scope.cancel = function(){
+      $scope.showEdit = false;
+    };
 
-      }
+    $scope.deleteCard = function(card){
+      Model.deleteCard($routeParams.boardId, card.id);
+    };
+    // Toggles the edit mode for project title
+    function toggleEdit(){
+      $scope.editMode = !$scope.editMode;
+      $scope.isOpen = !$scope.isOpen;
+    }
+
+
   });

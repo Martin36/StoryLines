@@ -2,17 +2,20 @@
  * Created by marti on 2017-03-26.
  */
 
-app.factory('Model', function ($resource) {
+app.factory('Model', function ($cookies, $resource) {
 
   var useCardStats = true;
   var loggedIn = false;
   var boardsLoaded = false;
-  var boards;
+  var boards = [];
+  //console.log($cookies.get("boards"));
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
+  var userToken = "61c5712689f36a04e71985d0b266f82b661eb51c3ea4d32464efe769f702b5d8";
+  var userId;
 
   //Authorize to the trello api
-  this.authorize = function(cb) {
+  this.authorize = function(cb, shouldLoadBoards) {
     Trello.authorize({
       type: 'popup',
       name: 'Getting Started Application',
@@ -23,7 +26,12 @@ app.factory('Model', function ($resource) {
       success: function() {
         console.log('Successful authentication');
         loggedIn = true;
-        cb();
+        if(shouldLoadBoards){
+          loadBoards(cb);
+        }else{
+          cb();
+        }
+        //cb();
       },
       error: function() { console.log('Failed authentication'); }
     });
@@ -40,7 +48,6 @@ app.factory('Model', function ($resource) {
   };
   firebase.initializeApp(config);
 
-  //TODO: Assign "boards" variable by callback function
   var loadBoards = function (cb) {
     // Get all of the information about the boards you have access to
     var success = function(data) {
@@ -69,7 +76,7 @@ app.factory('Model', function ($resource) {
     };
     Trello.get('/boards/' + boardId + '/lists', success, error);
 
-  }
+  };
 
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
@@ -97,13 +104,16 @@ app.factory('Model', function ($resource) {
     };
     Trello.get('/boards/' + boardId + '/cards', success, error);
 
-  }
+  };
+
   //TODO: Return all the cards that is assigned to the logged in user
   var getUsersCards = function(boardIndex){
- for(var i = 0; i < boards[boardIndex].cards.length; i++) {
+
+    for(var i = 0; i < boards[boardIndex].cards.length; i++) {
      
- }
-  }
+    }
+
+  };
 
   var cardStats = function (cb) {
 
@@ -166,15 +176,19 @@ app.factory('Model', function ($resource) {
   };
 
   this.loadData = function (cb) {
-    loadBoards(cb);
-  }
+    if(loggedIn){
+      //Check if the boards are already loaded
+      if(boardsLoaded){cb();}
+      else{loadBoards(cb);}
+    }else{
+      //Authorize the user if not logged in
+      this.authorize(cb, true);
+    }
+  };
 
   this.getBoards = function () {
-    //Check if boards are not loaded
-    if(!boardsLoaded){
-      //console.error("Boards not loaded");
-    }else{
-      // console.log("Get boards call!");
+    //Check if boards are loaded
+    if(boardsLoaded){
       return boards;
     }
   };
@@ -192,16 +206,17 @@ app.factory('Model', function ($resource) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
 
-  // TODO: getBoard() from sidebar gets called before the new board is added to boads.
+  // TODO: getBoard() from sidebar gets called before the new board is added to boards.
   // Create a new board and post it to Trello
-  this.createNewBoard = function() {
+  this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
       for(var i = 0; i < listTypes.length; i++) {
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
       boards.push(board); // Add new board to array
+      cb();
     });
-  }
+  };
 
   // Adds a new card to the api
   this.addNewCard = function(boardId, listName, cardName) {
@@ -217,7 +232,7 @@ app.factory('Model', function ($resource) {
             Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName);
 
             //Add to model too, should use webhook instead
-            var newCard = {}
+            var newCard = {};
             newCard["name"] = cardName;
             newCard["idList"] = boards[i].lists[j].id;
             boards[i].cards.push(newCard);
@@ -233,6 +248,7 @@ app.factory('Model', function ($resource) {
 
   this.boardsLoaded = function () {
     return boardsLoaded;
+    //return boardsLoaded;
   };
 
   // Returns the list with the name from the board with the id
@@ -257,12 +273,50 @@ app.factory('Model', function ($resource) {
   //TODO: Implement this function to add a user to the specified board
   this.addUser = function(boardId, userName){
     //GET /1/members/[idMember or username]
-  }
+  };
 
   //TODO: Make this function remove a user from the board
   this.removeUser = function(boardId, memberId){
     //DELETE /1/boards/[board_id]/members/[idMember]
-  }
+  };
+
+  //Adds description to the card
+  this.addDescriptionToCard = function(cardId, description){
+    Trello.put("cards/"+cardId+"/desc?value="+description);
+  };
+  
+  this.deleteCard = function (boardId, cardId) {
+    Trello.delete("cards/"+cardId);
+    //Also delete from the model
+    for(var i = 0; i < boards.length; i++){
+      if(boards[i].id == boardId){
+        boards[i].cards = boards[i].cards.filter(function (card) {
+          return card.id != cardId;
+        });
+      }
+    }
+  };
+
+  var createWebhook = function () {
+    //this.loadUserId();
+    var success = function (data) {
+      console.log(data);
+    };
+    var error = function(errorMsg) {
+      console.log(errorMsg);
+    };
+//    Trello.get('/members/'+userId+'/tokens', success, error);
+    //TODO: Make this work
+    var token = Trello.token();
+
+    console.log(token);
+
+     $.post("https://api.trello.com/1/tokens/"+userToken+"/webhooks/?key=d55de169d8cbf243f781b431c5b458e0", {
+     description: "My first webhook",
+     callbackURL: "http://localhost:63342/StoryLines/app/index.html?_ijt=8l5f822ie37itbr2gq2uk8spct#!/login",
+     idModel: "4d5ea62fd76aa1136000000c"
+     });
+  };
 
   return this;
 

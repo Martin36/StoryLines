@@ -34,9 +34,23 @@
 <body>
   <ul class="menu" style="margin-left: 260px">
     <li><a href="#!/login">Login</a></li>
-    <li><a href="#!/myStories">My Stories</a></li>
     <li><a href="#!/userScreen">User Screen</a></li>
   </ul>
+  <!-- Title for the page -->
+  <section class="hero is-small is-dark is-bold">
+    <div class="our-content">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            StoryLines
+          </h1>
+          <h2 class="subtitle">
+            Keep track of your projects
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div ng-view></div>
 
@@ -46,6 +60,7 @@
   -->
   <!-- Angular Files -->
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
 
@@ -74,7 +89,7 @@
   <script src="project-page/project-page.js"></script>
   <script src="user-screen/user-screen.js"></script>
   <script src="sidebar/sidebar.js"></script>
-    <script src="bower_components/angular-bulma/dist/angular-bulma.min.js"></script>
+  <script src="bower_components/angular-bulma/dist/angular-bulma.min.js"></script>
   
 </body>
 </html>

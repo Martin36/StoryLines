@@ -4,9 +4,7 @@
 angular.module('myApp.myStories', [])
   .controller('MyStoriesController', function ($scope, Model) {
 
-    showModal =false;
-    //TODO: Wait for data to load in model
-    Model.loadData(function () {
+    if(Model.boardsLoaded()){
       $scope.boards = Model.getBoards();
       //TODO: Figure out why this is needed for it to work
       $scope.$apply();
@@ -20,5 +18,7 @@ angular.module('myApp.myStories', [])
             $scope.showModal = false;
         };
         $scope.styleOptions = {"1":"blue","2":"violet","3":"yellow","4":"red"};
-    });
-  });
+    };
+});
+
+

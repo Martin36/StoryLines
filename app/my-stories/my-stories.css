@@ -11,7 +11,12 @@ hr {
 .card {
     border-radius: 20px;
     margin-left: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .modal-card{
 box-shadow: 2px 0px 10px #888888;
+}
+.card-footer{
+    margin-top: auto;
 }

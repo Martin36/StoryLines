@@ -1,4 +1,6 @@
-.card.fixed-height-card{
+.fixed-height-card{
+    border-radius: 20px;
+    margin-left: 10px;
     min-height: 80px;
     text-align: center;
     display: flex;

@@ -5,9 +5,9 @@
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns">
-      <div class="card" ng-repeat="card in board.cards">
-<header class="card-header">
-    <p class="card-header-title">
+      <div class="card" id="card1" ng-repeat="card in board.cards">
+<header class="card-header" ng-style="myStyle">
+    <p class="card-header-title"  >
       {{card.name}}
         </p>
        <div class="bu-dropdown">
@@ -20,27 +20,20 @@
      <div class="bu-is-right">
     <nav class="menu">
       <ul class="menu-list">
-        <li>
-<div class="field-body">
-    <div class="field is-narrow">
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select id="followUp" ng-model="selectedValue"
-    ng-class="styleOptions[selectedValue]">
-              <option value=""></option>
-            <option class="fa  fa-flag blue" value="1" ng-click="">One &#xf024;</option>
-   <option class="fa  fa-flag violet" value="2">Two &#xf024;</option>
-   <option class="fa  fa-flag yellow" value="3">Three &#xf024;</option>
-   <option class="fa  fa-flag red" value="4">Four &#xf024;</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-</li>
+     <li>
+       <select class="select is-fullwidth"> 
+            <option ng-click="myStyle={background:'#00d1b2'}"><input type="button" class="button is-primary" value="Primary" > </option> 
+             <option ng-click="myStyle={background:'#3273dc'}"><input type="button" class="button is-info"  value="Info" > </option>
+            <option><input type="button" class="button is-success" value=" Success" ng-click="myStyle={background:'#23d160'}">
+                   </option>
+             <option> <input type="button" class="button is-warning" value="Warning" ng-click="myStyle={background:'#ffdd57'}"> 
+                 </option> 
+              <option> <input type="button" class="button is-danger" value="Danger" ng-click="myStyle={background:'#ff3860'}"> 
+              </option> 
+        </select>
+    </li>
         <li><a ng-click="showdetails()">Details</a></li>
-        <li><a> Attach </a></li>
-        <li><a class="delete"s> Delete </a></li>
+        <li><a ng-click="removeID()"> Delete </a></li>
       </ul>
     </nav>
   </div>

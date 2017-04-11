@@ -73,9 +73,18 @@
       <section class="modal-card-body">
         <!-- Content ... -->
         <div class="field">
+          <label class="label">Name</label>
+          <p class="control">
+            <input data-ng-model="clickedCard.name" class="input" type="text"
+                      placeholder="Name of the card">
+            </input>
+          </p>
+        </div>
+
+        <div class="field">
           <label class="label">Description</label>
           <p class="control">
-            <textarea data-ng-model="clickedCard.desc" class="textarea" name="textarea-name"
+            <textarea data-ng-model="clickedCard.desc" class="textarea"
                       placeholder="Write the description of the card here">
             </textarea>
           </p>

@@ -282,6 +282,10 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.put("cards/"+card.id+"/desc?value="+card.desc);
   };
   
+  this.changeNameOfCard = function (card) {
+    Trello.put("cards/"+card.id +"/name?value="+card.name);
+  }
+  
   this.deleteCard = function (boardId, cardId) {
     //Trello.delete("cards/"+cardId);
     //Also delete from the model

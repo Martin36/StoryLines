@@ -49,6 +49,7 @@ angular.module('myApp.projectPage', [])
     $scope.save = function () {
       //console.log($scope.clickedCard.desc);
       Model.addDescriptionToCard($scope.clickedCard);
+      Model.changeNameOfCard($scope.clickedCard);
       $scope.showEdit = false;
     };
     $scope.cancel = function(){

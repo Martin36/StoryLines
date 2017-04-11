@@ -84,6 +84,7 @@ app.factory('Model', function ($cookies, $resource) {
       boards[boardIndex].cards = data;
       //TODO: Uncomment this when function is implemented
       //boards[boardIndex].myCards = getUsersCards(boardIndex);
+    
 
       //Calculate the statistics of the cards for this board
       //cardStats(boardIndex);

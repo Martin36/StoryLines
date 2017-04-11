@@ -8,7 +8,7 @@
 hr {
     margin-top: 10px;
 }
-.card {
+#card1 {
     border-radius: 20px;
     margin-left: 10px;
     display: flex;
@@ -20,3 +20,4 @@ box-shadow: 2px 0px 10px #888888;
 .card-footer{
     margin-top: auto;
 }
+

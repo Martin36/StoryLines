@@ -84,7 +84,7 @@ app.factory('Model', function ($cookies, $resource) {
       boards[boardIndex].cards = data;
       //TODO: Uncomment this when function is implemented
       //boards[boardIndex].myCards = getUsersCards(boardIndex);
-    
+
 
       //Calculate the statistics of the cards for this board
       //cardStats(boardIndex);
@@ -109,7 +109,7 @@ app.factory('Model', function ($cookies, $resource) {
   var getUsersCards = function(boardIndex){
 
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {
-     
+
     }
 
   };
@@ -210,16 +210,20 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
       for(var i = 0; i < listTypes.length; i++) {
         //Make sure that all the API calls has been done before adding the board
-        if(i == listTypes.length-1){
+        if(i == listTypes.length-1) {
           Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i], function () {
             boards.push(board); // Add new board to array
-            loadLists(boards.length-1, cb);
+            loadLists(boards.length-1, function(){
+              cb(board.id);
+            });
           })
         }
         //Adds lists to board
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
-    });
+    }
+
+    );
   };
 
   // Adds a new card to the api
@@ -298,11 +302,11 @@ app.factory('Model', function ($cookies, $resource) {
   this.addDescriptionToCard = function(card){
     Trello.put("cards/"+card.id+"/desc?value="+card.desc);
   };
-  
+
   this.changeNameOfCard = function (card) {
     Trello.put("cards/"+card.id +"/name?value="+card.name);
   }
-  
+
   this.deleteCard = function (boardId, cardId) {
     Trello.delete("cards/"+cardId);
     //Also delete from the model

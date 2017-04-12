@@ -17,6 +17,7 @@ angular.module('myApp.sidebar', [])
     // to a new one im model.
     $scope.boards = Model.getBoards;
     $scope.currentId = "";
+    $scope.loading = false;
 
     // Change view to the given page
     $scope.changeView = function(page) {
@@ -36,13 +37,17 @@ angular.module('myApp.sidebar', [])
     }
 
     $scope.newProject = function() {
-
-      Model.createNewBoard(function () {
-        //console.log($scope.boards());
+      $scope.loading = true;
+      Model.createNewBoard(function (boardId) {
+        $scope.goProjectPage(boardId);
+        $scope.loading = false;
         $scope.$digest();
+        $scope.$apply(); // Needed for page to change
       });
-      
+    }
 
+    $scope.showLoading = function() {
+      return ($scope.loading) ? 'is-loading' : '';
     }
 
     function setId(id){

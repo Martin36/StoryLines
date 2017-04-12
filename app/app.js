@@ -7,6 +7,7 @@
 // we need to inject the sub-modules firebase, auth0, angular-jwt, and angular-storage
 // (comments by Jori, April 03, 2017)
 
+// TODO: Skipp modules for controllers
 var app = angular.module('myApp', [
   'ngCookies',
   'ngRoute',

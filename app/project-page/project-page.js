@@ -1,6 +1,5 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
-angular.module('myApp.projectPage', [])
-  .controller('ProjectPageController', function ($scope, $routeParams, Model) {
+app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
     if(!Model.boardsLoaded()){
       $scope.loading = true;

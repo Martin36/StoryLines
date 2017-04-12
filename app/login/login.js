@@ -1,9 +1,7 @@
 /**
  * Created by marti on 2017-03-25.
  */
-
-angular.module('myApp.login', [])
-  .controller('LoginController', function ($cookies, $scope, $location,
+app.controller('LoginController', function ($cookies, $scope, $location,
     $firebaseAuth, Model) {
 
   //Remove cookies

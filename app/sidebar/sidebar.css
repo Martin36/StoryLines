@@ -39,3 +39,12 @@
 .button {
   border-radius: 0px;
 }
+.repeat-project {
+  animation: 1s fade_in;
+}
+
+/* Keyframes */
+@@keyframes fade_in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

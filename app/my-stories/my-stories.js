@@ -1,8 +1,7 @@
 /**
  * Created by marti on 2017-03-25.
  */
-angular.module('myApp.myStories', [])
-  .controller('MyStoriesController', function ($scope, Model) {
+app.controller('MyStoriesController', function ($scope, Model) {
 
     if(!Model.boardsLoaded()){
       $scope.loading = true;
@@ -32,7 +31,7 @@ angular.module('myApp.myStories', [])
     }else{
       loadBoards();
     }
-    
+
     $scope.removeID =function()
     {
         var iE1= angular.element(document.querySelector('#card1'));
@@ -40,5 +39,3 @@ angular.module('myApp.myStories', [])
     }
     }
 );
-
-

@@ -1,8 +1,7 @@
 /**
  * Created by marti on 2017-03-25.
  */
-angular.module('myApp.plannerHub', [])
-  .controller('PlannerHubController', function ($scope, $timeout, Model) {
+app.controller('PlannerHubController', function ($scope, $timeout, Model) {
     Chart.defaults.global.responsive = true;
 
     if(!Model.boardsLoaded()){

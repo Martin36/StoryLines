@@ -5,8 +5,7 @@
  /** The sub-module myApp.userScreen construction uses the angular.module method call
  * that takes the name of the new module as a string and an array of its dependencies
  */
-angular.module('myApp.userScreen', [])
-  .controller('UserScreenController', function ($routeParams, $rootScope, $scope, Model) {
+app.controller('UserScreenController', function ($routeParams, $rootScope, $scope, Model) {
 /*
         var myUser = this;
 

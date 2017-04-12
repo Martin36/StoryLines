@@ -17,7 +17,7 @@
         <!-- Show all main pages you can navigate to -->
         <p class="menu-label">Pages</p>
         <ul class="menu-list">
-          <li ng-repeat="page in pages">
+          <li ng-repeat="page in pages" class="repeat-project">
             <a ng-click="changeView(page.link)"
             ng-class="isActive('/{{page.link}}')">
             {{page.name}}

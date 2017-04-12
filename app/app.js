@@ -14,12 +14,7 @@ var app = angular.module('myApp', [
   'ngResource',
   'chart.js',
   'firebase',
-  'myApp.login',
-  'myApp.sidebar',
-  'myApp.myStories',
-  'myApp.plannerHub',
-  'myApp.projectPage',
-  'myApp.userScreen',
+  'ngAnimate',
   'bulma'
 ]).
 

@@ -79,8 +79,8 @@
 .loader2 {
   width: 180px;
   height: 180px;
-  border-left: 10px solid darkturquoise;
-  border-right: 10px solid darkturquoise;
+  border-left: 10px solid #00d1b2;
+  border-right: 10px solid #00d1b2;
   top: 10px; left: 10px;
   animation: anticlockwisespin 2s linear 3;
 }

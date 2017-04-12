@@ -113,7 +113,9 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title fixed-width">Are you sure you want to delete this card?</p>
+        <p class="modal-card-title fixed-width">Do you want to delete card
+          <span class="modal-card-title emph">{{clickedCard.name}}</span>?
+        </p>
         <button ng-click="cancel()" class="delete"></button>
       </header>
       <section class="modal-card-body">
@@ -127,7 +129,7 @@
     </div>
   </div>
 
-  <!-- Delete Board TODO: Use same modal as above?? -->
+  <!-- Delete Board TODO: Use same modal as above?? Yes -->
   <div class="modal is-active" ng-if="showDeleteBoard">  <!-- ng-if gets its own scope-->
     <div class="modal-background"></div>
     <div class="modal-card">

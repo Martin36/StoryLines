@@ -102,7 +102,7 @@
 }
 
 /* Keyframes */
-@@keyframes fade_in {
+@keyframes fade_in {
   from {opacity: 0;}
   to {opacity: 1;}
 }

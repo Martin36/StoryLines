@@ -222,23 +222,6 @@ app.factory('Model', function ($cookies, $resource) {
     });
   };
 
-  var getNewCards = function (boardId, cb) {
-    for(var i = 0; i < boards.length; i++){
-      if(boards[i].id == boardId){
-        var success = function (cards) {
-          cb(cards);
-        }
-
-        var error = function (errorMsg) {
-          console.log(errorMsg);
-        }
-
-        Trello.get('/boards/' + boardId + '/cards', success, error);
-      }
-    }
-
-  }
-
   // Adds a new card to the api
   this.addNewCard = function(boardId, listName, cardName, cb) {
     // Go throught all boards
@@ -250,9 +233,11 @@ app.factory('Model', function ($cookies, $resource) {
           // Find the correct list
           if(boards[i].lists[j].name == listName) {
             // Add new card to API
-            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName, function () {
+            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName, function (card) {
               //When the card is added to the API, add the card to our model
-              addNewCards(boardId, cb);
+              //addNewCards(boardId, cb);
+              boards[findBoardIndex(boardId)].cards.push(card);
+              cb();
             }, function (errorMsg) {
               console.log(errorMsg)
             });
@@ -264,17 +249,6 @@ app.factory('Model', function ($cookies, $resource) {
 
   };
 
-  function addNewCards(boardId, cb) {
-    getNewCards(boardId, function(newCards){
-      var boardIndex = findBoardIndex(boardId);
-      boards[boardIndex].cards = newCards;
-      //Default this card to low priority
-      boards[boardIndex].cardStats.lowPriority++;
-      cb();
-    });
-
-  }
-  
   function findBoardIndex(boardId) {
     for(var i = 0; i < boards.length; i++){
       if(boards[i].id == boardId){

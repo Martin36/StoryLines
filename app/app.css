@@ -95,6 +95,11 @@
 .repeat-project.ng-enter-active {
   opacity: 1;
 }
+.repeat-project.ng-leave {
+  color: red;
+  transition: 1s;
+  opacity: 0;
+}
 
 /* Keyframes */
 @@keyframes fade_in {

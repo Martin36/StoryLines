@@ -1,6 +1,8 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
 app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
+    $scope.isDeleted
+
     if(!Model.boardsLoaded()){
       $scope.loading = true;
     }
@@ -65,6 +67,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     $scope.cancel = function(){
       $scope.showEdit = false;
       $scope.showDelete = false;
+      $scope.showDeleteBoard = false;
     };
 
     $scope.showDeleteWarning = function (card) {
@@ -76,6 +79,21 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
       Model.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
     };
+
+    $scope.showDeleteBoardWarning = function() {
+      $scope.showDeleteBoard = true;
+    }
+
+    $scope.deleteBoard = function() {
+      Model.deleteBoard($routeParams.boardId);
+      $scope.showDeleteBoard = false;
+      $scope.deleted = true;
+    }
+
+    $scope.isDeleted = function() {
+      return Model.getBoard($routeParams.boardId);
+    }
+
     // Toggles the edit mode for project title
     function toggleEdit(){
       $scope.editMode = !$scope.editMode;

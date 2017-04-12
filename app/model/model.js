@@ -198,6 +198,7 @@ app.factory('Model', function ($cookies, $resource) {
       if(boards[i].id == id)
         return boards[i];
     }
+    return false; // If non existant
   }
 
   // Give the board with the id a new name
@@ -305,7 +306,7 @@ app.factory('Model', function ($cookies, $resource) {
 
   this.changeNameOfCard = function (card) {
     Trello.put("cards/"+card.id +"/name?value="+card.name);
-  }
+  };
 
   this.deleteCard = function (boardId, cardId) {
     Trello.delete("cards/"+cardId);
@@ -315,6 +316,15 @@ app.factory('Model', function ($cookies, $resource) {
         boards[i].cards = boards[i].cards.filter(function (card) {
           return card.id != cardId;
         });
+      }
+    }
+  };
+
+  this.deleteBoard = function(boardId) {
+    Trello.delete("boards/"+boardId);
+    for(var i = 0; i < boards.length; i++) {
+      if(boards[i].id == boardId){
+        boards.splice(i, 1);
       }
     }
   };

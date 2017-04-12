@@ -7,65 +7,75 @@
     <div class="loader2"></div>
   </div>
 
-  <!-- TODO: Show board title -->
-  <div class="columns">
-    <!-- Board title with edit button -->
-    <div class="column has-text-centered">
-      <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
-             ng-blur="saveTitle()" focus-me="isOpen"
-             class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
-      <span ng-click="editTitle()" class="icon is-medium" ng-if="!loading">
-          <i class="fa fa-pencil"></i>
-        </span>
-      </input>
-    </div>
+  <div ng-if="!isDeleted() && !loading">
+      <p class="title has-text-centered">Project has been deleted</p>
   </div>
 
-  <!--Display the different lists -->
-  <div class="columns">
-    <div class="column has-text-centered" ng-repeat="list in listsToShow">
-      <p class="title is-4 board">
-        {{list}}
-      </p>
-      <div class="card-wrapper">
-        <!-- Go through all cards -->
-        <span ng-repeat="card in board.cards" class="repeat-project">
-          <!-- Only show cards that are assigned to this list -->
-          <span ng-if="card.idList==listId(list)">
-            <div class="column is-12">
-              <div class="card fixed-height-card">
-                <p class="card-header-title">
-                  {{card.name}}
-                </p>
-                <div class="bu-dropdown">
-                  <a class="card-header-icon">
-                    <span class="icon">
-                      <i class="fa fa-angle-down"></i>
-                    </span>
-                  </a>
-                  <div class="bu-dropdown-body">
-                    <nav class="menu">
-                      <ul class="menu-list">
-                        <li><a ng-click="showEditBox(card)">Edit</a></li>
-                        <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div class="dropdown-content">
-              </div>
-            </div>
-          </span>
+  <!-- TODO: Show board title -->
+  <span ng-if="isDeleted()">
+    <div class="columns" ng-if="!deleted">
+      <!-- Board title with edit button -->
+      <div class="column has-text-centered">
+        <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
+               ng-blur="saveTitle()" focus-me="isOpen"
+               class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
+        <span ng-click="editTitle()" class="icon is-medium" ng-if="!loading">
+            <i class="fa fa-pencil"></i>
+        </span>
+        </input>
+        <span class="icon is-medium is-pulled-right"
+          ng-if="!loading" ng-click="showDeleteBoardWarning()">
+          <i class="fa fa-trash-o"></i>
         </span>
       </div>
-      <a ng-click="addCard(list)" class="button addCard">
-          <span class="icon is-medium">
-            <i class="fa fa-plus-square"></i>
-          </span>
-      </a>
     </div>
-  </div>
+
+    <!--Display the different lists -->
+    <div class="columns">
+      <div class="column has-text-centered" ng-repeat="list in listsToShow">
+        <p class="title is-4 board">
+          {{list}}
+        </p>
+        <div class="card-wrapper">
+          <!-- Go through all cards -->
+          <span ng-repeat="card in board.cards" class="repeat-project">
+            <!-- Only show cards that are assigned to this list -->
+            <span ng-if="card.idList==listId(list)">
+              <div class="column is-12">
+                <div class="card fixed-height-card">
+                  <p class="card-header-title">
+                    {{card.name}}
+                  </p>
+                  <div class="bu-dropdown">
+                    <a class="card-header-icon">
+                      <span class="icon">
+                        <i class="fa fa-angle-down"></i>
+                      </span>
+                    </a>
+                    <div class="bu-dropdown-body">
+                      <nav class="menu">
+                        <ul class="menu-list">
+                          <li><a ng-click="showEditBox(card)">Edit</a></li>
+                          <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown-content">
+                </div>
+              </div>
+            </span>
+          </span>
+        </div>
+        <a ng-click="addCard(list)" class="button addCard">
+            <span class="icon is-medium">
+              <i class="fa fa-plus-square"></i>
+            </span>
+        </a>
+      </div>
+    </div>
+  </span>
   <div class="modal is-active" ng-if="showEdit">  <!-- ng-if gets its own scope-->
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -110,6 +120,26 @@
         <!-- Content ... -->
 
         <a class="button is-danger" ng-click="deleteCard()">Delete</a>
+        <a class="button" ng-click="cancel()">Cancel</a>
+      </section>
+      <footer class="modal-card-foot">
+      </footer>
+    </div>
+  </div>
+
+  <!-- Delete Board TODO: Use same modal as above?? -->
+  <div class="modal is-active" ng-if="showDeleteBoard">  <!-- ng-if gets its own scope-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title fixed-width">Do you want to delete project
+          <span class="modal-card-title emph">{{board.name}}</span>?
+        </p>
+        <button ng-click="cancel()" class="delete"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <a class="button is-danger" ng-click="deleteBoard()">Delete</a>
         <a class="button" ng-click="cancel()">Cancel</a>
       </section>
       <footer class="modal-card-foot">

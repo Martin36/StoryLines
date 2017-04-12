@@ -2,10 +2,15 @@
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
+    if(!Model.boardsLoaded()){
+      $scope.loading = true;
+    }
+
     var loadBoards = function () {
       Model.loadData(function(){
         $scope.board = Model.getBoard($routeParams.boardId);
         $scope.listsToShow = Model.getListsToShow();
+        $scope.loading = false;
         $scope.$apply();
       });
     };
@@ -14,6 +19,7 @@ angular.module('myApp.projectPage', [])
     if(Model.boardsLoaded()){
       $scope.board = Model.getBoard($routeParams.boardId);
       $scope.listsToShow = Model.getListsToShow();
+      $scope.loading = false;
     }else{
       loadBoards();
     }

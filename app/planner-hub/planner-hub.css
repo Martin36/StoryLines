@@ -9,3 +9,8 @@
 .fixed-width{
     width: 75%;
 }
+
+.planner-hub-wrapper{
+    overflow-x: auto;
+    overflow-y: hidden;
+}

@@ -33,7 +33,7 @@ app.controller('SidebarController', function ($scope, $location, Model) {
     // Returns class is-active if path is the current page you are on.
     $scope.isActive = function (path) {
       return ($location.path().substr(0, path.length) === path) ? 'is-active' : '';
-    }
+    };
 
     $scope.newProject = function() {
       $scope.loading = true;
@@ -43,11 +43,16 @@ app.controller('SidebarController', function ($scope, $location, Model) {
         $scope.$digest();
         $scope.$apply(); // Needed for page to change
       });
-    }
+    };
 
     $scope.showLoading = function() {
       return ($scope.loading) ? 'is-loading' : '';
-    }
+    };
+    
+    $scope.logout = function () {
+      Model.logout();
+      $location.path('/login');
+    };
 
     function setId(id){
       $scope.currentId = id;

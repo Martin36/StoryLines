@@ -35,6 +35,9 @@ app.factory('Model', function ($cookies, $resource) {
     });
   };
 
+  this.logout = function () {
+    loggedIn = false;
+  }
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAnGNc08nedi09D3T-vSW-kLN_lFFEjcDA",

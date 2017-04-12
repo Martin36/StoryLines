@@ -1,6 +1,12 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
 <div class="our-content">
+  <!-- Loading screen -->
+  <div class="loader-frame" ng-if="loading">
+    <div class="loader1"></div>
+    <div class="loader2"></div>
+  </div>
+
   <!-- TODO: Show board title -->
   <div class="columns">
     <!-- Board title with edit button -->
@@ -8,7 +14,7 @@
       <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
              ng-blur="saveTitle()" focus-me="isOpen"
              class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
-      <span ng-click="editTitle()" class="icon is-medium">
+      <span ng-click="editTitle()" class="icon is-medium" ng-if="!loading">
           <i class="fa fa-pencil"></i>
         </span>
       </input>
@@ -43,8 +49,7 @@
                     <nav class="menu">
                       <ul class="menu-list">
                         <li><a ng-click="showEditBox(card)">Edit</a></li>
-                        <li><a ng-click="deleteCard(card)">Delete</a></li>
-                        <li><a>Move</a></li>
+                        <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
                       </ul>
                     </nav>
                   </div>
@@ -93,6 +98,23 @@
       <footer class="modal-card-foot">
         <a class="button is-success" ng-click="save()">Save changes</a>
         <a class="button" ng-click="cancel()">Cancel</a>
+      </footer>
+    </div>
+  </div>
+  <div class="modal is-active" ng-if="showDelete">  <!-- ng-if gets its own scope-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title fixed-width">Are you sure you want to delete this card?</p>
+        <button ng-click="cancel()" class="delete"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+
+        <a class="button is-danger" ng-click="deleteCard()">Delete</a>
+        <a class="button" ng-click="cancel()">Cancel</a>
+      </section>
+      <footer class="modal-card-foot">
       </footer>
     </div>
   </div>

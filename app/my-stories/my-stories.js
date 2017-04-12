@@ -4,6 +4,10 @@
 angular.module('myApp.myStories', [])
   .controller('MyStoriesController', function ($scope, Model) {
 
+    if(!Model.boardsLoaded()){
+      $scope.loading = true;
+    }
+
     $scope.showdetails =function (){
       $scope.showModal =true;
     };
@@ -18,11 +22,13 @@ angular.module('myApp.myStories', [])
     var loadBoards = function () {
       Model.loadData(function(){
         $scope.boards = Model.getBoards();
+        $scope.loading = false;
         $scope.$apply();
       });
     };
     if(Model.boardsLoaded()){
       $scope.boards = Model.getBoards();
+      $scope.loading = false;
     }else{
       loadBoards();
     }

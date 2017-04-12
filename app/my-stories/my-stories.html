@@ -1,6 +1,12 @@
 <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
 
 <div class="our-content" ng-controller="MyStoriesController">
+  <!-- Loading screen -->
+  <div class="loader-frame" ng-if="loading">
+    <div class="loader1"></div>
+    <div class="loader2"></div>
+  </div>
+
   <div class="project" ng-repeat="board in boards">
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>

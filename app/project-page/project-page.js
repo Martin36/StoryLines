@@ -2,10 +2,15 @@
 angular.module('myApp.projectPage', [])
   .controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
+    if(!Model.boardsLoaded()){
+      $scope.loading = true;
+    }
+
     var loadBoards = function () {
       Model.loadData(function(){
         $scope.board = Model.getBoard($routeParams.boardId);
         $scope.listsToShow = Model.getListsToShow();
+        $scope.loading = false;
         $scope.$apply();
       });
     };
@@ -14,11 +19,14 @@ angular.module('myApp.projectPage', [])
     if(Model.boardsLoaded()){
       $scope.board = Model.getBoard($routeParams.boardId);
       $scope.listsToShow = Model.getListsToShow();
+      $scope.loading = false;
     }else{
       loadBoards();
     }
 
     $scope.showEdit = false;
+    $scope.showDelete = false;
+
     //$scope.clickedCard;
     $scope.desc = "";
 
@@ -57,10 +65,17 @@ angular.module('myApp.projectPage', [])
     };
     $scope.cancel = function(){
       $scope.showEdit = false;
+      $scope.showDelete = false;
     };
 
-    $scope.deleteCard = function(card){
-      Model.deleteCard($routeParams.boardId, card.id);
+    $scope.showDeleteWarning = function (card) {
+      $scope.clickedCard = card;
+      $scope.showDelete = true;
+    };
+
+    $scope.deleteCard = function(){
+      Model.deleteCard($routeParams.boardId, $scope.clickedCard.id);
+      $scope.showDelete = false;
     };
     // Toggles the edit mode for project title
     function toggleEdit(){

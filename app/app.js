@@ -12,9 +12,9 @@ var app = angular.module('myApp', [
   'ngCookies',
   'ngRoute',
   'ngResource',
+  'ngAnimate',
   'chart.js',
   'firebase',
-  'ngAnimate',
   'bulma'
 ]).
 

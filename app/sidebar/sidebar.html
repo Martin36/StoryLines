@@ -15,9 +15,18 @@
       <!-- TODO: Add the navigation buttons -->
       <div class="column">
         <!-- Show all main pages you can navigate to -->
+        <p class="menu-label">
+          Administration
+        </p>
+        <ul class="menu-list">
+          <li><a>Trello status</a></li>
+          <li><a>Firebase thing. Google?</a></li>
+          <li><a>Settings</a></li>
+        </ul>
+
         <p class="menu-label">Pages</p>
         <ul class="menu-list">
-          <li ng-repeat="page in pages" class="repeat-project">
+          <li ng-repeat="page in pages">
             <a ng-click="changeView(page.link)"
             ng-class="isActive('/{{page.link}}')">
             {{page.name}}
@@ -28,23 +37,14 @@
         <p class="menu-label">
           Projects
         </p>
-        <ul class="menu-list">
+        <ul class="menu-list projects">
           <!-- Runs the function assigned to board in controller -->
-          <li ng-repeat="board in boards()">
+          <li ng-repeat="board in boards()" class="repeat-project">
             <a ng-click="goProjectPage(board.id)"
               ng-class="isActive('/projectPage/{{board.id}}')">
               {{board.name}}
             </a>
           </li>
-        </ul>
-
-        <p class="menu-label">
-          Administration
-        </p>
-        <ul class="menu-list">
-          <li><a>Trello status</a></li>
-          <li><a>Firebase thing. Google?</a></li>
-          <li><a>Settings</a></li>
         </ul>
       </div>
 

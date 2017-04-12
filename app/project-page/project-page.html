@@ -22,8 +22,6 @@
   </div>
 
   <!--Display the different lists -->
-  <!-- TODO: Always show the default lists and see if there exists cards for those -->
-  <!-- TODO: Filter to show only the four lists -->
   <div class="columns">
     <div class="column has-text-centered" ng-repeat="list in listsToShow">
       <p class="title is-4 board">
@@ -31,7 +29,7 @@
       </p>
       <div class="card-wrapper">
         <!-- Go through all cards -->
-        <span ng-repeat="card in board.cards">
+        <span ng-repeat="card in board.cards" class="repeat-project">
           <!-- Only show cards that are assigned to this list -->
           <span ng-if="card.idList==listId(list)">
             <div class="column is-12">

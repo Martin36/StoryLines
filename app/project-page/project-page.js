@@ -25,6 +25,8 @@ angular.module('myApp.projectPage', [])
     }
 
     $scope.showEdit = false;
+    $scope.showDelete = false;
+
     //$scope.clickedCard;
     $scope.desc = "";
 
@@ -63,10 +65,17 @@ angular.module('myApp.projectPage', [])
     };
     $scope.cancel = function(){
       $scope.showEdit = false;
+      $scope.showDelete = false;
     };
 
-    $scope.deleteCard = function(card){
-      Model.deleteCard($routeParams.boardId, card.id);
+    $scope.showDeleteWarning = function (card) {
+      $scope.clickedCard = card;
+      $scope.showDelete = true;
+    };
+
+    $scope.deleteCard = function(){
+      Model.deleteCard($routeParams.boardId, $scope.clickedCard.id);
+      $scope.showDelete = false;
     };
     // Toggles the edit mode for project title
     function toggleEdit(){

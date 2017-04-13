@@ -8,13 +8,10 @@
     justify-content: space-between;
     padding: 10px;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
 }
-
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -23,25 +20,27 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
-
 .card-wrapper {
     overflow-y: auto;
     overflow-x: hidden;
     height: 50vh;
 }
-
 .no-box{
     border: 0 solid;
     background: none;
 }
-
 .emph {
   color: red;
+}
+.hover-red:hover {
+  color: hsl(14, 100%, 53%);
+}
+.hover-blue:hover {
+  color: hsl(217, 71%, 53%)
 }

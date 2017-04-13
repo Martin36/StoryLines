@@ -11,21 +11,22 @@
       <p class="title has-text-centered">Project has been deleted</p>
   </div>
 
-  <!-- TODO: Show board title -->
+  <!-- Hide if board has been deleted -->
+  <!-- TODO: Changes scope so editMode cant't be found -->
   <span ng-if="isDeleted()">
-    <div class="columns" ng-if="!deleted">
+    <div class="columns">
       <!-- Board title with edit button -->
       <div class="column has-text-centered">
         <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
                ng-blur="saveTitle()" focus-me="isOpen"
                class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
-        <span ng-click="editTitle()" class="icon is-medium" ng-if="!loading">
-            <i class="fa fa-pencil"></i>
+        <span ng-click="editTitle()" class="icon is-medium">
+            <i class="fa fa-pencil hover-blue"></i>
         </span>
         </input>
         <span class="icon is-medium is-pulled-right"
           ng-if="!loading" ng-click="showDeleteBoardWarning()">
-          <i class="fa fa-trash-o"></i>
+          <i class="fa fa-trash-o hover-red"></i>
         </span>
       </div>
     </div>

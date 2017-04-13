@@ -1,8 +1,6 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
 app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
-    $scope.isDeleted
-
     if(!Model.boardsLoaded()){
       $scope.loading = true;
     }
@@ -99,6 +97,5 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
       $scope.editMode = !$scope.editMode;
       $scope.isOpen = !$scope.isOpen;
     }
-
 
   });

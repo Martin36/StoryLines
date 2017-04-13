@@ -39,8 +39,10 @@
   color: red;
 }
 .hover-red:hover {
+  cursor: pointer;
   color: hsl(14, 100%, 53%);
 }
 .hover-blue:hover {
+  cursor: pointer;
   color: hsl(217, 71%, 53%)
 }

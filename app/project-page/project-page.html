@@ -17,8 +17,8 @@
     <div class="columns">
       <!-- Board title with edit button -->
       <div class="column has-text-centered">
-        <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
-               ng-blur="saveTitle()" focus-me="isOpen"
+        <input ng-model="board.name" ng-disabled="!edit.title"
+               ng-blur="saveTitle()" focus-me="edit.titleFocus"
                class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
         <span ng-click="editTitle()" class="icon is-medium">
             <i class="fa fa-pencil hover-blue"></i>

@@ -1,6 +1,11 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
 app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
+    $scope.edit = {
+      title: false,
+      titleFocus: false
+    }
+
     if(!Model.boardsLoaded()){
       $scope.loading = true;
     }
@@ -93,9 +98,9 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     }
 
     // Toggles the edit mode for project title
-    function toggleEdit(){
-      $scope.editMode = !$scope.editMode;
-      $scope.isOpen = !$scope.isOpen;
+    toggleEdit = function(){
+      $scope.edit["title"] = !$scope.edit["title"];
+      $scope.edit["titleFocus"] = !$scope.edit["titleFocus"]
     }
 
   });

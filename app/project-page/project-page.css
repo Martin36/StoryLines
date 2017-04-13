@@ -39,8 +39,8 @@
   color: red;
 }
 .hover-red:hover {
-  color: red;
+  color: hsl(14, 100%, 53%);
 }
 .hover-blue:hover {
-  color: blue;
+  color: hsl(217, 71%, 53%)
 }

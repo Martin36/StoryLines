@@ -12,16 +12,16 @@
   </div>
 
   <!-- Hide if board has been deleted -->
+  <!-- TODO: Changes scope so editMode cant't be found -->
   <span ng-if="isDeleted()">
-    <div class="columns" ng-if="!deleted">
+    <div class="columns">
       <!-- Board title with edit button -->
       <div class="column has-text-centered">
         <input ng-model="board.name" ng-init="editMode=false" ng-disabled="!editMode"
                ng-blur="saveTitle()" focus-me="isOpen"
                class="title is-3 has-text-centered no-box" size="{{board.name.length}}">
-               {{editMode}}
         <span ng-click="editTitle()" class="icon is-medium">
-            <i class="fa fa-pencil"></i>
+            <i class="fa fa-pencil hover-blue"></i>
         </span>
         </input>
         <span class="icon is-medium is-pulled-right"

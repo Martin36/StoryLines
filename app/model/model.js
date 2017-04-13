@@ -226,8 +226,16 @@ app.factory('Model', function ($cookies, $resource) {
         Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
       }
     }
-
     );
+  };
+  this.createNewBoard2 = function(cb) {
+    Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
+      //boards.push(board);
+      cb(board);
+    });
+  };
+  this.addBoard = function(board) {
+    boards.push(board);
   };
 
   // Adds a new card to the api

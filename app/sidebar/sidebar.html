@@ -1,4 +1,4 @@
-<div ng-controller="SidebarController">
+<div ng-controller="SidebarController" ng-if="shouldIHide()">
   <!-- Sidebar -->
   <div class="column is-one-quarter">
     <div class="sidebar">
@@ -14,17 +14,6 @@
       </p>
       <!-- TODO: Add the navigation buttons -->
       <div class="column">
-        <!-- Show all main pages you can navigate to -->
-        <!--
-        <p class="menu-label">
-          Administration
-        </p>
-        <ul class="menu-list">
-          <li><a>Trello status</a></li>
-          <li><a>Firebase thing. Google?</a></li>
-          <li><a>Settings</a></li>
-        </ul>
--->
         <p class="menu-label">Pages</p>
         <ul class="menu-list">
           <li ng-repeat="page in pages">

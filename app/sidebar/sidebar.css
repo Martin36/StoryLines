@@ -72,9 +72,6 @@
 .repeat-project.ng-enter-stagger {
   transition-delay: 1s;
 }
-.repeat-project.ng-enter-active {
-  opacity: 1;
-}
 .repeat-project.ng-leave {
   background-color: red;
   animation: 1s slide_out;
@@ -82,7 +79,10 @@
 
 /* Keyframes */
 @keyframes fade_in {
-  from {opacity: 0;}
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
   to {opacity: 1;}
 }
 @keyframes slide_out {

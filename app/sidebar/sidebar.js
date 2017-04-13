@@ -11,9 +11,6 @@ app.controller('SidebarController', function ($scope, $location, Model) {
       "link": "myStories"
     }];
 
-    // Points to function rather than array itself!
-    // Then it won't loose track of array if it's assigned
-    // to a new one im model.
     $scope.boards = Model.getBoards;
     $scope.currentId = "";
     $scope.loading = false;
@@ -35,12 +32,17 @@ app.controller('SidebarController', function ($scope, $location, Model) {
       return ($location.path().substr(0, path.length) === path) ? 'is-active' : '';
     };
 
+    // Determines if the sidebar should be hidden or not
+    $scope.shouldIHide = function() {
+      var path = "/login";
+      return ($location.path().substr(0, path.length) === path) ? false : true;
+    };
+
     $scope.newProject = function() {
       $scope.loading = true;
       Model.createNewBoard(function (boardId) {
         $scope.goProjectPage(boardId);
         $scope.loading = false;
-        $scope.$digest();
         $scope.$apply(); // Needed for page to change
       });
     };
@@ -48,7 +50,7 @@ app.controller('SidebarController', function ($scope, $location, Model) {
     $scope.showLoading = function() {
       return ($scope.loading) ? 'is-loading' : '';
     };
-    
+
     $scope.logout = function () {
       Model.logout();
       $location.path('/login');

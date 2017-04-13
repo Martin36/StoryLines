@@ -2,7 +2,7 @@
  * Created by marti on 2017-03-26.
  */
 app.controller('SidebarController', function ($scope, $location, Model) {
-
+    $scope.showSidebar = true;
     $scope.pages = [{
       "name": "Planner Hub",
       "link": "plannerHub"
@@ -54,8 +54,10 @@ app.controller('SidebarController', function ($scope, $location, Model) {
       $location.path('/login');
     };
 
+
     function setId(id){
       $scope.currentId = id;
     }
+    $scope.showSidebar = false;
 
 });

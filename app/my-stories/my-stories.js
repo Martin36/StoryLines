@@ -7,14 +7,15 @@ app.controller('MyStoriesController', function ($scope, Model) {
       $scope.loading = true;
     }
 
-    $scope.showdetails =function (){
-      $scope.showModal =true;
+    $scope.showdetails =function (card){
+      $scope.clickedCard = card;
+      $scope.showEdit =true;
     };
     $scope.save = function () {
-      $scope.showModal = false;
+      $scope.showEdit = false;
     };
     $scope.cancel = function () {
-      $scope.showModal = false;
+      $scope.showEdit = false;
     };
     $scope.styleOptions = {"1":"blue","2":"violet","3":"yellow","4":"red"};
 

@@ -114,12 +114,15 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   //TODO: Return all the cards that is assigned to the logged in user
-  var getUsersCards = function(boardIndex){
-
+  var myCards = function(boardIndex){
+    boards[boardIndex].myCards = [];
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {
-      for(var j = 0; j < boards[i].cards.length; j++){
-        var memberIds = boards[i].cards[j].idMembers;
-
+      var currentCard = boards[boardIndex].cards[i];
+      var memberIds = currentCard.idMembers;
+      for(var j = 0; j < memberIds.length; j++){
+        if(memberIds[j] == userId){
+          boards[boardIndex].myCards.push(currentCard);
+        }
       }
     }
 
@@ -128,6 +131,8 @@ app.factory('Model', function ($cookies, $resource) {
   var cardStats = function (cb) {
 
     for(var i = 0; i < boards.length; i++){
+      //Add my cards to the board
+      myCards(i);
       //Create array for holding the stats
       boards[i].cardStats = {
         mediumPriority : 0,

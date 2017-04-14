@@ -11,7 +11,7 @@ app.controller('MyStoriesController', function ($scope, Model) {
       $scope.clickedCard = card;
       $scope.showEdit =true;
     };
-    $scope.save = function () {
+    $scope.done = function () {
       $scope.showEdit = false;
     };
     $scope.cancel = function () {

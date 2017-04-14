@@ -11,6 +11,7 @@ app.factory('Model', function ($cookies, $resource) {
   //console.log($cookies.get("boards"));
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
+  var userId;
 
   //Authorize to the trello api
   this.authorize = function(cb, shouldLoadBoards) {
@@ -61,7 +62,11 @@ app.factory('Model', function ($cookies, $resource) {
     var error = function(errorMsg) {
       console.log(errorMsg);
     };
-    Trello.get('/member/me/boards', success, error);
+    //First load the user Id
+    Trello.get('/member/me', function (data) {
+      userId = data.id;
+      Trello.get('/member/me/boards', success, error);
+    });
   };
 
   var loadLists = function (boardIndex, cb) {
@@ -112,7 +117,10 @@ app.factory('Model', function ($cookies, $resource) {
   var getUsersCards = function(boardIndex){
 
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {
+      for(var j = 0; j < boards[i].cards.length; j++){
+        var memberIds = boards[i].cards[j].idMembers;
 
+      }
     }
 
   };

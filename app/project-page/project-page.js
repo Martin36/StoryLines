@@ -98,11 +98,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     }
 
     $scope.toggleDropdown = function (card) {
-      if(card.showDropdown){
-        card.showDropdown = false;
-      }else{
-        card.showDropdown = true;
-      }
+      card.showDropdown = !card.showDropdown;
     };
 
     $scope.closeDropdown = function (card) {

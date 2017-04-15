@@ -64,3 +64,11 @@
 /*    border-radius: 20px;*/
     padding: 10px;
 }
+
+.sub-menu a {
+    color: black;
+}
+
+.sub-menu a:hover {
+    color: gray;
+}

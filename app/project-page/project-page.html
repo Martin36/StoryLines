@@ -42,40 +42,38 @@
           <span ng-repeat="card in board.cards" class="repeat-project">
             <!-- Only show cards that are assigned to this list -->
             <span ng-if="card.idList==listId(list)">
-              <div class="column is-12">
-                <div class="card fixed-height-card">
-                  <p class="card-header-title">
-                    {{card.name}}
-                  </p>
-                  <a class="card-header-icon" ng-click="toggleDropdown(card)">
+              <div class="card fixed-height-card">
+                <p class="card-header-title">
+                  {{card.name}}
+                </p>
+                <a class="card-header-icon" ng-click="toggleDropdown(card)">
+                  <span class="icon">
+                    <i class="fa fa-angle-down"></i>
+                  </span>
+                </a>
+                <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
+                  <li><a ng-click="showEditBox(card)">Edit</a></li>
+                  <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
+                </ul>
+                <!--
+                <div class="bu-dropdown">
+                  <a class="card-header-icon">
                     <span class="icon">
                       <i class="fa fa-angle-down"></i>
                     </span>
                   </a>
-                  <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
-                    <li><a ng-click="showEditBox(card)">Edit</a></li>
-                    <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
-                  </ul>
-                  <!--
-                  <div class="bu-dropdown">
-                    <a class="card-header-icon">
-                      <span class="icon">
-                        <i class="fa fa-angle-down"></i>
-                      </span>
-                    </a>
-                    <div class="bu-dropdown-body">
-                      <nav class="menu">
-                        <ul class="menu-list">
-                          <li><a ng-click="showEditBox(card)">Edit</a></li>
-                          <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
-                        </ul>
-                      </nav>
-                    </div>
+                  <div class="bu-dropdown-body">
+                    <nav class="menu">
+                      <ul class="menu-list">
+                        <li><a ng-click="showEditBox(card)">Edit</a></li>
+                        <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
+                      </ul>
+                    </nav>
                   </div>
-                  -->
                 </div>
-                <div class="dropdown-content">
-                </div>
+                -->
+              </div>
+              <div class="dropdown-content">
               </div>
             </span>
           </span>

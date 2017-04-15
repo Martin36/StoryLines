@@ -1,12 +1,12 @@
 .fixed-height-card{
     border-radius: 20px;
-    margin-left: 10px;
     min-height: 80px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    margin: 10px;
 }
 .dropdown {
     position: relative;

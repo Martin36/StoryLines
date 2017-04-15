@@ -15,7 +15,8 @@ var app = angular.module('myApp', [
   'ngAnimate',
   'chart.js',
   'firebase',
-  'bulma'
+  'bulma',
+  'angular-click-outside'
 ]).
 
 // Passing in $routeProvider, responsible for the configuration of routes

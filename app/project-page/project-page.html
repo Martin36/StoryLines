@@ -52,7 +52,7 @@
                       <i class="fa fa-angle-down"></i>
                     </span>
                   </a>
-                  <ul class="sub-menu" ng-show="card.showDropdown">
+                  <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
                     <li><a ng-click="showEditBox(card)">Edit</a></li>
                     <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
                   </ul>

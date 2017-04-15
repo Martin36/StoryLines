@@ -1,8 +1,7 @@
 /**
  * Created by marti on 2017-03-25.
  */
-app.controller('LoginController', function ($cookies, $scope, $location,
-    $firebaseAuth, Model) {
+app.controller('LoginController', function ($scope, $location, Model) {
 
   // Authenticate with google to firebase
   // TODO: Custom token from trello login maybe??

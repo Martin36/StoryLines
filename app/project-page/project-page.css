@@ -53,11 +53,14 @@
 
 .sub-menu{
     position: absolute;
-    top: 100%;
+    top: 90%;
+    left: 80%;
 /*    display: none;*/
     z-index: 1;
 /*    transition:opacity linear 0.15s;*/
     box-shadow:0px 2px 3px rgba(0,0,0,0.2);
+    border: 3px;
     background: white;
-
+/*    border-radius: 20px;*/
+    padding: 10px;
 }

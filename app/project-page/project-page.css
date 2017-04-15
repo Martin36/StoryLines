@@ -53,7 +53,7 @@
 
 .sub-menu{
     position: absolute;
-    top: 90%;
+    top: 60%;
     left: 80%;
 /*    display: none;*/
     z-index: 1;

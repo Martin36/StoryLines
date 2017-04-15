@@ -97,6 +97,9 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
       return Model.getBoard($routeParams.boardId);
     }
 
+    $scope.toggleDropdown = function (card) {
+      card.showDropdown = true;
+    }
     // Toggles the edit mode for project title
     toggleEdit = function(){
       $scope.edit["title"] = !$scope.edit["title"];

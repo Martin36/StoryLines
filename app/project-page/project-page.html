@@ -8,7 +8,7 @@
   </div>
 
   <div ng-if="!isDeleted() && !loading">
-      <p class="title has-text-centered">Project has been deleted</p>
+    <p class="title has-text-centered">Project has been deleted</p>
   </div>
 
   <!-- Hide if board has been deleted -->
@@ -25,7 +25,7 @@
         </span>
         </input>
         <span class="icon is-medium is-pulled-right"
-          ng-if="!loading" ng-click="showDeleteBoardWarning()">
+              ng-if="!loading" ng-click="showDeleteBoardWarning()">
           <i class="fa fa-trash-o hover-red"></i>
         </span>
       </div>
@@ -47,6 +47,16 @@
                   <p class="card-header-title">
                     {{card.name}}
                   </p>
+                  <a class="card-header-icon" ng-click="toggleDropdown(card)">
+                    <span class="icon">
+                      <i class="fa fa-angle-down"></i>
+                    </span>
+                  </a>
+                  <ul class="sub-menu" ng-show="card.showDropdown">
+                    <li><a ng-click="showEditBox(card)">Edit</a></li>
+                    <li><a ng-click="showDeleteWarning(card)">Delete</a></li>
+                  </ul>
+                  <!--
                   <div class="bu-dropdown">
                     <a class="card-header-icon">
                       <span class="icon">
@@ -62,6 +72,7 @@
                       </nav>
                     </div>
                   </div>
+                  -->
                 </div>
                 <div class="dropdown-content">
                 </div>
@@ -90,7 +101,7 @@
           <label class="label">Name</label>
           <p class="control">
             <input data-ng-model="clickedCard.name" class="input" type="text"
-                      placeholder="Name of the card">
+                   placeholder="Name of the card">
             </input>
           </p>
         </div>

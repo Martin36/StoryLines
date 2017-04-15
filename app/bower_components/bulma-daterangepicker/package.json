@@ -1,0 +1,36 @@
+{
+  "name": "bulma-daterangepicker",
+  "version": "2.2.2",
+  "description": "Date range picker component for Bulma",
+  "main": "daterangepicker.js",
+  "style": "daterangepicker.css",
+  "scripts": {
+    "scss": "node-sass daterangepicker.scss > daterangepicker.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gfpacheco/bulma-daterangepicker.git"
+  },
+  "author": {
+    "name": "Guilherme Pacheco",
+    "email": "guilherme.f.pacheco@gmail.com",
+    "url": "http://www.gfpacheco.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gfpacheco/bulma-daterangepicker/issues"
+  },
+  "homepage": "https://github.com/gfpacheco/bulma-daterangepicker",
+  "dependencies": {
+    "jquery": ">=1.10",
+    "moment": "^2.9.0"
+  },
+  "peerDependencies": {
+    "bulma": "^0.1.2"
+  },
+  "devDependencies": {
+    "bulma": "^0.1.2",
+    "node-sass": "^3.4.2"
+  }
+}

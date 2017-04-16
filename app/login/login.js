@@ -19,8 +19,8 @@ app.controller('LoginController', function ($cookies, $scope, $location,
     }else{
       Model.authorize(function () {
         $location.path('/plannerHub');
-        //$scope.$apply();
       }, false);
     }
+    $scope.$evalAsync();
   };
 });

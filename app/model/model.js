@@ -92,8 +92,6 @@ app.factory('Model', function ($cookies, $resource) {
       boards[boardIndex].cards = data;
       //TODO: Uncomment this when function is implemented
       //boards[boardIndex].myCards = getUsersCards(boardIndex);
-
-
       //Calculate the statistics of the cards for this board
       //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
@@ -110,7 +108,6 @@ app.factory('Model', function ($cookies, $resource) {
       console.log(errorMsg);
     };
     Trello.get('/boards/' + boardId + '/cards', success, error);
-
   };
 
   //TODO: Return all the cards that is assigned to the logged in user
@@ -125,7 +122,6 @@ app.factory('Model', function ($cookies, $resource) {
         }
       }
     }
-
   };
 
   var cardStats = function (cb) {
@@ -281,28 +277,23 @@ app.factory('Model', function ($cookies, $resource) {
 
   // Return the lists from the board
   // Return null if it don't exist
-  function getList(lists, listName) {
-    if(lists.length == 0){
-      return null;
-    }
-    else {
-      for(var i = 0; i < lists.length; i++) {
-        if(lists[i].name == listName){
-          return lists[i];
-        }
+  var getList = function(lists, listName) {
+    for(var i = 0; i < lists.length; i++) {
+      if(lists[i].name == listName){
+        return lists[i];
       }
     }
     return null;
   }
 
-  function findBoardIndex(boardId) {
+  var findBoardIndex = function(boardId) {
     for(var i = 0; i < boards.length; i++){
       if(boards[i].id == boardId){
         return i;
       }
-
     }
   }
+
   this.isLoggedIn = function () {
     return loggedIn;
   };
@@ -392,5 +383,4 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   return this;
-
 });

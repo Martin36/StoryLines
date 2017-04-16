@@ -241,12 +241,7 @@ app.factory('Model', function ($cookies, $resource) {
     }
     );
   };
-  this.createNewBoard2 = function(cb) {
-    Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
-      //boards.push(board);
-      cb(board);
-    });
-  };
+
   this.addBoard = function(board) {
     boards.push(board);
   };
@@ -256,27 +251,49 @@ app.factory('Model', function ($cookies, $resource) {
     // Go throught all boards
     for(var i = 0; i < boards.length; i++){
       // Find board with the correct id
-      if(boards[i].id == boardId){
-        // Go through all lists in that board
-        for(var j = 0; j < boards[i].lists.length; j++) {
-          // Find the correct list
-          if(boards[i].lists[j].name == listName) {
-            // Add new card to API
-            Trello.post('cards?idList='+boards[i].lists[j].id+"&name="+cardName, function (card) {
-              //When the card is added to the API, add the card to our model
-              //addNewCards(boardId, cb);
-              boards[findBoardIndex(boardId)].cards.push(card);
-              cb();
-            }, function (errorMsg) {
-              console.log(errorMsg)
-            });
-          }
+      if(boards[i].id == boardId) {
+        // Check if the list exist (If board was created on trello)
+        var list = getList(boards[i].lists, listName);
+        // Create board if it didn't exist
+        if(list == null) {
+          Trello.post('/lists?idBoard='+boardId+'&name='+listName, function(newList){
+            boards[findBoardIndex(boardId)].lists.push(newList);
+            addCardToList(newList.id, boardId, cardName, cb);
+          });
+        } else {
+          addCardToList(list.id, boardId, cardName, cb);
         }
       }
     }
-
-
   };
+
+  // Adds a card to the given list
+  function addCardToList(listId, boardId, cardName, cb){
+    // Add new card to API
+    Trello.post('cards?idList='+listId+"&name="+cardName, function (card) {
+      //When the card is added to the API, add the card to our model
+      boards[findBoardIndex(boardId)].cards.push(card);
+      cb();
+    }, function (errorMsg) {
+      console.log(errorMsg)
+    });
+  }
+
+  // Return the lists from the board
+  // Return null if it don't exist
+  function getList(lists, listName) {
+    if(lists.length == 0){
+      return null;
+    }
+    else {
+      for(var i = 0; i < lists.length; i++) {
+        if(lists[i].name == listName){
+          return lists[i];
+        }
+      }
+    }
+    return null;
+  }
 
   function findBoardIndex(boardId) {
     for(var i = 0; i < boards.length; i++){

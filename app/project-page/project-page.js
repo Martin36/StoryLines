@@ -15,7 +15,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
         $scope.board = Model.getBoard($routeParams.boardId);
         $scope.listsToShow = Model.getListsToShow();
         $scope.loading = false;
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
 
@@ -42,7 +42,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     $scope.addCard = function(listName) {
       Model.addNewCard($routeParams.boardId, listName, listName, function () {
         $scope.board = Model.getBoard($routeParams.boardId);
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
 

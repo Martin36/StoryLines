@@ -30,7 +30,7 @@ app.controller('PlannerHubController', function ($scope, $timeout, Model) {
         console.log($scope.boards[0]);
         //Extract the values in the data from the boards
         $scope.loading = false;
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
     if(Model.boardsLoaded()){

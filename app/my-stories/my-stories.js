@@ -23,7 +23,7 @@ app.controller('MyStoriesController', function ($scope, Model) {
       Model.loadData(function(){
         $scope.boards = Model.getBoards();
         $scope.loading = false;
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
     if(Model.boardsLoaded()){

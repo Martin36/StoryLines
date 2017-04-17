@@ -33,6 +33,14 @@ app.controller('MyStoriesController', function ($scope, Model) {
       loadBoards();
     }
 
+    $scope.toggleDropdown = function (card) {
+      card.showDropdown = !card.showDropdown;
+    };
+
+    $scope.closeDropdown = function (card) {
+      card.showDropdown = false;
+    };
+
     $scope.removeID =function()
     {
         var iE1= angular.element(document.querySelector('#card1'));

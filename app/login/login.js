@@ -16,11 +16,12 @@ app.controller('LoginController', function ($cookies, $scope, $location,
   $scope.login = function () {
     if(Model.isLoggedIn()){
       $location.path('/plannerHub');
+      $scope.$evalAsync();
     }else{
       Model.authorize(function () {
         $location.path('/plannerHub');
+        $scope.$evalAsync();
       }, false);
     }
-    $scope.$evalAsync();
   };
 });

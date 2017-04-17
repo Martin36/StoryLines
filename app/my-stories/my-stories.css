@@ -24,3 +24,9 @@ box-shadow: 2px 0px 10px #888888;
 .card-row {
     margin-right: 25px;
 }
+
+.card-content .sub-menu{
+    top: 52%;
+    left: 45%;
+
+}

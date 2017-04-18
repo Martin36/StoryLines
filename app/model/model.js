@@ -296,7 +296,7 @@ app.factory('Model', function ($cookies, $resource) {
   // Adds a card to the given list
   function addCardToList(listId, boardId, cardName, cb){
     // Add new card to API
-    Trello.post('cards?idList='+listId+"&name="+cardName, function (card) {
+    Trello.post('cards?idList='+listId+"&name="+cardName+'&idMembers='+userId, function (card) {
       //When the card is added to the API, add the card to our model
       boards[findBoardIndex(boardId)].cards.push(card);
       cb();
@@ -380,7 +380,6 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   this.changeLabelOfCard = function (boardId, card) {
-
     var labelId = getLabelId(boardId, card.label);
     Trello.post("cards/"+card.id+"/idLabels?value="+labelId);
   };

@@ -40,6 +40,12 @@
               <!-- Content ... -->
 
               <div class="field">
+				   <!-- Content ... -->
+				<div id="labels" ng-repeat="data in labels"> 
+					<span ng-if="data == 'High Priority'" class="card-label-red" title="High Priority"> myStyle</span>
+					<span ng-if="data == 'Medium Priority'" class="card-label-green" title="Medium Priority">Medium Priority </span>
+					<span ng-if="data == 'Low Priority'"class="card-label-blue" title="Low Priority">Low Priority </span>
+				</div>
                 <label class="label">Description</label>
                 <p class="control">
                   {{clickedCard.desc}}

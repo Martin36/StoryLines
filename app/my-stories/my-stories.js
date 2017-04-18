@@ -17,8 +17,7 @@ app.controller('MyStoriesController', function ($scope, Model) {
     $scope.cancel = function () {
       $scope.showEdit = false;
     };
-    $scope.styleOptions = {"1":"blue","2":"violet","3":"yellow","4":"red"};
-
+   
     var loadBoards = function () {
       Model.loadData(function(){
         $scope.boards = Model.getBoards();
@@ -40,11 +39,6 @@ app.controller('MyStoriesController', function ($scope, Model) {
     $scope.closeDropdown = function (card) {
       card.showDropdown = false;
     };
-
-    $scope.removeID =function()
-    {
-        var iE1= angular.element(document.querySelector('#card1'));
-        iE1.remove();
-    }
-    }
+	$scope.labels=["High Priority","Medium Priority", "Low Priority"];
+}
 );

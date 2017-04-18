@@ -93,7 +93,7 @@
         <p class="modal-card-title fixed-width">{{clickedCard.name}}</p>
         <button ng-click="cancel()" class="delete"></button>
       </header>
-      <section class="modal-card-body">
+      <section class="modal-card-body no-overflow">
         <!-- Content ... -->
         <div class="field">
           <label class="label">Name</label>
@@ -107,7 +107,7 @@
         <div class="field">
           <label class="label">Description</label>
           <p class="control">
-            <textarea data-ng-model="clickedCard.desc" class="textarea"
+            <textarea data-ng-model="clickedCard.desc" class="textarea is-overflow"
                       placeholder="Write the description of the card here">
             </textarea>
           </p>

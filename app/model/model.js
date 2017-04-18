@@ -10,21 +10,8 @@ app.factory('Model', function ($cookies, $resource) {
   var boards = [];
   //console.log($cookies.get("boards"));
   var loadingCounter = 0;
-  var userId;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
-  var lables =
-  [{
-    name: 'Low Priority',
-    color: 'green'
-  },
-  {
-    name: 'Medium Priority',
-    color: 'yellow'
-  },
-  {
-    name: 'High Priority',
-    color: 'red'
-  }];
+  var userId;
 
   //Authorize to the trello api
   this.authorize = function(cb, shouldLoadBoards) {
@@ -375,11 +362,11 @@ app.factory('Model', function ($cookies, $resource) {
   var getLabelId = function (boardId, labelName) {
     //Should return the labelId for labelName
   };
-  
+
   this.changeLabelOfCard = function (boardId, card) {
-    
+
     var labelId = getLabelId(boardId, card.label);
-    
+
     //Trello.put("cards/"+card.id+"/label")
   };
 
@@ -425,5 +412,19 @@ app.factory('Model', function ($cookies, $resource) {
      });
   };
 
+  // The different lables that we use
+  var lables =
+  [{
+    name: 'Low Priority',
+    color: 'green'
+  },
+  {
+    name: 'Medium Priority',
+    color: 'yellow'
+  },
+  {
+    name: 'High Priority',
+    color: 'red'
+  }];
   return this;
 });

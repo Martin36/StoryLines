@@ -384,10 +384,39 @@ app.factory('Model', function ($cookies, $resource) {
     return correctLabel.id;
   };
 
+  var findIndexOfCard = function (boardIndex, cardId) {
+    for(var i = 0; i < boards[boardIndex].cards.length; i++){
+      if(boards[boardIndex].cards[i].id == cardId){
+        return i;
+      }
+    }
+
+  }
+
+  var findLabelColor = function (labelName) {
+    for(var i = 0; i < lables.length; i++){
+      if(lables[i].name.toLowerCase() == labelName.toLowerCase()){
+        return lables[i].color;
+      }
+    }
+  };
+
+  var addLabelToCard = function (boardId, cardId, label) {
+    var boardIndex = findBoardIndex(boardId);
+    var cardIndex = findIndexOfCard(boardIndex, cardId);
+    boards[boardIndex].cards[cardIndex].labels = [label];
+    boards[boardIndex].cards[cardIndex].idLabels = [label.id];
+  };
+
   this.changeLabelOfCard = function (boardId, card) {
     var labelId = getLabelId(boardId, card.label);
-    Trello.post("cards/"+card.id+"/idLabels?value="+labelId, function(){
-      cardStats(function(){});
+    var color = findLabelColor(card.label);
+    Trello.post("cards/"+card.id+"/labels?color="+color+"&name="+card.label , function(label){
+      console.log(findIndexOfCard("0", "58b42e7af1a8260aaafd758d"));
+      //Adds the new label to the card in the array
+      addLabelToCard(boardId, card.id, label);
+      //Then update the stats
+      cardStatsOneBoard(findBoardIndex(boardId));
     });
   };
 

@@ -79,19 +79,30 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   var loadLists = function (boardIndex, cb) {
-
     var boardId = boards[boardIndex].id;
-
     var success = function (data) {
       boards[boardIndex].lists = data;
-      loadCards(boardIndex, cb);
+      //loadCards(boardIndex, cb);
+      loadLabels(boardIndex, cb);
     };
     var error = function(errorMsg) {
       console.log(errorMsg);
     };
     Trello.get('/boards/' + boardId + '/lists', success, error);
-
   };
+
+  var loadLabels = function (boardIndex, cb) {
+    var boardId = boards[boardIndex].id;
+    var success = function (data) {
+      boards[boardIndex].labels = data;
+      loadCards(boardIndex, cb);
+    };
+    var error = function(errorMsg) {
+      console.log(errorMsg);
+    };
+    Trello.get('/boards/' + boardId + '/labels', success, error);
+  };
+
 
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
@@ -358,16 +369,21 @@ app.factory('Model', function ($cookies, $resource) {
   this.changeNameOfCard = function (card) {
     Trello.put("cards/"+card.id +"/name?value="+card.name);
   };
-  //TODO: Implement this function
+
   var getLabelId = function (boardId, labelName) {
-    //Should return the labelId for labelName
+    var board = boards[findBoardIndex(boardId)];
+    var labels = board.labels;
+    var correctLabel = labels.filter(function (label) {
+      return label.name.toLowerCase() == labelName.toLowerCase();
+    })[0];
+    return correctLabel.id;
   };
 
   this.changeLabelOfCard = function (boardId, card) {
 
     var labelId = getLabelId(boardId, card.label);
-
-    //Trello.put("cards/"+card.id+"/label")
+    console.log(labelId);
+    Trello.post("cards/"+card.id+"/idLabels?value="+labelId);
   };
 
   this.deleteCard = function (boardId, cardId) {

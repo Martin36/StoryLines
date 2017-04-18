@@ -1,0 +1,68 @@
+<div ng-controller="SidebarController">
+  <!-- Sidebar -->
+  <div class="column is-one-quarter">
+    <div class="sidebar">
+      <!-- Back button -->
+      <p class="field">
+        <a ng-click="newProject()" class="button is-medium is-primary">
+          <span class="icon">
+            <i class="fa fa-plus-square"></i>
+          </span>
+          <span>New Project</span>
+        </a>
+      </p>
+      <!-- TODO: Add the navigation buttons -->
+      <div class="column">
+        <!-- Show all main pages you can navigate to -->
+        <p class="menu-label">Pages</p>
+        <ul class="menu-list">
+          <li ng-repeat="page in pages">
+            <a ng-click="changeView(page.link)">
+            {{page.name}}
+          </a>
+          </li>
+        </ul>
+
+        <p class="menu-label">
+          Projects
+        </p>
+        <ul class="menu-list">
+          <!-- Runs the function assigned to board in controller -->
+          <li ng-repeat="board in boards()">
+            <a ng-click="goProjectPage(board.id)">
+              {{board.name}}
+            </a>
+          </li>
+        </ul>
+
+        <p class="menu-label">
+          Administration
+        </p>
+        <ul class="menu-list">
+          <li><a>Trello status</a></li>
+          <li><a>Firebase thing. Google?</a></li>
+          <li><a>Settings</a></li>
+        </ul>
+      </div>
+
+<!--Adjusted pixel size and position of logo; I also created several logo varieties/logotypes and selected one to represent StoryLines  (Jori, April 17, 2017)-->
+      <div class="columns">
+        <div class="column is-two-quarters">
+          <figure class="image is-96x96px">
+            <img src="img/storylines.png">
+          </figure>
+        </div>
+      </div>
+
+      <p id="profile" class="field">
+        <a class="button is-medium">
+          <span class="icon is-medium">
+            <i class="fa fa-user-circle"></i>
+          </span>
+          <span>Profile</span>
+        </a>
+      </p>
+
+    </div>
+  </div>
+</div>

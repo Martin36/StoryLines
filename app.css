@@ -1,0 +1,124 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+/*Content to the right of the sidebar*/
+.our-content {
+  padding-left: 240px;
+  padding-right: 20px;
+}
+
+/*The title in each board for a specific project*/
+.title.board {
+  border-width: 0px 0px 2px 0px;
+  border-color: #c6c5c5;
+  border-style: solid;
+  padding-bottom: 10px;
+  /*TODO: This gets overridden by title's margin. It should not!*/
+  margin-bottom: 10px;
+}
+
+/*For the edit title button icon*/
+.title .icon {
+  margin-left: 10px;
+}
+
+/*Hides the border for the add card buttons*/
+.button.addCard {
+  border-style: none;
+  margin-top: 10px;
+}
+
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body{
+padding-top: 50px;
+}
+.carousel-image{
+width: 100%;
+}
+
+
+.thumbnails img{
+width:100%}
+
+
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+input.ng-invalid{
+border: thin solid #990000;
+}
+
+input.ng-valid{
+border: thin solid #090;
+} 
+
+
+.gridStyle{
+  width:940px;
+  height:300px;
+  margin-left: 40px;
+}
+
+
+
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: YellowGreen !important;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+    background-color: AliceBlue !important;
+}
+
+.modal-body input{
+display:block;
+}
+
+}

@@ -382,7 +382,6 @@ app.factory('Model', function ($cookies, $resource) {
   this.changeLabelOfCard = function (boardId, card) {
 
     var labelId = getLabelId(boardId, card.label);
-    console.log(labelId);
     Trello.post("cards/"+card.id+"/idLabels?value="+labelId);
   };
 

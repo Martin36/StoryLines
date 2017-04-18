@@ -144,63 +144,67 @@ app.factory('Model', function ($cookies, $resource) {
     }
   };
 
-  var cardStats = function (cb) {
+  var cardStatsOneBoard = function (boardIndex) {
+    //Add my cards to the board
+    myCards(boardIndex);
+    //Create array for holding the stats
+    boards[boardIndex].cardStats = {
+      mediumPriority : 0,
+      lowPriority : 0,
+      highPriority : 0
+    };
+    //Get the id of the list named "done"
+    var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {
+      return obj.name.toLowerCase() == "done";
+    });
+    if(doneListIdArray.length != 0){
+      var doneListId = doneListIdArray[0].id;
+    }
+    //Loop through all the cards and add statistics for each
+    for(var j = 0; j < boards[boardIndex].cards.length; j++){
+      var card = boards[boardIndex].cards[j];
+      //Check the label of the card
+      var labels = card.labels;
+      if(labels.length == 0){
+        //Give "unlabeled" cards low priority
+        boards[boardIndex].cardStats.lowPriority++;
+      }
+      //Remove all the cards that are in the "done" list
+      if(doneListId != undefined){
+        if(card.idList == doneListId){
+          break;
+        }
+      }
+      for(var k = 0; k < labels.length; k++){
+        //Remove the "done cards"
+        if(labels[k].name.toLowerCase() == "done") {
+          break;
+        }
+        if(labels[k].name.toLowerCase() == "high priority"){
+          boards[boardIndex].cardStats.highPriority++;
+          break;
+        }
+        else if(labels[k].name.toLowerCase() == "medium priority"){
+          boards[boardIndex].cardStats.mediumPriority++;
+          break;
+        }
+        else if(labels[k].name.toLowerCase() == "low priority"){
+          boards[boardIndex].cardStats.lowPriority++;
+          break;
+        }
+        else if(k == labels.length-1){
+          //If it is the last label and it is none of the above then give it low priority
+          boards[boardIndex].cardStats.lowPriority++;
+          break;
+        }
+      }
+    }
 
+  }
+  
+  var cardStats = function (cb) {
     for(var i = 0; i < boards.length; i++){
-      //Add my cards to the board
-      myCards(i);
-      //Create array for holding the stats
-      boards[i].cardStats = {
-        mediumPriority : 0,
-        lowPriority : 0,
-        highPriority : 0
-      };
-      //Get the id of the list named "done"
-      var doneListIdArray = boards[i].lists.filter(function (obj) {
-        return obj.name.toLowerCase() == "done";
-      });
-      if(doneListIdArray.length != 0){
-        var doneListId = doneListIdArray[0].id;
-      }
-      //Loop through all the cards and add statistics for each
-      for(var j = 0; j < boards[i].cards.length; j++){
-        var card = boards[i].cards[j];
-        //Check the label of the card
-        var labels = card.labels;
-        if(labels.length == 0){
-          //Give "unlabeled" cards low priority
-          boards[i].cardStats.lowPriority++;
-        }
-        //Remove all the cards that are in the "done" list
-        if(doneListId != undefined){
-          if(card.idList == doneListId){
-            break;
-          }
-        }
-        for(var k = 0; k < labels.length; k++){
-          //Remove the "done cards"
-          if(labels[k].name.toLowerCase() == "done") {
-            break;
-          }
-          if(labels[k].name.toLowerCase() == "high priority"){
-            boards[i].cardStats.highPriority++;
-            break;
-          }
-          else if(labels[k].name.toLowerCase() == "medium priority"){
-            boards[i].cardStats.mediumPriority++;
-            break;
-          }
-          else if(labels[k].name.toLowerCase() == "low priority"){
-            boards[i].cardStats.lowPriority++;
-            break;
-          }
-          else if(k == labels.length-1){
-            //If it is the last label and it is none of the above then give it low priority
-            boards[i].cardStats.lowPriority++;
-            break;
-          }
-        }
-      }
+      cardStatsOneBoard(i);
     }
     boardsLoaded = true;
     cb();
@@ -299,7 +303,8 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.post('cards?idList='+listId+"&name="+cardName+'&idMembers='+userId, function (card) {
       //When the card is added to the API, add the card to our model
       boards[findBoardIndex(boardId)].cards.push(card);
-      cb();
+      cardStats(cb);
+      //cb();
     }, function (errorMsg) {
       console.log(errorMsg)
     });
@@ -381,7 +386,9 @@ app.factory('Model', function ($cookies, $resource) {
 
   this.changeLabelOfCard = function (boardId, card) {
     var labelId = getLabelId(boardId, card.label);
-    Trello.post("cards/"+card.id+"/idLabels?value="+labelId);
+    Trello.post("cards/"+card.id+"/idLabels?value="+labelId, function(){
+      cardStats(function(){});
+    });
   };
 
   this.deleteCard = function (boardId, cardId) {

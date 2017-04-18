@@ -60,11 +60,12 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
       $scope.clickedCard = card;
       $scope.showEdit = true;
     };
-    //TODO: Save the edits then exit
+
     $scope.save = function () {
       //console.log($scope.clickedCard.desc);
       Model.addDescriptionToCard($scope.clickedCard);
       Model.changeNameOfCard($scope.clickedCard);
+      Model.changeLabelOfCard($scope.clickedCard, $routeParams.boardId);
       $scope.showEdit = false;
     };
     $scope.cancel = function(){

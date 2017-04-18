@@ -371,6 +371,17 @@ app.factory('Model', function ($cookies, $resource) {
   this.changeNameOfCard = function (card) {
     Trello.put("cards/"+card.id +"/name?value="+card.name);
   };
+  //TODO: Implement this function
+  var getLabelId = function (boardId, labelName) {
+    //Should return the labelId for labelName
+  };
+  
+  this.changeLabelOfCard = function (boardId, card) {
+    
+    var labelId = getLabelId(boardId, card.label);
+    
+    //Trello.put("cards/"+card.id+"/label")
+  };
 
   this.deleteCard = function (boardId, cardId) {
     Trello.delete("cards/"+cardId);

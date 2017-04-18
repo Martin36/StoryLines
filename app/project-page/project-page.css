@@ -71,8 +71,11 @@
     color: gray;
 }
 
+.select .resized {
+}
+
 .is-overflow {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .no-overflow {
   overflow-y: hidden;

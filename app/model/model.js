@@ -10,8 +10,21 @@ app.factory('Model', function ($cookies, $resource) {
   var boards = [];
   //console.log($cookies.get("boards"));
   var loadingCounter = 0;
-  var listTypes = ['To Do','In Progress','Verifying','Done'];
   var userId;
+  var listTypes = ['To Do','In Progress','Verifying','Done'];
+  var lables =
+  [{
+    name: 'Low Priority',
+    color: 'green'
+  },
+  {
+    name: 'Medium Priority',
+    color: 'yellow'
+  },
+  {
+    name: 'High Priority',
+    color: 'red'
+  }];
 
   //Authorize to the trello api
   this.authorize = function(cb, shouldLoadBoards) {
@@ -227,24 +240,34 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
 
+  // Add lables to specific board
+  var addLables = function(boardId, cb) {
+    for(var i = 0; i < lables.length; i++){
+        var l = lables[i];
+        Trello.post('/boards/'+boardId+'/labels?name='+l.name+'&color='+l.color);
+    }
+    cb();
+  };
+
   // Create a new board and post it to Trello
   this.createNewBoard = function(cb) {
-    Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
-      for(var i = 0; i < listTypes.length; i++) {
-        //Make sure that all the API calls has been done before adding the board
-        if(i == listTypes.length-1) {
-          Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i], function () {
-            boards.push(board); // Add new board to array
-            loadLists(boards.length-1, function(){
-              cb(board.id);
+    Trello.post('/boards?name=New Project&defaultLists=false&defaultLables=false', function(board) {
+      addLables(board.id, function(){
+        for(var i = 0; i < listTypes.length; i++) {
+          //Make sure that all the API calls has been done before adding the board
+          if(i == listTypes.length-1) {
+            Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i], function () {
+              boards.push(board); // Add new board to array
+              loadLists(boards.length-1, function(){
+                cb(board.id);
+              });
             });
-          })
+          }
+          //Adds lists to board
+          Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
         }
-        //Adds lists to board
-        Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
-      }
-    }
-    );
+      });
+    });
   };
 
   this.addBoard = function(board) {

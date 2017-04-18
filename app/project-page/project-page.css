@@ -71,8 +71,13 @@
     color: gray;
 }
 
-.select .resized{
-    
+.select .resized {
+}
+.is-overflow {
+  overflow-y: scroll;
+}
+.no-overflow {
+  overflow-y: hidden;
 }
 
 /* Scrollbar stuff */

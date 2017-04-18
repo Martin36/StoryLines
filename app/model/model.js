@@ -390,8 +390,7 @@ app.factory('Model', function ($cookies, $resource) {
         return i;
       }
     }
-
-  }
+  };
 
   var findLabelColor = function (labelName) {
     for(var i = 0; i < lables.length; i++){
@@ -412,7 +411,6 @@ app.factory('Model', function ($cookies, $resource) {
     var labelId = getLabelId(boardId, card.label);
     var color = findLabelColor(card.label);
     Trello.post("cards/"+card.id+"/labels?color="+color+"&name="+card.label , function(label){
-      console.log(findIndexOfCard("0", "58b42e7af1a8260aaafd758d"));
       //Adds the new label to the card in the array
       addLabelToCard(boardId, card.id, label);
       //Then update the stats

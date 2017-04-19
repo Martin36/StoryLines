@@ -255,19 +255,10 @@ app.factory('Model', function ($cookies, $resource) {
   this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false&defaultLables=false', function(board) {
       addLables(board.id, function(){
-        for(var i = 0; i < listTypes.length; i++) {
-          //Make sure that all the API calls has been done before adding the board
-          if(i == listTypes.length-1) {
-            Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i], function () {
-              boards.push(board); // Add new board to array
-              loadLists(boards.length-1, function(){
-                cb(board.id);
-              });
-            });
-          }
-          //Adds lists to board
-          Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
-        }
+        board.lists = [];
+        board.cards = [];
+        boards.push(board);
+        cb(board.id);
       });
     });
   };

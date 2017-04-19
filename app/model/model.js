@@ -107,13 +107,8 @@ app.factory('Model', function ($cookies, $resource) {
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
     var boardId = boards[boardIndex].id;
-
     var success = function(data) {
       boards[boardIndex].cards = data;
-      //TODO: Uncomment this when function is implemented
-      //boards[boardIndex].myCards = getUsersCards(boardIndex);
-      //Calculate the statistics of the cards for this board
-      //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
         if(useCardStats){
@@ -130,7 +125,6 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.get('/boards/' + boardId + '/cards', success, error);
   };
 
-  //TODO: Return all the cards that is assigned to the logged in user
   var myCards = function(boardIndex){
     boards[boardIndex].myCards = [];
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {

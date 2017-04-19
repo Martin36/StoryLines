@@ -67,6 +67,7 @@
 /*Projects in sidebar animations*/
 .repeat-project.ng-enter {
   animation: 1s fade_in;
+  -webkit-animation: 1s fade_in;
 }
 /*Not working*/
 .repeat-project.ng-enter-stagger {

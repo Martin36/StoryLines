@@ -17,7 +17,6 @@ app.controller('MyStoriesController', function ($scope, Model) {
     $scope.cancel = function () {
       $scope.showEdit = false;
     };
-    $scope.styleOptions = {"1":"blue","2":"violet","3":"yellow","4":"red"};
 
     var loadBoards = function () {
       Model.loadData(function(){
@@ -70,5 +69,14 @@ app.controller('MyStoriesController', function ($scope, Model) {
       }
 
     }
+	//to come out of the popup.
+	$scope.done=function(){
+		$scope.showEdit=false;
+	};
+
+	//to move card from one page to another
+	$scope.movecard = function(card, listname){
+		Model.moveCard(card, listname);
+	};
 
 });

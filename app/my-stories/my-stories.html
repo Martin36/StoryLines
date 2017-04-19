@@ -14,8 +14,8 @@
       <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
         <div class="card-content" ng-style="myStyle">
           <p class="card-header-title">
-            {{card.name}}
-          </p>
+			{{card.name}}
+			</p>
           <a class="card-header-icon" ng-click="toggleDropdown(card)">
                   <span class="icon">
                     <i class="fa fa-angle-down"></i>
@@ -26,7 +26,7 @@
           </ul>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item">Done</a>
+			<a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
         </footer>
       </div>
     </div>

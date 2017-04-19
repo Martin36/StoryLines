@@ -340,17 +340,6 @@ app.factory('Model', function ($cookies, $resource) {
     return listTypes;
   };
 
-  //Function for the user screen
-  //TODO: Implement this function to add a user to the specified board
-  this.addUser = function(boardId, userName){
-    //GET /1/members/[idMember or username]
-  };
-
-  //TODO: Make this function remove a user from the board
-  this.removeUser = function(boardId, memberId){
-    //DELETE /1/boards/[board_id]/members/[idMember]
-  };
-
   //Adds description to the card
   this.addDescriptionToCard = function(card){
     Trello.put("cards/"+card.id+"/desc?value="+card.desc);
@@ -393,10 +382,8 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   this.changeLabelOfCard = function (boardId, card) {
-//    var labelId = getLabelId(boardId, card.label);
     var color = findLabelColor(card.label);
     Trello.post("cards/"+card.id+"/labels?color="+color+"&name="+card.label , function(label){
-      // console.log(label);
       //Adds the new label to the card in the array
       addLabelToCard(boardId, card.id, label);
       //Then update the stats
@@ -423,27 +410,6 @@ app.factory('Model', function ($cookies, $resource) {
         boards.splice(i, 1);
       }
     }
-  };
-
-  var createWebhook = function () {
-    //this.loadUserId();
-    var success = function (data) {
-      console.log(data);
-    };
-    var error = function(errorMsg) {
-      console.log(errorMsg);
-    };
-//    Trello.get('/members/'+userId+'/tokens', success, error);
-    //TODO: Make this work
-    var token = Trello.token();
-
-    console.log(token);
-
-     $.post("https://api.trello.com/1/tokens/"+userToken+"/webhooks/?key=d55de169d8cbf243f781b431c5b458e0", {
-     description: "My first webhook",
-     callbackURL: "http://localhost:63342/StoryLines/app/index.html?_ijt=8l5f822ie37itbr2gq2uk8spct#!/login",
-     idModel: "4d5ea62fd76aa1136000000c"
-     });
   };
 
   // The different lables that we use

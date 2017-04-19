@@ -11,7 +11,7 @@
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns card-row">
-      <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards">
+      <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
         <div class="card-content" ng-style="myStyle">
           <p class="card-header-title">
             {{card.name}}
@@ -22,7 +22,7 @@
                   </span>
           </a>
           <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
-            <li><a ng-click="showdetails(card)">Details</a></li>
+            <li><a id="dropdownShowDetails" ng-click="showdetails(card)">Details</a></li>
           </ul>
         </div>
         <footer class="card-footer">

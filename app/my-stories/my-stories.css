@@ -26,10 +26,12 @@ hr {
 }
 #card1 a{
   color: #000;
-
 }
 #card1 a:hover{
   color: #fff;
+}
+#dropdownShowDetails:hover{
+  color: #444;
 }
 
 .modal-card{

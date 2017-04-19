@@ -41,6 +41,10 @@ app.controller('MyStoriesController', function ($scope, Model) {
       card.showDropdown = false;
     };
 
+    $scope.listId = function(boardId ,listName) {
+      return Model.getListId(boardId, listName);
+    };
+
     $scope.removeID =function()
     {
         var iE1= angular.element(document.querySelector('#card1'));

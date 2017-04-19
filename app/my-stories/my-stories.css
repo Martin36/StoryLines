@@ -24,6 +24,13 @@ hr {
 #card1.low-priority{
   background-color: #23d160;
 }
+#card1 a{
+  color: #000;
+
+}
+#card1 a:hover{
+  color: #fff;
+}
 
 .modal-card{
 box-shadow: 2px 0px 10px #888888;

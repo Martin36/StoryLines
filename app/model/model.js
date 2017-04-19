@@ -35,16 +35,7 @@ app.factory('Model', function ($cookies, $resource) {
       error: function() { console.log('Failed authentication'); }
     });
   };
-  /*
-  this.logout = function () {
-    Trello.deauthorize();
-    loggedIn = false;
-    console.log("Logged out!");
-    boardsLoaded = false;
-    boards = [];
-    loadingCounter = 0;
-  }
-  */
+ 
   this.logout = function () {
     loggedIn = false;
   }

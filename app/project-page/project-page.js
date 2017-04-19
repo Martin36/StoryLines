@@ -63,19 +63,6 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
       $scope.showEdit = true;
     };
 
-    $scope.getLabelName = function (card) {
-      var labels = card.labels;
-      for(var i = 0; i < labels.length; i++){
-        if(labels[i].name.toLowerCase() == "high priority" ||
-           labels[i].name.toLowerCase() == "medium priority" ||
-           labels[i].name.toLowerCase() == "low priority"){
-          return labels[i].name.toLowerCase();
-        }
-      }
-      //Set "low priority" by default
-      return "low priority";
-    };
-
     $scope.save = function () {
       //console.log($scope.clickedCard.desc);
       Model.addDescriptionToCard($scope.clickedCard);

@@ -14,8 +14,8 @@
       <div class="card column is-3" id="card1" ng-repeat="card in board.myCards">
         <div class="card-content" ng-style="myStyle">
           <p class="card-header-title">
-            {{card.name}}
-          </p>
+			{{card.name}}
+			</p>
           <a class="card-header-icon" ng-click="toggleDropdown(card)">
                   <span class="icon">
                     <i class="fa fa-angle-down"></i>
@@ -26,8 +26,9 @@
           </ul>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item">Done</a>
+			<a class="card-footer-item" ng-click="movecard()" href="#!/projectPage">Done</a>
         </footer>
+	 
         <!-- popup window -->
         <div class="modal is-active" ng-if="showEdit">  <!-- ng-if gets its own scope-->
           <div class="modal-background"></div>
@@ -41,11 +42,13 @@
 
               <div class="field">
 				   <!-- Content ... -->
-				<div id="labels" ng-repeat="data in labels"> 
-					<span ng-if="data == 'High Priority'" class="card-label-red" title="High Priority"> myStyle</span>
-					<span ng-if="data == 'Medium Priority'" class="card-label-green" title="Medium Priority">Medium Priority </span>
-					<span ng-if="data == 'Low Priority'"class="card-label-blue" title="Low Priority">Low Priority </span>
+<!--
+				    	  <div id="labels" ng-repeat="data in labels"> 
+					<span ng-if=" == 'High Priority'" class="card-label-red" title="High Priority"> {{labels}}  </span>
+					<span ng-if="data == 'Medium Priority'" class="card-label-yellow" title="Medium Priority"> {{labels}}  </span>
+					<span ng-if="data == 'Low Priority'"class="card-label-green" title="Low Priority">{{Labels}} </span>
 				</div>
+-->
                 <label class="label">Description</label>
                 <p class="control">
                   {{clickedCard.desc}}
@@ -59,5 +62,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </div>

@@ -33,9 +33,9 @@ box-shadow: 2px 0px 10px #888888;
 .card-label-red{
 	background: #ff0000;
 }
-.card-label-green{
-	background: #ff0000;
+.card-label-yellow{
+	background: yellow;
 }
-.card-label-blue{
-	background: #ff0000;
+.card-label-green{
+	background: green;
 }

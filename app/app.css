@@ -73,7 +73,7 @@
   height: 200px;
   border-top: 10px solid gray;
   border-bottom: 10px solid gray;
-  animation: clockwisespin 2s linear 3;
+  animation: clockwisespin 2s linear infinite;
 }
 
 .loader2 {
@@ -82,7 +82,7 @@
   border-left: 10px solid #00d1b2;
   border-right: 10px solid #00d1b2;
   top: 10px; left: 10px;
-  animation: anticlockwisespin 2s linear 3;
+  animation: anticlockwisespin 2s linear infinite;
 }
 
 @keyframes clockwisespin {

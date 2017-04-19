@@ -14,6 +14,26 @@ hr {
     display: flex;
     flex-direction: column;
 }
+
+#card1.high-priority{
+  background-color: #ff3860;
+}
+#card1.medium-priority{
+  background-color: #ffdd57;
+}
+#card1.low-priority{
+  background-color: #23d160;
+}
+#card1 a{
+  color: #000;
+}
+#card1 a:hover{
+  color: #fff;
+}
+a#dropdownShowDetails:hover{
+  color: #444;
+}
+
 .modal-card{
 box-shadow: 2px 0px 10px #888888;
 }
@@ -25,17 +45,13 @@ box-shadow: 2px 0px 10px #888888;
     margin-right: 25px;
 }
 
+
+.card-content{
+
+}
+
 .card-content .sub-menu{
     top: 52%;
     left: 45%;
 
-}
-.card-label-red{
-	background: #ff0000;
-}
-.card-label-green{
-	background: #ff0000;
-}
-.card-label-blue{
-	background: #ff0000;
 }

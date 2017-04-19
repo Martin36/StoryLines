@@ -8,7 +8,6 @@ app.factory('Model', function ($cookies, $resource) {
   var loggedIn = false;
   var boardsLoaded = false;
   var boards = [];
-  //console.log($cookies.get("boards"));
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
   var userId;
@@ -23,7 +22,6 @@ app.factory('Model', function ($cookies, $resource) {
         write: 'true' },
       expiration: 'never',
       success: function() {
-        console.log('Successful authentication');
         loggedIn = true;
         if(shouldLoadBoards){
           loadBoards(cb);
@@ -35,7 +33,7 @@ app.factory('Model', function ($cookies, $resource) {
       error: function() { console.log('Failed authentication'); }
     });
   };
- 
+
   this.logout = function () {
     loggedIn = false;
   }
@@ -70,30 +68,36 @@ app.factory('Model', function ($cookies, $resource) {
   };
 
   var loadLists = function (boardIndex, cb) {
-
     var boardId = boards[boardIndex].id;
-
     var success = function (data) {
       boards[boardIndex].lists = data;
-      loadCards(boardIndex, cb);
+      //loadCards(boardIndex, cb);
+      loadLabels(boardIndex, cb);
     };
     var error = function(errorMsg) {
       console.log(errorMsg);
     };
     Trello.get('/boards/' + boardId + '/lists', success, error);
-
   };
+
+  var loadLabels = function (boardIndex, cb) {
+    var boardId = boards[boardIndex].id;
+    var success = function (data) {
+      boards[boardIndex].labels = data;
+      loadCards(boardIndex, cb);
+    };
+    var error = function(errorMsg) {
+      console.log(errorMsg);
+    };
+    Trello.get('/boards/' + boardId + '/labels', success, error);
+  };
+
 
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
     var boardId = boards[boardIndex].id;
-
     var success = function(data) {
       boards[boardIndex].cards = data;
-      //TODO: Uncomment this when function is implemented
-      //boards[boardIndex].myCards = getUsersCards(boardIndex);
-      //Calculate the statistics of the cards for this board
-      //cardStats(boardIndex);
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
         if(useCardStats){
@@ -110,7 +114,6 @@ app.factory('Model', function ($cookies, $resource) {
     Trello.get('/boards/' + boardId + '/cards', success, error);
   };
 
-  //TODO: Return all the cards that is assigned to the logged in user
   var myCards = function(boardIndex){
     boards[boardIndex].myCards = [];
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {
@@ -124,63 +127,67 @@ app.factory('Model', function ($cookies, $resource) {
     }
   };
 
-  var cardStats = function (cb) {
+  var cardStatsOneBoard = function (boardIndex) {
+    //Add my cards to the board
+    myCards(boardIndex);
+    //Create array for holding the stats
+    boards[boardIndex].cardStats = {
+      mediumPriority : 0,
+      lowPriority : 0,
+      highPriority : 0
+    };
+    //Get the id of the list named "done"
+    var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {
+      return obj.name.toLowerCase() == "done";
+    });
+    if(doneListIdArray.length != 0){
+      var doneListId = doneListIdArray[0].id;
+    }
+    //Loop through all the cards and add statistics for each
+    for(var j = 0; j < boards[boardIndex].cards.length; j++){
+      var card = boards[boardIndex].cards[j];
+      //Check the label of the card
+      var labels = card.labels;
+      if(labels.length == 0){
+        //Give "unlabeled" cards low priority
+        boards[boardIndex].cardStats.lowPriority++;
+      }
+      //Remove all the cards that are in the "done" list
+      if(doneListId != undefined){
+        if(card.idList == doneListId){
+          break;
+        }
+      }
+      for(var k = 0; k < labels.length; k++){
+        //Remove the "done cards"
+        if(labels[k].name.toLowerCase() == "done") {
+          break;
+        }
+        if(labels[k].name.toLowerCase() == "high priority"){
+          boards[boardIndex].cardStats.highPriority++;
+          break;
+        }
+        else if(labels[k].name.toLowerCase() == "medium priority"){
+          boards[boardIndex].cardStats.mediumPriority++;
+          break;
+        }
+        else if(labels[k].name.toLowerCase() == "low priority"){
+          boards[boardIndex].cardStats.lowPriority++;
+          break;
+        }
+        else if(k == labels.length-1){
+          //If it is the last label and it is none of the above then give it low priority
+          boards[boardIndex].cardStats.lowPriority++;
+          break;
+        }
+      }
+    }
 
+  }
+
+  var cardStats = function (cb) {
     for(var i = 0; i < boards.length; i++){
-      //Add my cards to the board
-      myCards(i);
-      //Create array for holding the stats
-      boards[i].cardStats = {
-        mediumPriority : 0,
-        lowPriority : 0,
-        highPriority : 0
-      };
-      //Get the id of the list named "done"
-      var doneListIdArray = boards[i].lists.filter(function (obj) {
-        return obj.name.toLowerCase() == "done";
-      });
-      if(doneListIdArray.length != 0){
-        var doneListId = doneListIdArray[0].id;
-      }
-      //Loop through all the cards and add statistics for each
-      for(var j = 0; j < boards[i].cards.length; j++){
-        var card = boards[i].cards[j];
-        //Check the label of the card
-        var labels = card.labels;
-        if(labels.length == 0){
-          //Give "unlabeled" cards low priority
-          boards[i].cardStats.lowPriority++;
-        }
-        //Remove all the cards that are in the "done" list
-        if(doneListId != undefined){
-          if(card.idList == doneListId){
-            break;
-          }
-        }
-        for(var k = 0; k < labels.length; k++){
-          //Remove the "done cards"
-          if(labels[k].name.toLowerCase() == "done") {
-            break;
-          }
-          if(labels[k].name.toLowerCase() == "high priority"){
-            boards[i].cardStats.highPriority++;
-            break;
-          }
-          else if(labels[k].name.toLowerCase() == "medium priority"){
-            boards[i].cardStats.mediumPriority++;
-            break;
-          }
-          else if(labels[k].name.toLowerCase() == "low priority"){
-            boards[i].cardStats.lowPriority++;
-            break;
-          }
-          else if(k == labels.length-1){
-            //If it is the last label and it is none of the above then give it low priority
-            boards[i].cardStats.lowPriority++;
-            break;
-          }
-        }
-      }
+      cardStatsOneBoard(i);
     }
     boardsLoaded = true;
     cb();
@@ -231,19 +238,10 @@ app.factory('Model', function ($cookies, $resource) {
   this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false&defaultLables=false', function(board) {
       addLables(board.id, function(){
-        for(var i = 0; i < listTypes.length; i++) {
-          //Make sure that all the API calls has been done before adding the board
-          if(i == listTypes.length-1) {
-            Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i], function () {
-              boards.push(board); // Add new board to array
-              loadLists(boards.length-1, function(){
-                cb(board.id);
-              });
-            });
-          }
-          //Adds lists to board
-          Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i])
-        }
+        board.lists = [];
+        board.cards = [];
+        boards.push(board);
+        cb(board.id);
       });
     });
   };
@@ -276,10 +274,11 @@ app.factory('Model', function ($cookies, $resource) {
   // Adds a card to the given list
   function addCardToList(listId, boardId, cardName, cb){
     // Add new card to API
-    Trello.post('cards?idList='+listId+"&name="+cardName, function (card) {
+    Trello.post('cards?idList='+listId+"&name="+cardName+'&idMembers='+userId, function (card) {
       //When the card is added to the API, add the card to our model
       boards[findBoardIndex(boardId)].cards.push(card);
-      cb();
+      cardStats(cb);
+      //cb();
     }, function (errorMsg) {
       console.log(errorMsg)
     });
@@ -330,17 +329,6 @@ app.factory('Model', function ($cookies, $resource) {
     return listTypes;
   };
 
-  //Function for the user screen
-  //TODO: Implement this function to add a user to the specified board
-  this.addUser = function(boardId, userName){
-    //GET /1/members/[idMember or username]
-  };
-
-  //TODO: Make this function remove a user from the board
-  this.removeUser = function(boardId, memberId){
-    //DELETE /1/boards/[board_id]/members/[idMember]
-  };
-
   //Adds description to the card
   this.addDescriptionToCard = function(card){
     Trello.put("cards/"+card.id+"/desc?value="+card.desc);
@@ -349,16 +337,47 @@ app.factory('Model', function ($cookies, $resource) {
   this.changeNameOfCard = function (card) {
     Trello.put("cards/"+card.id +"/name?value="+card.name);
   };
-  //TODO: Implement this function
+
   var getLabelId = function (boardId, labelName) {
-    //Should return the labelId for labelName
+    var board = boards[findBoardIndex(boardId)];
+    var labels = board.labels;
+    var correctLabel = labels.filter(function (label) {
+      return label.name.toLowerCase() == labelName.toLowerCase();
+    })[0];
+    return correctLabel.id;
+  };
+
+  var findIndexOfCard = function (boardIndex, cardId) {
+    for(var i = 0; i < boards[boardIndex].cards.length; i++){
+      if(boards[boardIndex].cards[i].id == cardId){
+        return i;
+      }
+    }
+  };
+
+  var findLabelColor = function (labelName) {
+    for(var i = 0; i < lables.length; i++){
+      if(lables[i].name.toLowerCase() == labelName.toLowerCase()){
+        return lables[i].color;
+      }
+    }
+  };
+
+  var addLabelToCard = function (boardId, cardId, label) {
+    var boardIndex = findBoardIndex(boardId);
+    var cardIndex = findIndexOfCard(boardIndex, cardId);
+    boards[boardIndex].cards[cardIndex].labels = [label];
+    boards[boardIndex].cards[cardIndex].idLabels = [label.id];
   };
 
   this.changeLabelOfCard = function (boardId, card) {
-
-    var labelId = getLabelId(boardId, card.label);
-
-    //Trello.put("cards/"+card.id+"/label")
+    var color = findLabelColor(card.label);
+    Trello.post("cards/"+card.id+"/labels?color="+color+"&name="+card.label , function(label){
+      //Adds the new label to the card in the array
+      addLabelToCard(boardId, card.id, label);
+      //Then update the stats
+      cardStatsOneBoard(findBoardIndex(boardId));
+    });
   };
 
   this.deleteCard = function (boardId, cardId) {
@@ -367,6 +386,9 @@ app.factory('Model', function ($cookies, $resource) {
     for(var i = 0; i < boards.length; i++){
       if(boards[i].id == boardId){
         boards[i].cards = boards[i].cards.filter(function (card) {
+          return card.id != cardId;
+        });
+        boards[i].myCards = boards[i].myCards.filter(function (card){
           return card.id != cardId;
         });
       }
@@ -380,27 +402,6 @@ app.factory('Model', function ($cookies, $resource) {
         boards.splice(i, 1);
       }
     }
-  };
-
-  var createWebhook = function () {
-    //this.loadUserId();
-    var success = function (data) {
-      console.log(data);
-    };
-    var error = function(errorMsg) {
-      console.log(errorMsg);
-    };
-//    Trello.get('/members/'+userId+'/tokens', success, error);
-    //TODO: Make this work
-    var token = Trello.token();
-
-    console.log(token);
-
-     $.post("https://api.trello.com/1/tokens/"+userToken+"/webhooks/?key=d55de169d8cbf243f781b431c5b458e0", {
-     description: "My first webhook",
-     callbackURL: "http://localhost:63342/StoryLines/app/index.html?_ijt=8l5f822ie37itbr2gq2uk8spct#!/login",
-     idModel: "4d5ea62fd76aa1136000000c"
-     });
   };
 
   // The different lables that we use

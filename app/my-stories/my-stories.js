@@ -39,22 +39,16 @@ app.controller('MyStoriesController', function ($scope, Model) {
     $scope.closeDropdown = function (card) {
       card.showDropdown = false;
     };
-	$scope.labels=["High Priority","Medium Priority", "Low Priority"];
+	
 	//to come out of the popup.
 	$scope.done=function(){
 		$scope.showEdit=false;
 	};
 	
 	//to move card from one page to another
-	$scope.movecard = function(item, from,to)
+	$scope.movecard = function(card, listname)
 	{
-		console.log('Move card Card: '+Clickedcard+' From:: '+from+' To:: '+to);
-		var idx=from.indexOf(item);
-		if(idx !=-1)
-			{
-				from.splice(idx,1);
-				to.push(card);
-			}
+		Model.moveCard(card, listname);
 	};
 }
 );

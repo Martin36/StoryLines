@@ -26,7 +26,7 @@
           </ul>
         </div>
         <footer class="card-footer">
-			<a class="card-footer-item" ng-click="movecard()" href="#!/projectPage">Done</a>
+			<a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
         </footer>
 	 
         <!-- popup window -->
@@ -42,13 +42,6 @@
 
               <div class="field">
 				   <!-- Content ... -->
-<!--
-				    	  <div id="labels" ng-repeat="data in labels"> 
-					<span ng-if=" == 'High Priority'" class="card-label-red" title="High Priority"> {{labels}}  </span>
-					<span ng-if="data == 'Medium Priority'" class="card-label-yellow" title="Medium Priority"> {{labels}}  </span>
-					<span ng-if="data == 'Low Priority'"class="card-label-green" title="Low Priority">{{Labels}} </span>
-				</div>
--->
                 <label class="label">Description</label>
                 <p class="control">
                   {{clickedCard.desc}}

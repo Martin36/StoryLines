@@ -67,9 +67,11 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
         if(labels[i].name.toLowerCase() == "high priority" ||
            labels[i].name.toLowerCase() == "medium priority" ||
            labels[i].name.toLowerCase() == "low priority"){
-          return labels[i].name.toLowerCase()
+          return labels[i].name.toLowerCase();
         }
       }
+      //Set "low priority" by default
+      return "low priority";
     };
 
     $scope.save = function () {

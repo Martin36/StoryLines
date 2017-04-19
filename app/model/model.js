@@ -201,7 +201,7 @@ app.factory('Model', function ($cookies, $resource) {
     }
 
   }
-  
+
   var cardStats = function (cb) {
     for(var i = 0; i < boards.length; i++){
       cardStatsOneBoard(i);
@@ -410,7 +410,11 @@ app.factory('Model', function ($cookies, $resource) {
   this.changeLabelOfCard = function (boardId, card) {
     var labelId = getLabelId(boardId, card.label);
     var color = findLabelColor(card.label);
+    console.log(card.label);
+    console.log(color);
+    console.log(card);
     Trello.post("cards/"+card.id+"/labels?color="+color+"&name="+card.label , function(label){
+      // console.log(label);
       //Adds the new label to the card in the array
       addLabelToCard(boardId, card.id, label);
       //Then update the stats

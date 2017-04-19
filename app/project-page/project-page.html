@@ -100,7 +100,8 @@
           <label class="label">Label</label>
           <p class="control">
             <span class="select">
-              <select class="resized" data-ng-model="clickedCard.label">
+              <select class="resized" data-ng-model="clickedCard.label"
+              ng-init="clickedCard.label='low priority'">
                 <option value="low priority" ng-selected="true">Low Priority</option>
                 <option value="medium priority">Medium Priority</option>
                 <option value="high priority">High Priority</option>

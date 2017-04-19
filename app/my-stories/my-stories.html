@@ -7,7 +7,7 @@
     <div class="loader2"></div>
   </div>
 
-  <div class="project" ng-repeat="board in boards">
+  <div class="project" ng-repeat="board in boards()">
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns card-row">

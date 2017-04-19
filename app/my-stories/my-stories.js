@@ -21,13 +21,13 @@ app.controller('MyStoriesController', function ($scope, Model) {
 
     var loadBoards = function () {
       Model.loadData(function(){
-        $scope.boards = Model.getBoards();
+        $scope.boards = Model.getBoards;
         $scope.loading = false;
         $scope.$evalAsync();
       });
     };
     if(Model.boardsLoaded()){
-      $scope.boards = Model.getBoards();
+      $scope.boards = Model.getBoards;
       $scope.loading = false;
     }else{
       loadBoards();
@@ -49,9 +49,8 @@ app.controller('MyStoriesController', function ($scope, Model) {
     $scope.getLabelClass = function(card){
       var label = card.labels[0];
       if(label == undefined){
-        return "";
+        return "low-priority";
       }
-      console.log(label.name);
       switch (label.name) {
         case "high priority":
           return "high-priority";

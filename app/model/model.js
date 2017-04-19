@@ -401,7 +401,7 @@ app.factory('Model', function ($cookies, $resource) {
         });
         boards[i].myCards = boards[i].myCards.filter(function (card){
           return card.id != cardId;
-        })
+        });
       }
     }
   };

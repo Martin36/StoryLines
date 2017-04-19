@@ -57,8 +57,13 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     };
 
     $scope.showEditBox = function (card) {
-      //Set this to make the dropdown have a default value
-      card.label = "low priority";
+      if(card.labels[0] != undefined){
+        //Set the label of the card
+        card.label = card.labels[0].name;
+      }else{
+        //Set this to make the dropdown have a default value
+        card.label = "low priority";
+      }
       $scope.clickedCard = card;
       $scope.showEdit = true;
     };

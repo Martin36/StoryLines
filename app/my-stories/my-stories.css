@@ -30,7 +30,7 @@ hr {
 #card1 a:hover{
   color: #fff;
 }
-#dropdownShowDetails:hover{
+a#dropdownShowDetails:hover{
   color: #444;
 }
 

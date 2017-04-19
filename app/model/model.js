@@ -8,7 +8,6 @@ app.factory('Model', function ($cookies, $resource) {
   var loggedIn = false;
   var boardsLoaded = false;
   var boards = [];
-  //console.log($cookies.get("boards"));
   var loadingCounter = 0;
   var listTypes = ['To Do','In Progress','Verifying','Done'];
   var userId;
@@ -23,7 +22,6 @@ app.factory('Model', function ($cookies, $resource) {
         write: 'true' },
       expiration: 'never',
       success: function() {
-        console.log('Successful authentication');
         loggedIn = true;
         if(shouldLoadBoards){
           loadBoards(cb);
@@ -35,16 +33,7 @@ app.factory('Model', function ($cookies, $resource) {
       error: function() { console.log('Failed authentication'); }
     });
   };
-  /*
-  this.logout = function () {
-    Trello.deauthorize();
-    loggedIn = false;
-    console.log("Logged out!");
-    boardsLoaded = false;
-    boards = [];
-    loadingCounter = 0;
-  }
-  */
+
   this.logout = function () {
     loggedIn = false;
   }
@@ -365,19 +354,6 @@ app.factory('Model', function ($cookies, $resource) {
       }
     }
   };
-
-	this.moveCard =function(card, listTypes){
-		 var ListId = this.getListId(card.idBoard, listTypes);
-
-		Trello.put("cards/"+card.id+"/idList?value="+ListId);
-		for(var i=0; i< boards.length; i++){
-		  for(var j=0; j< boards[i].cards.length; j++){
-				if(boards[i].cards[j].id == card.id){
-						boards[i].cards[j].idList= ListId;
-			  }
-		  }
-		}
-	}
 
   var findLabelColor = function (labelName) {
     for(var i = 0; i < lables.length; i++){

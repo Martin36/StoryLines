@@ -7,73 +7,51 @@
     <div class="loader2"></div>
   </div>
 
-  <div class="project" ng-repeat="board in boards">
+  <div class="project" ng-repeat="board in boards()">
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns card-row">
-      <div class="card column is-3" id="card1" ng-repeat="card in board.myCards">
+      <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
         <div class="card-content" ng-style="myStyle">
           <p class="card-header-title">
-            {{card.name}}
-          </p>
-          <div class="bu-dropdown">
-            <a class="card-header-icon">
-            <span class="icon">
-                <i class="fa fa-angle-down"></i>
-            </span>
-            </a>
-            <div class="bu-dropdown-body">
-              <div class="bu-is-right">
-                <nav class="menu">
-                  <ul class="menu-list">
-                    <!--
-                      <li>
-                      <select class="select is-fullwidth">
-                          <option ng-click="myStyle={background:'#00d1b2'}"><input type="button" class="button is-primary" value="Primary"> </option>
-                          <option ng-click="myStyle={background:'#3273dc'}"><input type="button" class="button is-info"  value="Info" > </option>
-                          <option><input type="button" class="button is-success" value=" Success" ng-click="myStyle={background:'#23d160'}">
-                          </option>
-                          <option> <input type="button" class="button is-warning" value="Warning" ng-click="myStyle={background:'#ffdd57'}">
-                          </option>
-                          <option> <input type="button" class="button is-danger" value="Danger" ng-click="myStyle={background:'#ff3860'}">
-                          </option>
-                      </select>
-                      </li>
-                      -->
-                    <li><a ng-click="showdetails(card)">Details</a></li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          </div>
+			{{card.name}}
+			</p>
+          <a class="card-header-icon" ng-click="toggleDropdown(card)">
+                  <span class="icon">
+                    <i class="fa fa-angle-down"></i>
+                  </span>
+          </a>
+          <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
+            <li><a id="dropdownShowDetails" ng-click="showdetails(card)">Details</a></li>
+          </ul>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item">Done</a>
+			<a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
         </footer>
-        <!-- popup window -->
-        <div class="modal is-active" ng-if="showEdit">  <!-- ng-if gets its own scope-->
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head">
-              <p class="modal-card-title fixed-width">{{clickedCard.name}}</p>
-              <button ng-click="cancel()" class="delete"></button>
-            </header>
-            <section class="modal-card-body">
-              <!-- Content ... -->
-
-              <div class="field">
-                <label class="label">Description</label>
-                <p class="control">
-                  {{clickedCard.desc}}
-                </p>
-              </div>
-            </section>
-            <footer class="modal-card-foot">
-              <a class="button is-success" ng-click="done()">Done</a>
-            </footer>
-          </div>
-        </div>
       </div>
+    </div>
+  </div>
+  <!-- popup window -->
+  <div class="modal is-active" ng-if="showEdit">  <!-- ng-if gets its own scope-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title fixed-width">{{clickedCard.name}}</p>
+        <button ng-click="cancel()" class="delete"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+
+        <div class="field">
+          <label class="label">Description</label>
+          <p class="control">
+            {{clickedCard.desc}}
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a class="button is-success" ng-click="done()">Done</a>
+      </footer>
     </div>
   </div>
 </div>

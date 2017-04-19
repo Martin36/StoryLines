@@ -43,7 +43,7 @@ app.controller('SidebarController', function ($scope, $location, Model) {
       Model.createNewBoard(function (boardId) {
         $scope.goProjectPage(boardId);
         $scope.loading = false;
-        $scope.$apply(); // Needed for page to change
+        $scope.$evalAsync(); // Needed for page to change
       });
     };
 

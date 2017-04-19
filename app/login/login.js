@@ -15,10 +15,11 @@ app.controller('LoginController', function ($scope, $location, Model) {
   $scope.login = function () {
     if(Model.isLoggedIn()){
       $location.path('/plannerHub');
+      $scope.$evalAsync();
     }else{
       Model.authorize(function () {
         $location.path('/plannerHub');
-        //$scope.$apply();
+        $scope.$evalAsync();
       }, false);
     }
   };

@@ -15,7 +15,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
         $scope.board = Model.getBoard($routeParams.boardId);
         $scope.listsToShow = Model.getListsToShow();
         $scope.loading = false;
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
 
@@ -42,7 +42,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     $scope.addCard = function(listName) {
       Model.addNewCard($routeParams.boardId, listName, listName, function () {
         $scope.board = Model.getBoard($routeParams.boardId);
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
 
@@ -57,14 +57,22 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     };
 
     $scope.showEditBox = function (card) {
+      if(card.labels[0] != undefined){
+        //Set the label of the card
+        card.label = card.labels[0].name;
+      }else{
+        //Set this to make the dropdown have a default value
+        card.label = "low priority";
+      }
       $scope.clickedCard = card;
       $scope.showEdit = true;
     };
-    //TODO: Save the edits then exit
+
     $scope.save = function () {
       //console.log($scope.clickedCard.desc);
       Model.addDescriptionToCard($scope.clickedCard);
       Model.changeNameOfCard($scope.clickedCard);
+      Model.changeLabelOfCard($routeParams.boardId, $scope.clickedCard);
       $scope.showEdit = false;
     };
     $scope.cancel = function(){
@@ -81,6 +89,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     $scope.deleteCard = function(){
       Model.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
+  //    $scope.$evalAsync();
     };
 
     $scope.showDeleteBoardWarning = function() {

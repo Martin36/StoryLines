@@ -27,10 +27,9 @@ app.controller('PlannerHubController', function ($scope, $timeout, Model) {
     var loadBoards = function () {
       Model.loadData(function(){
         addBoardsData();
-        console.log($scope.boards[0]);
         //Extract the values in the data from the boards
         $scope.loading = false;
-        $scope.$apply();
+        $scope.$evalAsync();
       });
     };
     if(Model.boardsLoaded()){
@@ -38,23 +37,4 @@ app.controller('PlannerHubController', function ($scope, $timeout, Model) {
     }else{
       loadBoards();
     }
-
-    /*
-    if(!Model.isLoggedIn()){
-      Model.authorize(function () {
-        loadBoards();
-      })
-    }else {
-      loadBoards();
-    }
-*/
-   // console.log($scope.boards);
-    // var ref = firebase.database().ref();
-    // var obj = $firebaseObject(ref);
-    //
-    // $scope.data = obj;
-    // // Three-way binding
-    // obj.$bindTo($scope, "data");
-
-
   });

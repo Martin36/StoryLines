@@ -71,6 +71,16 @@
     color: gray;
 }
 
+.select .resized {
+}
+
+.is-overflow {
+  overflow-y: auto;
+}
+.no-overflow {
+  overflow-y: hidden;
+}
+
 /* Scrollbar stuff */
 /*
 ::-webkit-scrollbar {

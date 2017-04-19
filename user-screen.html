@@ -1,0 +1,29 @@
+
+
+<!-- Implementation of user-screen view, mainly consisting of a grid showing entries of user 
+data from a database, currently local JSON format (by Jori Witte, April 17, 2017) >-->
+
+
+ <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
+
+<div class="our-content" ng-controller="UserScreenCtrl">
+
+<h1  class="content is-large">Users</h1>
+
+<!-- Glyphicons had been kindly provided for free by http://glyphicons.com -->
+
+
+<button class="button is-success" ng-click="showModal()"><span class="glyphicon glyphicon-user fa-fw"></span>  Add New User</button>
+
+
+<!-- The grid options are based on Angular ui-grid and correspond to module enhancements defined as 
+depencies in app.js; they make (or should make ...) multiple column and row manipulations possible -->
+
+
+<div id="grid1" class="grid" ui-grid="gridOptions" ui-grid-cellNav ui-grid-pinning ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit></div>
+
+
+
+</div>
+
+

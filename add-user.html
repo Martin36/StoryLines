@@ -1,0 +1,82 @@
+
+<!-- Definition of a modal that pop up after user clicked "Add new user" button in user-screen view (by Jori Witte, April 17, 2017)-->
+
+
+<body ng-app="myApp" ng-controller="AddNewUserCtrl">
+    
+<!-- Modal shows the Storylines logo (not logotype) in top left corner-->
+<div class="modal-header">
+<img src="img/storyphants.png" style="width: 10%; height: 10%">
+ <img ng-src="{{image}}"/>
+
+<!-- Modal closes upon user clicking cancel icon in top right corner-->
+<button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+<!-- Implementation of a bulma conform large success (=green) button placed above the grid in user-screen view-->
+<h1 class="content is-large">Add a User</h1>
+</div>
+
+
+<!-- "Form" element where data for new users can be added-->
+
+<!-- TODO: the implmented validation mechanism (that should highlight an input element green or red) is currently not working as intended: all input elements are always marked green -->
+
+<!-- UPDATE: at least the colored border is being shown in the intended way, however, not the directions given to the user (as alerts below an input field) about the required data to be entered ($invalid, $pristine properties). -->
+
+<!-- novalidate prevents default HTML5 validations -->
+
+
+<div class="modal-body">
+
+<!--FORM -->
+<form name="newUser" ng-submit="submitForm(newUser.$valid)" novalidate> 
+
+<!-- NAME -->
+<!-- ng-model enables binding data from the input form fields to Angular variables -->
+
+<!-- FIRST NAME -->
+<div class="form-group" ng-class="{ 'has-error' : newUser.first.$invalid && !newUser.first.$pristine }">
+<label>First Name</label><input type="text" name="first" class="form-control" ng-model="form.newUser.first" ng-minlength="3" ng-maxlength="8" required/>
+<p ng-show="newUser.first.$error.minlength" class="help-block">First name is too short.</p>
+<p ng-show="newUser.first.$error.maxlength" class="help-block">First name is too long.</p>
+<p ng-show="newUser.first.$error.required" class="help-block">Your first name is required.</p>
+</div>
+
+<!-- LAST NAME -->
+<div class="form-group" ng-class="{ 'has-error' : newUser.last.$invalid && !newUser.last.$pristine }">
+<label>Last Name</label><input type="text" name="last" class="form-control" ng-model="form.newUser.last" ng-minlength="3" ng-maxlength="8" required/>
+<p ng-show="newUser.last.$error.minlength" class="help-block">Last name is too short.</p>
+<p ng-show="newUser.last.$error.maxlength" class="help-block">Last name is too long.</p>
+<p ng-show="newUser.last.$error.required" class="help-block">Your last name is required.</p>
+</div>
+
+<!-- EMAIL -->
+<div class="form-group" ng-class="{ 'has-error' : newUser.email.$invalid && !newUser.email.$pristine }">
+<label>eMail</label><input type="email" name="email" class="form-control" ng-model="form.newUser.email" required/><p ng-show="newUser.email.$invalid && !form.newUser.email.$pristine" class="help-block">Please enter a valid eMail address.</p>
+</div>
+
+
+<!-- LEVEL OF EXPERTISE -->
+<div class="form-group" ng-class="{ 'has-error' : newUser.userType.$invalid && !newUser.userType.$pristine }">
+<label>Expertise Level</label><input type="text" name="userType" class="form-control" ng-model="form.newUser.userType" required/><p ng-show="newUser.userType.$invalid && !form.newUser.userType.$pristine" class="help-block">Your expertise level is required.</p>
+</div>
+
+<!-- STORIES -->
+<div class="form-group" ng-class="{ 'has-error' : newUser.stories.$invalid && !newUser.stories.$pristine }">
+<label>No. of Stories</label><input type="number" name="stories" class="form-control" ng-model="form.newUser.stories" required/><p ng-show="newUser.stories.$invalid && !form.newUser.stories.$pristine" class="help-block">Number of stories is required.</p>
+</div>
+
+<!-- DATE -->
+<div class="form-group" ng-class="{ 'has-error' : newUser.joinDate.$invalid && !newUser.joinDate.$pristine }">
+<label>Date of Joining</label><input type="date" name="joinDate" class="form-control" ng-model="form.newUser.joinDate" required/><p ng-show="newUser.joinDate.$invalid && !form.newUser.joinDate.$pristine" class="help-block">Date of joining is required.</p>
+</div>
+<br/>
+
+
+<!-- SAVE BUTTON -->
+<!-- Implementation of "save data" button plus adding glyphicon to button plus horizontal space between glyphicon and text (glyphicons were kindly provided by http://glyphicons.com) -->
+<button class="button is-success" ng-click="saveNewUser()" ng-disabled="newUser.$invalid"> <span class="glyphicon glyphicon-floppy-save fa-fw"></span> Save User</button>
+
+</form>
+
+</div>

@@ -1,0 +1,105 @@
+
+/* Defining additional CSS styling rules for the 
+user-screen view, as well as the pop-up modal view (by Jori Witte, April 17, 2017) */
+
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body{
+padding-top: 50px;
+}
+
+/** ng-valid and ng-invalid classes are added by AngularJS
+* based on the type attribute of the input respective input fields.
+* If entered text is valid the text box should have a green border.
+* If entered text is invalid, the text box should have a red border.
+* CSS properties are being added to the ng-valid and ng-invalid classes.
+*/
+
+input.ng-invalid{
+border: thin solid #990000;
+}
+
+input.ng-valid{
+border: thin solid #090;
+} 
+
+.button{
+  margin-left: 40px;
+  margin-bottom: 10px;
+
+}
+
+.content{
+  margin-left: 40px;
+
+}
+
+.grid{
+  width:900px;
+  height:500px;
+  margin-left: 40px;
+  font-size: 12px;
+}
+
+.ui-grid-pager-panel {
+bottom: -3px !important;
+}
+
+
+/* Customization of alternating row colors */
+
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: #ebffcc !important;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+    background-color: #f0ccff !important;
+}
+
+.modal-body input{
+display:block;
+}
+
+.ui-grid-menu-button {
+  height: 31px;
+}
+
+/* Glyphicons had been kindly provided for free by http://glyphicons.com */ 
+
+.glyphicon:before {
+  margin-right: 10px;
+}
+ 
+.my-custom-menu {
+  position: absolute;
+}
+ 
+.ui-grid-menu {
+  padding: 0px;
+}
+ 
+.ui-grid-menu-inner {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+ 
+.rotated {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.printSelection {
+    width: 600px;
+    margin-top: 10px;
+}
+
+

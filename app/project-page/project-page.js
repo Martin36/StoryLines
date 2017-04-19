@@ -84,6 +84,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     $scope.deleteCard = function(){
       Model.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
+  //    $scope.$evalAsync();
     };
 
     $scope.showDeleteBoardWarning = function() {

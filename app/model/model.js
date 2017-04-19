@@ -399,6 +399,9 @@ app.factory('Model', function ($cookies, $resource) {
         boards[i].cards = boards[i].cards.filter(function (card) {
           return card.id != cardId;
         });
+        boards[i].myCards = boards[i].myCards.filter(function (card){
+          return card.id != cardId;
+        })
       }
     }
   };

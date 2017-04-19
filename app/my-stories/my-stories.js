@@ -46,5 +46,26 @@ app.controller('MyStoriesController', function ($scope, Model) {
         var iE1= angular.element(document.querySelector('#card1'));
         iE1.remove();
     }
+    $scope.getLabelClass = function(card){
+      var label = card.labels[0];
+      if(label == undefined){
+        return "";
+      }
+      console.log(label.name);
+      switch (label.name) {
+        case "high priority":
+          return "high-priority";
+          break;
+        case "medium priority":
+          return "medium-priority";
+          break;
+        case "low priority":
+          return "low-priority";
+          break;
+        default:
+          return "low-priority";
+      }
+
     }
-);
+
+});

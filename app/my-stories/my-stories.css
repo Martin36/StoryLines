@@ -14,6 +14,17 @@ hr {
     display: flex;
     flex-direction: column;
 }
+
+#card1.high-priority{
+  background-color: #ff3860;
+}
+#card1.medium-priority{
+  background-color: #ffdd57;
+}
+#card1.low-priority{
+  background-color: #23d160;
+}
+
 .modal-card{
 box-shadow: 2px 0px 10px #888888;
 }
@@ -23,6 +34,11 @@ box-shadow: 2px 0px 10px #888888;
 
 .card-row {
     margin-right: 25px;
+}
+
+
+.card-content{
+
 }
 
 .card-content .sub-menu{

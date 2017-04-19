@@ -11,7 +11,7 @@
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns card-row">
-      <div class="card column is-3" id="card1" ng-repeat="card in board.myCards">
+      <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards">
         <div class="card-content" ng-style="myStyle">
           <p class="card-header-title">
             {{card.name}}

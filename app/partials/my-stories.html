@@ -1,6 +1,5 @@
-<!-- <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include> -->
-
-<div class="our-content" ng-controller="MyStoriesController">
+<!-- My stories view -->
+<div class="our-content">
   <!-- Loading screen -->
   <div class="loader-frame" ng-if="loading">
     <div class="loader1"></div>
@@ -14,12 +13,12 @@
       <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
         <div class="card-content" ng-style="myStyle">
           <p class="card-header-title">
-			{{card.name}}
-			</p>
+			      {{card.name}}
+			    </p>
           <a class="card-header-icon" ng-click="toggleDropdown(card)">
-                  <span class="icon">
-                    <i class="fa fa-angle-down"></i>
-                  </span>
+            <span class="icon">
+              <i class="fa fa-angle-down"></i>
+            </span>
           </a>
           <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
             <li><a id="dropdownShowDetails" ng-click="showdetails(card)">Details</a></li>
@@ -41,7 +40,6 @@
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
-
         <div class="field">
           <label class="label">Description</label>
           <p class="control">

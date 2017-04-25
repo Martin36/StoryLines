@@ -29,13 +29,16 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider
     .when("/login", {
-      templateUrl: "partials/login.html"
+      templateUrl: "partials/login.html",
+      controller: "LoginController"
     })
     .when("/myStories", {
-      templateUrl: "partials/my-stories.html"
+      templateUrl: "partials/my-stories.html",
+      controller: "MyStoriesController"
     })
     .when("/plannerHub", {
       templateUrl: "partials/planner-hub.html",
+      controller: "PlannerHubController"
     })
     .when("/projectPage/:boardId", {
       templateUrl: "partials/project-page.html",

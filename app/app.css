@@ -1,5 +1,6 @@
 /* app css stylesheet */
 
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -93,3 +94,12 @@
    from {transform: rotate(0deg);}
    to {transform: rotate(-360deg);}
  }
+
+#story-lines{
+   font-family: outrun-future;
+}
+
+@font-face {
+ name: outrun-future;
+ src: url('fonts/outrun_future/Outrun future.otf');
+}

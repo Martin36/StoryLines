@@ -1,36 +1,28 @@
 /* app css stylesheet */
-
-
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
   padding: 0 0 0.5em;
 }
-
 .menu:before {
   content: "[";
 }
-
 .menu:after {
   content: "]";
 }
-
 .menu > li {
   display: inline;
 }
-
 .menu > li + li:before {
   content: "|";
   padding-right: 0.3em;
 }
-
 /*Content to the right of the sidebar*/
 .our-content {
   padding-left: 240px;
   padding-right: 20px;
 }
-
 /*The title in each board for a specific project*/
 .title.board {
   border-width: 0px 0px 2px 0px;
@@ -40,20 +32,16 @@
   /*TODO: This gets overridden by title's margin. It should not!*/
   margin-bottom: 10px;
 }
-
 /*For the edit title button icon*/
 .title .icon {
   margin-left: 10px;
 }
-
 /*Hides the border for the add card buttons*/
 .button.addCard {
   border-style: none;
   margin-top: 10px;
 }
-
 /* Loading symbol */
-
 .loader-frame {
   width: 200px;
   height: 200px;
@@ -62,13 +50,11 @@
   margin-left: 40%;
   position: relative;
 }
-
 .loader1, .loader2 {
   position: absolute;
   border: 5px solid transparent;
   border-radius: 50%;
 }
-
 .loader1 {
   width: 200px;
   height: 200px;
@@ -76,7 +62,6 @@
   border-bottom: 10px solid gray;
   animation: clockwisespin 2s linear infinite;
 }
-
 .loader2 {
   width: 180px;
   height: 180px;
@@ -85,7 +70,331 @@
   top: 10px; left: 10px;
   animation: anticlockwisespin 2s linear infinite;
 }
+#story-lines{
+  font-family: outrun-future;
+}
 
+#login{
+    /* To center the div*/
+    position:absolute;
+    top:50%;
+    left:50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+
+    padding: 20px;
+    background-color: #cccccc;
+    box-shadow: 10px 10px 30px #888888;
+    text-align: center;
+}
+
+.project{
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+#rowHeader  {
+    margin-bottom: 0px !important;
+}
+hr {
+    margin-top: 10px;
+}
+#card1 {
+    border-radius: 20px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+#card1.high-priority{
+  background-color: #ff3860;
+}
+#card1.medium-priority{
+  background-color: #ffdd57;
+}
+#card1.low-priority{
+  background-color: #23d160;
+}
+#card1 a{
+  color: #000;
+}
+#card1 a:hover{
+  color: #fff;
+}
+a#dropdownShowDetails:hover{
+  color: #444;
+}
+.modal-card{
+box-shadow: 2px 0px 10px #888888;
+}
+.card-footer{
+    margin-top: auto;
+}
+.card-row {
+    margin-right: 25px;
+}
+.card-content .sub-menu{
+    top: 52%;
+    left: 45%;
+}
+
+#plannerHubView.title {
+    margin-bottom: 20px;
+}
+.chart-title{
+    text-align: center;
+}
+.fixed-width{
+    width: 75%;
+}
+.planner-hub-wrapper{
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.fixed-height-card{
+    border-radius: 20px;
+    min-height: 80px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.card-wrapper{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 59vh;
+    background: rgba(211, 211, 211, 0.7);
+    border-radius: 20px;
+}
+.no-box{
+    border: 0 solid;
+    background: none;
+}
+.emph {
+  color: red;
+}
+.hover-red:hover {
+  cursor: pointer;
+  color: hsl(14, 100%, 53%);
+}
+.hover-blue:hover {
+  cursor: pointer;
+  color: hsl(217, 71%, 53%)
+}
+.sub-menu{
+    position: absolute;
+    top: 60%;
+    left: 80%;
+    z-index: 1;
+    box-shadow:0px 2px 3px rgba(0,0,0,0.2);
+    border: 3px;
+    background: white;
+    padding: 10px;
+}
+.sub-menu a {
+    color: black;
+}
+.sub-menu a:hover {
+    color: gray;
+}
+.select .resized {
+}
+.is-overflow {
+  overflow-y: auto;
+}
+.no-overflow {
+  overflow-y: hidden;
+}
+/*Sidebar*/
+.sidebar {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    /* Give the sidebar flexbox properties*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #e8e8e8;
+    box-shadow: 2px 0px 10px #888888;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: 0.5s;
+    padding-top: 0px;
+    padding-bottom: 10px;
+}
+.sidebar a {
+    margin-left: 0px;
+    width: 100%;
+}
+.sidebar#profile-pic{
+    margin-left: 20px;
+}
+.sidebar#profile{
+    position: absolute;
+    margin-bottom: 10px;
+}
+.fa-user-circle {
+  color: #00d1b2;
+}
+.button {
+  border-radius: 0px;
+}
+.menu-list.projects {
+  height: 400px;
+  overflow-y: auto;
+}
+.animate-hide {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    line-height:20px;
+    opacity:1;
+    padding:10px;
+    border:1px solid black;
+    background:white;
+    position: absolute;
+    left: 0;
+}
+.animate-hide.ng-hide {
+    left: -100%;
+    opacity:0;
+    padding:0 10px;
+}
+/*Projects in sidebar animations*/
+.repeat-project.ng-enter {
+  animation: 1s fade_in;
+  -webkit-animation: 1s fade_in;
+}
+.repeat-project.ng-enter-stagger {
+  animation-delay: 0.1s;
+  animation-duration: 0s;
+}
+.repeat-project.ng-leave {
+  background-color: red;
+  animation: 1s slide_out;
+}
+/*User Screen*/
+.user-wrapper {
+    padding: 10px;
+    padding-top: 80px;
+    background-color: #FFF;
+}
+form.ng-dirty input.ng-invalid {
+    border: 1px solid #B02B2C;
+}
+form.ng-dirty input.ng-valid {
+    border: 1px solid #6BBA70;
+}
+.Feature {
+    background: #F9F7ED;
+}
+.Enhancement {
+    background: #FFFF88;
+}
+.Bug {
+    background: #CDEB8B;
+}
+.Spike {
+    background: #C3D9FF;
+}
+.edit input {
+    border: 1px solid #ffffff;
+    width: 100%;
+    resize: none;
+    background-color: #ffffff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.edit input:hover,
+.edit input:focus {
+    border: 1px solid #d7cebf;
+    outline: none
+}
+.form-signin {
+    min-height: 215px;
+    max-width: 100%;
+    line-height: 1.428571429;
+    width: 400px;
+    padding: 20px;
+    margin: 80px auto 20px;
+    position: relative;
+}
+.form-signin .a0-panel.a0-onestep {
+    width: 100% !important;
+}
+.form-signin input {
+    max-width: none !important;
+}
+.form-signin button {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+.form-signin button:hover {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+.form-signin .large {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+.error {
+  color: red;
+}
+.form-signin input[type=text],
+.form-signin input[type=email],
+.form-signin input[type=password],
+.create textarea {
+    outline: none;
+    width: 100%;
+    resize: none;
+    margin-bottom: 5px;
+}
+/* Keyframes */
+@keyframes fade_in {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slide_out {
+  from {opacity: 1;}
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
 @keyframes clockwisespin {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
@@ -93,12 +402,8 @@
 @keyframes anticlockwisespin {
    from {transform: rotate(0deg);}
    to {transform: rotate(-360deg);}
- }
-
-#story-lines{
-   font-family: outrun-future;
 }
-
+/*Font*/
 @font-face {
  name: outrun-future;
  src: url('fonts/outrun_future/Outrun future.otf');

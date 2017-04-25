@@ -13,11 +13,10 @@
     "angular-loader": "~1.5.0",
     "angular-mocks": "~1.5.0",
     "angular-animate": "~1.5.0",
-    "html5-boilerplate": "^5.3.0",
-    "bulma": "0.4.0",
     "angular-chart.js": "1.1.1",
-    "firebase": "3.7.4",
     "angularfire": "2.3.0",
-    "angular-bulma": "0.3.1"
+    "html5-boilerplate": "^5.3.0",
+    "firebase": "3.7.4",
+    "bulma": "0.4.0"
   }
 }

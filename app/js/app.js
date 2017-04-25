@@ -15,7 +15,6 @@ var app = angular.module('myApp', [
   'ngAnimate',
   'chart.js',
   'firebase',
-  'bulma',
   'angular-click-outside'
 ]).
 
@@ -30,25 +29,25 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider
     .when("/login", {
-      templateUrl: "login/login.html"
+      templateUrl: "partials/login.html"
     })
     .when("/myStories", {
-      templateUrl: "my-stories/my-stories.html"
+      templateUrl: "partials/my-stories.html"
     })
     .when("/plannerHub", {
-      templateUrl: "planner-hub/planner-hub.html",
+      templateUrl: "partials/planner-hub.html",
     })
     .when("/projectPage/:boardId", {
-      templateUrl: "project-page/project-page.html",
+      templateUrl: "partials/project-page.html",
       controller: "ProjectPageController"
     })
   .when("/userScreen", {
-      templateUrl: "user-screen/user-screen.html",
+      templateUrl: "partials/user-screen.html",
       controller: "UserScreenController",
       controllerAs: 'myUser',
     })
   .when("/userScreen/:userId", {
-    templateUrl: "user-screen/user-screen.html",
+    templateUrl: "partials/user-screen.html",
     controller: "UserScreenController",
     resolve: {
                 user: function ($route, $routeParams, UsersModel) {

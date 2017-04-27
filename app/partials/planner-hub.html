@@ -13,7 +13,7 @@
     </div>
     <!-- Chart part -->
     <div class="columns">
-      <div class="column is-3" ng-repeat="board in boards">
+      <div class="column is-3 chart-container" ng-repeat="board in boards">
         <canvas id="doughnut" class="chart chart-doughnut"
                 chart-data="board.statsData" chart-labels="labels"
                 chart-options="options" >

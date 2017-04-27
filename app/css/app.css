@@ -48,12 +48,15 @@
 #home-container img{
   cursor: pointer;
 }
+.chart-container{
+  padding: 50px;
+  padding-top: 0;
+}
 
 /* Loading symbol */
 .loader-frame {
   width: 200px;
   height: 200px;
-  margin: auto;
   margin-top: 15%;
   margin-left: 40%;
   position: relative;

@@ -7,7 +7,7 @@ app.controller('MyStoriesController', function ($scope, Model) {
       $scope.loading = true;
     }
 
-    $scope.showdetails =function (card){
+    $scope.showDetails =function (card){
       $scope.clickedCard = card;
       $scope.showEdit =true;
     };

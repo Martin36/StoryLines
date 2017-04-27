@@ -120,6 +120,9 @@ hr {
 #card1 a:hover{
   color: #fff;
 }
+.card-footer-item:not(:last-child) {
+    border-right: 1px solid #dbdbdb;
+}
 a#dropdownShowDetails:hover{
   color: #444;
 }

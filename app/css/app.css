@@ -123,6 +123,9 @@ hr {
 .card-footer-item:not(:last-child) {
     border-right: 1px solid #dbdbdb;
 }
+#card1 .card-header-title{
+  justify-content: center;
+}
 a#dropdownShowDetails:hover{
   color: #444;
 }

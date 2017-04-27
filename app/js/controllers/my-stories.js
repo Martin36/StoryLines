@@ -1,9 +1,9 @@
 /**
  * Created by marti on 2017-03-25.
  */
-app.controller('MyStoriesController', function ($scope, Model) {
+app.controller('MyStoriesController', function ($scope, TrelloService) {
 
-    if(!Model.boardsLoaded()){
+    if(!TrelloService.boardsLoaded()){
       $scope.loading = true;
     }
 
@@ -19,14 +19,14 @@ app.controller('MyStoriesController', function ($scope, Model) {
     };
 
     var loadBoards = function () {
-      Model.loadData(function(){
-        $scope.boards = Model.getBoards;
+      TrelloService.loadData(function(){
+        $scope.boards = TrelloService.getBoards;
         $scope.loading = false;
         $scope.$evalAsync();
       });
     };
-    if(Model.boardsLoaded()){
-      $scope.boards = Model.getBoards;
+    if(TrelloService.boardsLoaded()){
+      $scope.boards = TrelloService.getBoards;
       $scope.loading = false;
     }else{
       loadBoards();
@@ -41,7 +41,7 @@ app.controller('MyStoriesController', function ($scope, Model) {
     };
 
     $scope.listId = function(boardId ,listName) {
-      return Model.getListId(boardId, listName);
+      return TrelloService.getListId(boardId, listName);
     };
 
     $scope.removeID =function()
@@ -76,7 +76,7 @@ app.controller('MyStoriesController', function ($scope, Model) {
 
 	//to move card from one page to another
 	$scope.movecard = function(card, listname){
-		Model.moveCard(card, listname);
+		TrelloService.moveCard(card, listname);
 	};
 
 });

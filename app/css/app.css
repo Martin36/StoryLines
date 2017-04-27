@@ -41,6 +41,18 @@
   border-style: none;
   margin-top: 10px;
 }
+#home-container .card{
+  border-radius: 20px;
+  margin-left: 40px;
+  margin-top: 20px;
+  padding: 30px;
+}
+#home-container .card h1{
+  font-size: 35px;
+}
+#home-container .text-container{
+}
+
 /* Loading symbol */
 .loader-frame {
   width: 200px;

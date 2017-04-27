@@ -6,12 +6,29 @@
     <div class="loader2"></div>
   </div>
 
-  <div class="columns">
-    <div id="planner-hub-card" class="card column is-4">
+  <div id="home-container" class="columns">
+    <div id="" class="card column is-4" ng-click="changeView()">
+      <h1> Planner Hub </h1>
       <img src="img/planner-hub.png">
+      <hr>
+      <div class="text-container">
+        <p>
+          On this page you will see the statistics of the assigned labels to the cards in your projects.
+          Each part of the doughnut charts displays the number of cards for a specific priority label of the cards.
+        </p>
+      </div>
     </div>
-    <div id="my-stories-card" class="card column is-4">
+    <div id="" class="card column is-4">
+      <h1> My Stories </h1>
       <img src="img/my-stories.png">
+      <hr>
+      <div class="text-container">
+        <p>
+          This page gives you a quick overview of the cards that are assigned to you.
+          The red cards have the highest priority, the yellow medium and the green have low priority.
+          On this page you can also see a detailed description of the cards and mark the cards as done when you complete a task.
+        </p>
+    </div>
     </div>
     <div id="projects-card"></div>
   </div>

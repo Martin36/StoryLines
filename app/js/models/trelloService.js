@@ -90,7 +90,7 @@ app.factory('TrelloService', function ($cookies, $resource) {
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
         if(useCardStats){
-          cardStats(cb);
+          cardStats([],cb);
         }
         else{
           cb();
@@ -174,12 +174,12 @@ app.factory('TrelloService', function ($cookies, $resource) {
 
   }
 
-  var cardStats = function (cb) {
+  var cardStats = function (card, cb) {
     for(var i = 0; i < boards.length; i++){
       cardStatsOneBoard(i);
     }
     boardsLoaded = true;
-    cb();
+    cb(card);
   };
 
   this.loadData = function (cb) {
@@ -266,7 +266,7 @@ app.factory('TrelloService', function ($cookies, $resource) {
     Trello.post('cards?idList='+listId+"&name="+cardName+'&idMembers='+userId, function (card) {
       //When the card is added to the API, add the card to our model
       boards[findBoardIndex(boardId)].cards.push(card);
-      cardStats(cb);
+      cardStats(card, cb);
       //cb();
     }, function (errorMsg) {
       console.log(errorMsg)

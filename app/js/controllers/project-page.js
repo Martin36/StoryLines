@@ -1,5 +1,9 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
-app.controller('ProjectPageController', function ($scope, $routeParams, TrelloService) {
+app.controller('ProjectPageController', function ($scope, $routeParams,
+  $firebaseArray, TrelloService) {
+
+    var ref = firebase.database().ref().child($routeParams.boardId);
+    var firebaseBoard = $firebaseArray(ref);
 
     $scope.edit = {
       title: false,
@@ -40,9 +44,13 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
 
     // TODO: Add card to specific list in this board with API PUSH
     $scope.addCard = function(listName) {
-      TrelloService.addNewCard($routeParams.boardId, listName, listName, function () {
+      TrelloService.addNewCard($routeParams.boardId, listName, listName, function (card) {
         $scope.board = TrelloService.getBoard($routeParams.boardId);
         $scope.$evalAsync();
+        firebaseBoard.$add({
+          boardId : $routeParams.boardId,
+          cardId  : card.id
+        });
       });
     };
 
@@ -89,6 +97,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
     $scope.deleteCard = function(){
       TrelloService.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
+      firebaseBoard.$remove($scope.clickedCard.id);
   //    $scope.$evalAsync();
     };
 

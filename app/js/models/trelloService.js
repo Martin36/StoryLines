@@ -1,7 +1,7 @@
 /**
  * Created by marti on 2017-03-26.
  */
-app.factory('Model', function ($cookies, $resource) {
+app.factory('TrelloService', function ($cookies, $resource) {
 
   var useCardStats = true;
   var loggedIn = false;
@@ -36,16 +36,6 @@ app.factory('Model', function ($cookies, $resource) {
   this.logout = function () {
     loggedIn = false;
   }
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAnGNc08nedi09D3T-vSW-kLN_lFFEjcDA",
-    authDomain: "storylines-784ba.firebaseapp.com",
-    databaseURL: "https://storylines-784ba.firebaseio.com",
-    projectId: "storylines-784ba",
-    storageBucket: "storylines-784ba.appspot.com",
-    messagingSenderId: "631528991893"
-  };
-  firebase.initializeApp(config);
 
   var loadBoards = function (cb) {
     // Get all of the information about the boards you have access to
@@ -402,6 +392,17 @@ app.factory('Model', function ($cookies, $resource) {
       }
     }
   };
+
+  this.moveCard =function(card, listTypes){
+		var ListId = this.getListId(card.idBoard, listTypes);
+		Trello.put("cards/"+card.id+"/idList?value="+ListId);
+		for(var i=0; i< boards.length; i++){
+			for(var j=0; j< boards[i].cards.length; j++){
+				if(boards[i].cards[j].id == card.id)
+						boards[i].cards[j].idList= ListId;
+			}
+		}
+	}
 
   // The different lables that we use
   var lables =

@@ -23,7 +23,6 @@ var app = angular.module('myApp', [
 // a configuration object for that particular route
 // The route configuration object is responsible for associating a template and a controller
 // to a particular route (comment by Jori, April 03, 2017)
-
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
@@ -31,6 +30,10 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     .when("/login", {
       templateUrl: "partials/login.html",
       controller: "LoginController"
+    })
+    .when("/home", {
+      templateUrl: "partials/home.html",
+      controller: "SidebarController"
     })
     .when("/myStories", {
       templateUrl: "partials/my-stories.html",
@@ -44,29 +47,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: "partials/project-page.html",
       controller: "ProjectPageController"
     })
-  .when("/userScreen", {
-      templateUrl: "partials/user-screen.html",
-      controller: "UserScreenController",
-      controllerAs: 'myUser',
-    })
-  .when("/userScreen/:userId", {
-    templateUrl: "partials/user-screen.html",
-    controller: "UserScreenController",
-    resolve: {
-                user: function ($route, $routeParams, UsersModel) {
-                    var userId = $route.current.params['userId']
-                               ? $route.current.params['userId']
-                               : $routeParams['userId'];
-                    return UsersModel.fetch(userId);
-                },
-                stories: function ($rootScope, StoriesModel) {
-                    return StoriesModel.all();
-                }
-            }
-    })
-
-
-  // In case there is no route match, a fallback is being defined using otherwise method on $routeProvider
+// In case there is no route match, a fallback is being defined using otherwise method on $routeProvider
 // if a route cannot be matched a redirect to the root of the application occurs (comment by Jori, April 03, 2017)
     .otherwise({redirectTo: '/login'});
 }]);

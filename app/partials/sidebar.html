@@ -2,7 +2,6 @@
   <!-- Sidebar -->
   <div class="column is-one-quarter">
     <div class="sidebar">
-      <!-- Back button -->
       <p class="field">
         <a ng-click="newProject()" class="button is-medium is-primary"
             ng-class="showLoading(loading)">
@@ -12,9 +11,17 @@
           <span>New Project</span>
         </a>
       </p>
-      <!-- TODO: Add the navigation buttons -->
+
       <div class="column">
-        <p class="menu-label">Pages</p>
+        <!-- Home button -->
+        <ul class="menu-list">
+          <li>
+            <a ng-click="changeView('home')"
+               ng-class="isActive('/home')">
+                Home
+            </a>
+          </li>
+        <p class="menu-label">Overview</p>
         <ul class="menu-list">
           <li ng-repeat="page in pages">
             <a ng-click="changeView(page.link)"

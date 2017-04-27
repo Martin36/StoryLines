@@ -1,36 +1,9 @@
 /* app css stylesheet */
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-.menu:before {
-  content: "[";
-}
-.menu:after {
-  content: "]";
-}
-.menu > li {
-  display: inline;
-}
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
+
 /*Content to the right of the sidebar*/
 .our-content {
   padding-left: 240px;
   padding-right: 20px;
-}
-/*The title in each board for a specific project*/
-.title.board {
-  border-width: 0px 0px 2px 0px;
-  border-color: #c6c5c5;
-  border-style: solid;
-  padding-bottom: 10px;
-  /*TODO: This gets overridden by title's margin. It should not!*/
-  margin-bottom: 10px;
 }
 /*For the edit title button icon*/
 .title .icon {
@@ -41,6 +14,21 @@
   border-style: none;
   margin-top: 10px;
 }
+#home-container .card{
+  /*border-radius: 20px;*/
+  margin-left: 40px;
+  margin-top: 20px;
+  padding: 30px;
+  box-shadow: 0px 0px 5px #888888;
+  /*border: 1px solid black;*/
+}
+#home-container .card h1{
+  font-size: 35px;
+}
+#home-container img{
+  cursor: pointer;
+}
+
 /* Loading symbol */
 .loader-frame {
   width: 200px;
@@ -119,6 +107,12 @@ hr {
 }
 #card1 a:hover{
   color: #fff;
+}
+.card-footer-item:not(:last-child) {
+    border-right: 1px solid #dbdbdb;
+}
+#card1 .card-header-title{
+  justify-content: center;
 }
 a#dropdownShowDetails:hover{
   color: #444;

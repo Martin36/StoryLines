@@ -1,28 +1,28 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
-app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
+app.controller('ProjectPageController', function ($scope, $routeParams, TrelloService) {
 
     $scope.edit = {
       title: false,
       titleFocus: false
     }
 
-    if(!Model.boardsLoaded()){
+    if(!TrelloService.boardsLoaded()){
       $scope.loading = true;
     }
 
     var loadBoards = function () {
-      Model.loadData(function(){
-        $scope.board = Model.getBoard($routeParams.boardId);
-        $scope.listsToShow = Model.getListsToShow();
+      TrelloService.loadData(function(){
+        $scope.board = TrelloService.getBoard($routeParams.boardId);
+        $scope.listsToShow = TrelloService.getListsToShow();
         $scope.loading = false;
         $scope.$evalAsync();
       });
     };
 
     //Check if data is loaded
-    if(Model.boardsLoaded()){
-      $scope.board = Model.getBoard($routeParams.boardId);
-      $scope.listsToShow = Model.getListsToShow();
+    if(TrelloService.boardsLoaded()){
+      $scope.board = TrelloService.getBoard($routeParams.boardId);
+      $scope.listsToShow = TrelloService.getListsToShow();
       $scope.loading = false;
     }else{
       loadBoards();
@@ -35,13 +35,13 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     $scope.desc = "";
 
     $scope.listId = function(listName) {
-      return Model.getListId($routeParams.boardId, listName);
+      return TrelloService.getListId($routeParams.boardId, listName);
     };
 
     // TODO: Add card to specific list in this board with API PUSH
     $scope.addCard = function(listName) {
-      Model.addNewCard($routeParams.boardId, listName, listName, function () {
-        $scope.board = Model.getBoard($routeParams.boardId);
+      TrelloService.addNewCard($routeParams.boardId, listName, listName, function () {
+        $scope.board = TrelloService.getBoard($routeParams.boardId);
         $scope.$evalAsync();
       });
     };
@@ -52,7 +52,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
     // Save the new title on trello
     $scope.saveTitle = function(){
-      Model.changeBoardName($routeParams.boardId, $scope.board.name);
+      TrelloService.changeBoardName($routeParams.boardId, $scope.board.name);
       toggleEdit();
     };
 
@@ -70,9 +70,9 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
 
     $scope.save = function () {
       //console.log($scope.clickedCard.desc);
-      Model.addDescriptionToCard($scope.clickedCard);
-      Model.changeNameOfCard($scope.clickedCard);
-      Model.changeLabelOfCard($routeParams.boardId, $scope.clickedCard);
+      TrelloService.addDescriptionToCard($scope.clickedCard);
+      TrelloService.changeNameOfCard($scope.clickedCard);
+      TrelloService.changeLabelOfCard($routeParams.boardId, $scope.clickedCard);
       $scope.showEdit = false;
     };
     $scope.cancel = function(){
@@ -87,7 +87,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     };
 
     $scope.deleteCard = function(){
-      Model.deleteCard($routeParams.boardId, $scope.clickedCard.id);
+      TrelloService.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
   //    $scope.$evalAsync();
     };
@@ -97,13 +97,13 @@ app.controller('ProjectPageController', function ($scope, $routeParams, Model) {
     }
 
     $scope.deleteBoard = function() {
-      Model.deleteBoard($routeParams.boardId);
+      TrelloService.deleteBoard($routeParams.boardId);
       $scope.showDeleteBoard = false;
       $scope.deleted = true;
     }
 
     $scope.isDeleted = function() {
-      return Model.getBoard($routeParams.boardId);
+      return TrelloService.getBoard($routeParams.boardId);
     }
 
     $scope.toggleDropdown = function (card) {

@@ -2,7 +2,7 @@
  * Created by marti on 2017-03-25.
  */
 app.controller('LoginController', function ($cookies, $scope, $location,
-    $firebaseAuth, Model) {
+    $firebaseAuth, TrelloService) {
 
   // Authenticate with google to firebase
   // TODO: Custom token from trello login maybe??
@@ -14,11 +14,11 @@ app.controller('LoginController', function ($cookies, $scope, $location,
   // });
 
   $scope.login = function () {
-    if(Model.isLoggedIn()){
+    if(TrelloService.isLoggedIn()){
       $location.path('/plannerHub');
       $scope.$evalAsync();
     }else{
-      Model.authorize(function () {
+      TrelloService.authorize(function () {
         $location.path('/plannerHub');
         $scope.$evalAsync();
       }, false);

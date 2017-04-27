@@ -58,8 +58,14 @@
   top: 10px; left: 10px;
   animation: anticlockwisespin 2s linear infinite;
 }
+/*Font*/
+@font-face {
+    font-family: outrunFuture;
+    src: url('../fonts/outrun_future/outrun-future.otf');
+}
+
 #story-lines{
-  font-family: outrun-future;
+  font-family: outrunFuture;
 }
 
 #login{
@@ -396,9 +402,4 @@ form.ng-dirty input.ng-valid {
 @keyframes anticlockwisespin {
    from {transform: rotate(0deg);}
    to {transform: rotate(-360deg);}
-}
-/*Font*/
-@font-face {
- name: outrun-future;
- src: url('fonts/outrun_future/Outrun future.otf');
 }

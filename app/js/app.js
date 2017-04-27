@@ -33,7 +33,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     })
     .when("/home", {
       templateUrl: "partials/home.html",
-      controller: "HomeController"
+      controller: "SidebarController"
     })
     .when("/myStories", {
       templateUrl: "partials/my-stories.html",

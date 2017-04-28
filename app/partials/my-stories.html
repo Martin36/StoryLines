@@ -11,11 +11,9 @@
     <hr>
     <div class="columns card-row">
       <div class="card column is-2" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
-        <div class="card-content" ng-style="myStyle">
-          <p class="card-header-title">
-			      {{card.name}}
-			    </p>
-        </div>
+        <p class="card-header-title">
+          {{card.name}}
+        </p>
         <footer class="card-footer">
           <a class="card-footer-item" ng-click="showDetails(card)">Details</a>
 			    <a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>

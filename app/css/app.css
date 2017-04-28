@@ -118,10 +118,11 @@ hr {
     margin-top: 10px;
 }
 #card1 {
-    border-radius: 20px;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
+  border-radius: 20px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 #card1.high-priority{
   background-color: #ff3860;

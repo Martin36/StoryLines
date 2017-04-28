@@ -89,8 +89,7 @@
 
 #story-lines{
   font-family: outrunFuture;
-  padding-top: 3vh;
-  padding-bottom: 3vh;
+  padding: 3vh 0 3vh 3vw;
 }
 
 #login{

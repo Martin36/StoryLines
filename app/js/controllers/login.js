@@ -15,11 +15,11 @@ app.controller('LoginController', function ($cookies, $scope, $location,
 
   $scope.login = function () {
     if(TrelloService.isLoggedIn()){
-      $location.path('/plannerHub');
+      $location.path('/home');
       $scope.$evalAsync();
     }else{
       TrelloService.authorize(function () {
-        $location.path('/plannerHub');
+        $location.path('/home');
         $scope.$evalAsync();
       }, false);
     }

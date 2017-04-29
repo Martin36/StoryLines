@@ -111,6 +111,9 @@
     margin-top: 0px;
     margin-bottom: 20px;
 }
+#lists-container{
+  padding: 0 7vw 0 7vw;
+}
 #rowHeader  {
     margin-bottom: 0px !important;
 }

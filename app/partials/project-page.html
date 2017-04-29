@@ -31,7 +31,7 @@
     </div>
 
     <!--Display the different lists -->
-    <div class="columns">
+    <div id="lists-container" class="columns">
       <div class="column has-text-centered" ng-repeat="list in listsToShow">
         <p class="title is-4 board">
           {{list}}
@@ -139,7 +139,7 @@
     </div>
   </div>
 
-  <!-- Delete Board TODO: Use same modal as above?? Yes -->
+  <!-- Delete Board -->
   <div class="modal is-active" ng-if="showDeleteBoard">  <!-- ng-if gets its own scope-->
     <div class="modal-background"></div>
     <div class="modal-card">

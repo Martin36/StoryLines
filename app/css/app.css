@@ -210,7 +210,7 @@ box-shadow: 2px 0px 10px #888888;
 .card-wrapper{
     overflow-y: auto;
     overflow-x: hidden;
-    height: 59vh;
+    height: 55vh;
     background: rgba(211, 211, 211, 0.7);
     border-radius: 20px;
 }

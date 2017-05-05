@@ -126,6 +126,10 @@ hr {
   display: flex;
   flex-direction: column;
   padding: 0;
+  min-width: 200px;
+  max-width: 200px;
+  position: relative;
+  float: left;
 }
 #card1.high-priority{
   background-color: #ff3860;
@@ -158,7 +162,8 @@ box-shadow: 2px 0px 10px #888888;
     margin-top: auto;
 }
 .card-row {
-    margin-right: 25px;
+  margin-right: 25px;
+  overflow-x: hidden;
 }
 .card-content .sub-menu{
     top: 52%;

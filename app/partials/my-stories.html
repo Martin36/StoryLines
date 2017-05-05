@@ -6,18 +6,20 @@
     <div class="loader2"></div>
   </div>
 
-  <div class="project" ng-repeat="board in boards()" ng-show="!projectEmpty(board)">
-    <h1 id="rowHeader" class="title">{{board.name}}</h1>
-    <hr>
-    <div class="columns card-row">
-      <div class="card column is-2" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
-        <p class="card-header-title">
-          {{card.name}}
-        </p>
-        <footer class="card-footer">
-          <a class="card-footer-item" ng-click="showDetails(card)">Details</a>
-			    <a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
-        </footer>
+  <div id="lists-container">
+    <div class="project" ng-repeat="board in boards()" ng-show="!projectEmpty(board)">
+      <h1 id="rowHeader" class="title">{{board.name}}</h1>
+      <hr>
+      <div class="columns card-row">
+        <div class="column" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
+          <p class="card-header-title">
+            {{card.name}}
+          </p>
+          <footer class="card-footer">
+            <a class="card-footer-item" ng-click="showDetails(card)">Details</a>
+            <a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
+          </footer>
+        </div>
       </div>
     </div>
   </div>

@@ -38,7 +38,11 @@ app.controller('PlannerHubController', function ($scope, $timeout, TrelloService
       loadBoards();
     }
 
-    $scope.showHelp = function(){
+    $scope.toggleHelp = function(){
+      $scope.showHelp = true;
+    }
 
+    $scope.cancel = function () {
+      $scope.showHelp = false;
     }
   });

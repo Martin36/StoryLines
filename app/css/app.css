@@ -287,6 +287,17 @@ box-shadow: 2px 0px 10px #888888;
     padding-top: 0px;
     padding-bottom: 10px;
 }
+
+@media only screen and (max-width: 600px){
+  .sidebar{
+    display: none;
+  }
+  .our-content{
+    padding: 0;
+  }
+
+}
+
 .sidebar a {
     margin-left: 0px;
     width: 100%;

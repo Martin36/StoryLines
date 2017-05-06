@@ -121,9 +121,9 @@ app.factory('TrelloService', function ($cookies, $resource) {
     myCards(boardIndex);
     //Create array for holding the stats
     boards[boardIndex].cardStats = {
+      highPriority : 0,
       mediumPriority : 0,
-      lowPriority : 0,
-      highPriority : 0
+      lowPriority : 0
     };
     //Get the id of the list named "done"
     var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {

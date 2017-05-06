@@ -1,7 +1,7 @@
 /**
  * Created by marti on 2017-03-26.
  */
-app.factory('TrelloService', function ($cookies, $resource) {
+app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
 
   var useCardStats = true;
   var loggedIn = false;
@@ -60,27 +60,14 @@ app.factory('TrelloService', function ($cookies, $resource) {
     var boardId = boards[boardIndex].id;
     var success = function (data) {
       boards[boardIndex].lists = data;
-      //loadCards(boardIndex, cb);
-      loadLabels(boardIndex, cb);
+      loadCards(boardIndex, cb);
+      // loadLabels(boardIndex, cb);
     };
     var error = function(errorMsg) {
       console.log(errorMsg);
     };
     Trello.get('/boards/' + boardId + '/lists', success, error);
   };
-
-  var loadLabels = function (boardIndex, cb) {
-    var boardId = boards[boardIndex].id;
-    var success = function (data) {
-      boards[boardIndex].labels = data;
-      loadCards(boardIndex, cb);
-    };
-    var error = function(errorMsg) {
-      console.log(errorMsg);
-    };
-    Trello.get('/boards/' + boardId + '/labels', success, error);
-  };
-
 
   var loadCards = function (boardIndex, cb) {
     // Get all of the information about the boards you have access to
@@ -89,12 +76,7 @@ app.factory('TrelloService', function ($cookies, $resource) {
       boards[boardIndex].cards = data;
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
-        if(useCardStats){
-          cardStats([],cb);
-        }
-        else{
-          cb();
-        }
+         loadCardLabels(boardIndex, cb);
       }
     };
     var error = function(errorMsg) {
@@ -102,6 +84,27 @@ app.factory('TrelloService', function ($cookies, $resource) {
     };
     Trello.get('/boards/' + boardId + '/cards', success, error);
   };
+
+  // Load labels from firebase
+  var loadCardLabels = function(boardIndex, cb) {
+    var boardId = boards[boardIndex].id;
+    var ref = firebase.database().ref().child(boardId);
+    var obj = $firebaseArray(ref);
+
+    obj.$loaded().then(function(){
+      for(var i = 0; i < obj.length; i++) {
+        var cardId = obj[i].$id;
+        var cardIndex = findIndexOfCard(boardIndex, cardId);
+        boards[boardIndex].cards[cardIndex].label = obj[i].label;
+      }
+      if(useCardStats){
+        cardStats([], cb);
+      }
+      else {
+        cb();
+      }
+    });
+  }
 
   var myCards = function(boardIndex){
     boards[boardIndex].myCards = [];

@@ -1,9 +1,9 @@
 /**
  * Created by marti on 2017-03-25.
  */
-app.controller('MyStoriesController', function ($scope, TrelloService) {
+app.controller('MyStoriesController', function ($scope, CardService) {
 
-    if(!TrelloService.boardsLoaded()){
+    if(!CardService.boardsLoaded()){
       $scope.loading = true;
     }
 
@@ -19,14 +19,14 @@ app.controller('MyStoriesController', function ($scope, TrelloService) {
     };
 
     var loadBoards = function () {
-      TrelloService.loadData(function(){
-        $scope.boards = TrelloService.getBoards;
+      CardService.loadData(function(){
+        $scope.boards = CardService.getBoards;
         $scope.loading = false;
         $scope.$evalAsync();
       });
     };
-    if(TrelloService.boardsLoaded()){
-      $scope.boards = TrelloService.getBoards;
+    if(CardService.boardsLoaded()){
+      $scope.boards = CardService.getBoards;
       $scope.loading = false;
     }else{
       loadBoards();
@@ -41,7 +41,7 @@ app.controller('MyStoriesController', function ($scope, TrelloService) {
     };
 
     $scope.listId = function(boardId ,listName) {
-      return TrelloService.getListId(boardId, listName);
+      return CardService.getListId(boardId, listName);
     };
 
     $scope.removeID =function()
@@ -50,11 +50,11 @@ app.controller('MyStoriesController', function ($scope, TrelloService) {
         iE1.remove();
     }
     $scope.getLabelClass = function(card){
-      var label = card.labels[0];
+      var label = card.label;
       if(label == undefined){
         return "low-priority";
       }
-      switch (label.name) {
+      switch (label) {
         case "high priority":
           return "high-priority";
           break;
@@ -76,7 +76,7 @@ app.controller('MyStoriesController', function ($scope, TrelloService) {
 
 	//to move card from one page to another
 	$scope.movecard = function(card, listname){
-		TrelloService.moveCard(card, listname);
+		CardService.moveCard(card, listname);
 	};
 
 	//Returns true if there is no cards assigned to the user

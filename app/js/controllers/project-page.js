@@ -1,5 +1,5 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
-app.controller('ProjectPageController', function ($scope, $routeParams, TrelloService) {
+app.controller('ProjectPageController', function ($scope, $routeParams, CardService) {
 
     // Set reference to board id
     var ref = firebase.database().ref().child($routeParams.boardId);
@@ -9,23 +9,23 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
       titleFocus: false
     }
 
-    if(!TrelloService.boardsLoaded()){
+    if(!CardService.boardsLoaded()){
       $scope.loading = true;
     }
 
     var loadBoards = function () {
-      TrelloService.loadData(function(){
-        $scope.board = TrelloService.getBoard($routeParams.boardId);
-        $scope.listsToShow = TrelloService.getListsToShow();
+      CardService.loadData(function(){
+        $scope.board = CardService.getBoard($routeParams.boardId);
+        $scope.listsToShow = CardService.getListsToShow();
         $scope.loading = false;
         $scope.$evalAsync();
       });
     };
 
     //Check if data is loaded
-    if(TrelloService.boardsLoaded()){
-      $scope.board = TrelloService.getBoard($routeParams.boardId);
-      $scope.listsToShow = TrelloService.getListsToShow();
+    if(CardService.boardsLoaded()){
+      $scope.board = CardService.getBoard($routeParams.boardId);
+      $scope.listsToShow = CardService.getListsToShow();
       $scope.loading = false;
     }else{
       loadBoards();
@@ -38,13 +38,13 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
     $scope.desc = "";
 
     $scope.listId = function(listName) {
-      return TrelloService.getListId($routeParams.boardId, listName);
+      return CardService.getListId($routeParams.boardId, listName);
     };
 
     // TODO: Add card to specific list in this board with API PUSH.
     // Also add the label to firebase
     $scope.addCard = function(listName) {
-      TrelloService.addNewCard($routeParams.boardId, listName, listName, function (card) {
+      CardService.addNewCard($routeParams.boardId, listName, listName, function (card) {
         $scope.$evalAsync();
         ref.child(card.id).set({
           label : "low priority"
@@ -60,7 +60,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
 
     // Save the new title on trello
     $scope.saveTitle = function(){
-      TrelloService.changeBoardName($routeParams.boardId, $scope.board.name);
+      CardService.changeBoardName($routeParams.boardId, $scope.board.name);
       toggleEdit();
     };
 
@@ -78,8 +78,8 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
 
     // Save changes done in the edit popup window
     $scope.save = function () {
-      TrelloService.addDescriptionToCard($scope.clickedCard);
-      TrelloService.changeNameOfCard($scope.clickedCard);
+      CardService.addDescriptionToCard($scope.clickedCard);
+      CardService.changeNameOfCard($scope.clickedCard);
       ref.child($scope.clickedCard.id).set({
         label : $scope.clickedCard.label
       });
@@ -98,7 +98,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
     };
 
     $scope.deleteCard = function(){
-      TrelloService.deleteCard($routeParams.boardId, $scope.clickedCard.id);
+      CardService.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
       ref.child($scope.clickedCard.id).remove();
     };
@@ -108,13 +108,13 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
     }
 
     $scope.deleteBoard = function() {
-      TrelloService.deleteBoard($routeParams.boardId);
+      CardService.deleteBoard($routeParams.boardId);
       $scope.showDeleteBoard = false;
       $scope.deleted = true;
     }
 
     $scope.isDeleted = function() {
-      return TrelloService.getBoard($routeParams.boardId);
+      return CardService.getBoard($routeParams.boardId);
     }
 
     $scope.toggleDropdown = function (card) {

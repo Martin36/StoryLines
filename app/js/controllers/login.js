@@ -2,14 +2,14 @@
  * Created by marti on 2017-03-25.
  */
 app.controller('LoginController', function ($cookies, $scope, $location,
-    TrelloService, FirebaseService) {
+    CardService, FirebaseService) {
 
   $scope.login = function () {
-    if(TrelloService.isLoggedIn()){
+    if(CardService.isLoggedIn()){
       $location.path('/home');
       $scope.$evalAsync();
     }else{
-      TrelloService.authorize(function () {
+      CardService.authorize(function () {
         $location.path('/home');
         $scope.$evalAsync();
       }, false);

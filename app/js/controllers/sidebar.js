@@ -1,7 +1,7 @@
 /**
  * Created by marti on 2017-03-26.
  */
-app.controller('SidebarController', function ($scope, $location, TrelloService) {
+app.controller('SidebarController', function ($scope, $location, CardService) {
     $scope.showSidebar = true;
     $scope.pages = [{
       "name": "Planner Hub",
@@ -11,7 +11,7 @@ app.controller('SidebarController', function ($scope, $location, TrelloService) 
       "link": "myStories"
     }];
 
-    $scope.boards = TrelloService.getBoards;
+    $scope.boards = CardService.getBoards;
     $scope.currentId = "";
     $scope.loading = false;
 
@@ -40,7 +40,7 @@ app.controller('SidebarController', function ($scope, $location, TrelloService) 
 
     $scope.newProject = function() {
       $scope.loading = true;
-      TrelloService.createNewBoard(function (boardId) {
+      CardService.createNewBoard(function (boardId) {
         $scope.goProjectPage(boardId);
         $scope.loading = false;
         $scope.$evalAsync(); // Needed for page to change
@@ -52,7 +52,7 @@ app.controller('SidebarController', function ($scope, $location, TrelloService) 
     };
 
     $scope.logout = function () {
-      TrelloService.logout();
+      CardService.logout();
       $location.path('/login');
     };
 

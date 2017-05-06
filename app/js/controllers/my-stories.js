@@ -79,4 +79,9 @@ app.controller('MyStoriesController', function ($scope, TrelloService) {
 		TrelloService.moveCard(card, listname);
 	};
 
+	//Returns true if there is no cards assigned to the user
+	$scope.projectEmpty = function (board) {
+    return board.myCards.length == 0;
+  }
+
 });

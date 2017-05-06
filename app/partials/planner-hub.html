@@ -4,20 +4,28 @@
     <div class="loader1"></div>
     <div class="loader2"></div>
   </div>
-  <div class="planner-hub-wrapper">
-    <!-- Header part -->
-    <div class="columns">
-      <div class="column is-3 chart-title" ng-repeat="board in boards">
-        <h1 class="title">{{board.name}}</h1>
+  <div class="help" ng-if="!loading">
+    <span class="icon is-large is-primary" ng-click="showHelp()">
+      <i class="fa fa-question-circle hover-blue"></i>
+    </span>
+  </div>
+
+  <div id="lists-container">
+    <div class="planner-hub-wrapper">
+      <!-- Header part -->
+      <div class="columns">
+        <div class="column is-4 chart-title" ng-repeat="board in boards">
+          <h1 class="title">{{board.name}}</h1>
+        </div>
       </div>
-    </div>
-    <!-- Chart part -->
-    <div class="columns">
-      <div class="column is-3 chart-container" ng-repeat="board in boards">
-        <canvas id="doughnut" class="chart chart-doughnut"
-                chart-data="board.statsData" chart-labels="labels"
-                chart-options="options" >
-        </canvas>
+      <!-- Chart part -->
+      <div class="columns">
+        <div class="column is-4 chart-container" ng-repeat="board in boards">
+          <canvas id="doughnut" class="chart chart-doughnut"
+                  chart-data="board.statsData" chart-labels="labels"
+                  chart-options="options" >
+          </canvas>
+        </div>
       </div>
     </div>
   </div>

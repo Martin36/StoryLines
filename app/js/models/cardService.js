@@ -74,7 +74,10 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       boards[boardIndex].cards = data;
       //Call the callback when all the boards has got their cards
       if(++loadingCounter >= boards.length){
-         loadCardLabels(boardIndex, cb);
+        loadCardLabels(boardIndex, cb);
+      }
+      else{
+        loadCardLabels(boardIndex, cb);
       }
     };
     var error = function(errorMsg) {

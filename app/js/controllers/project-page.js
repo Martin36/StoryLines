@@ -62,9 +62,9 @@ app.controller('ProjectPageController', function ($scope, $routeParams, CardServ
     };
 
     $scope.showEditBox = function (card) {
-      if(card.labels[0] != undefined){
+      if(card.label != undefined){
         //Set the label of the card
-        card.label = card.labels[0].name;
+        card.label = card.label;
       }else{
         //Set this to make the dropdown have a default value
         card.label = "low priority";
@@ -77,6 +77,8 @@ app.controller('ProjectPageController', function ($scope, $routeParams, CardServ
     $scope.save = function () {
       CardService.addDescriptionToCard($scope.clickedCard);
       CardService.changeNameOfCard($scope.clickedCard);
+      CardService.changeLabelOfCard($routeParams.boardId, $scope.clickedCard.id,
+          $scope.clickedCard.label);
       ref.child($scope.clickedCard.id).set({
         label : $scope.clickedCard.label
       });

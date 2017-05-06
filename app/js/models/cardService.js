@@ -349,21 +349,11 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     }
   };
 
-  var addLabelToCard = function (boardId, cardId, label) {
+  this.changeLabelOfCard = function (boardId, cardId, label) {
     var boardIndex = findBoardIndex(boardId);
     var cardIndex = findIndexOfCard(boardIndex, cardId);
-    boards[boardIndex].cards[cardIndex].labels = [label];
-    boards[boardIndex].cards[cardIndex].idLabels = [label.id];
-  };
-
-  this.changeLabelOfCard = function (boardId, card) {
-    var color = findLabelColor(card.label);
-    Trello.post("cards/"+card.id+"/labels?color="+color+"&name="+card.label , function(label){
-      //Adds the new label to the card in the array
-      addLabelToCard(boardId, card.id, label);
-      //Then update the stats
-      cardStatsOneBoard(findBoardIndex(boardId));
-    });
+    boards[boardIndex].cards[cardIndex].label = label;
+    cardStatsOneBoard(boardIndex); // Update cardstats
   };
 
   this.deleteCard = function (boardId, cardId) {

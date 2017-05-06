@@ -14,13 +14,13 @@
     <div class="planner-hub-wrapper">
       <!-- Header part -->
       <div class="columns">
-        <div class="column is-4 chart-title" ng-repeat="board in boards">
+        <div class="column is-4 chart-title" ng-repeat="board in boards()">
           <h1 class="title">{{board.name}}</h1>
         </div>
       </div>
       <!-- Chart part -->
       <div class="columns">
-        <div class="column is-4 chart-container" ng-repeat="board in boards">
+        <div class="column is-4 chart-container" ng-repeat="board in boards()">
           <canvas id="doughnut" class="chart chart-doughnut"
                   chart-data="board.statsData" chart-labels="labels"
                   chart-options="options" chart-colors="colors" >
@@ -32,7 +32,7 @@
     <div class="planner-hub-mobile">
       <div class="columns">
         <!-- Header part -->
-        <div class="column is-4 chart-title" ng-repeat="board in boards">
+        <div class="column is-4 chart-title" ng-repeat="board in boards()">
           <h1 class="title">{{board.name}}</h1>
           <canvas class="chart chart-doughnut"
                   chart-data="board.statsData" chart-labels="labels"

@@ -19,9 +19,9 @@ app.controller('PlannerHubController', function ($scope, $timeout, CardService) 
     $scope.colors = [ '#ff3860', '#ffdd57', '#23d160'];
 
     var addBoardsData = function () {
-      $scope.boards = CardService.getBoards();
-      for(var i = 0; i < $scope.boards.length; i++){
-        $scope.boards[i].statsData = Object.values($scope.boards[i].cardStats);
+      $scope.boards = CardService.getBoards;
+      for(var i = 0; i < $scope.boards().length; i++){
+        $scope.boards()[i].statsData = Object.values($scope.boards()[i].cardStats);
       }
     }
 
@@ -41,7 +41,7 @@ app.controller('PlannerHubController', function ($scope, $timeout, CardService) 
 
     $scope.toggleHelp = function(){
       $scope.showHelp = true;
-    }
+    };
 
     $scope.cancel = function () {
       $scope.showHelp = false;

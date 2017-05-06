@@ -1,36 +1,9 @@
 /* app css stylesheet */
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-.menu:before {
-  content: "[";
-}
-.menu:after {
-  content: "]";
-}
-.menu > li {
-  display: inline;
-}
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
+
 /*Content to the right of the sidebar*/
 .our-content {
   padding-left: 240px;
   padding-right: 20px;
-}
-/*The title in each board for a specific project*/
-.title.board {
-  border-width: 0px 0px 2px 0px;
-  border-color: #c6c5c5;
-  border-style: solid;
-  padding-bottom: 10px;
-  /*TODO: This gets overridden by title's margin. It should not!*/
-  margin-bottom: 10px;
 }
 /*For the edit title button icon*/
 .title .icon {
@@ -41,11 +14,49 @@
   border-style: none;
   margin-top: 10px;
 }
+#home-container .card{
+  /*border-radius: 20px;*/
+  margin-left: 60px;
+  margin-top: 30px;
+  padding: 30px;
+  box-shadow: 0 0 5px #888;
+  transition: all 0.3s ease-in-out;
+}
+#home-container .card:hover{
+  transform: scale(1.1, 1.1);
+}
+/* Box-shadow animation */
+#home-container .card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  box-shadow: 0 0 40px #888;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+#home-container .card:hover::after{
+  opacity: 1;
+}
+
+#home-container .card h1{
+  font-size: 35px;
+}
+#home-container img{
+  cursor: pointer;
+}
+.chart-container{
+  padding: 50px;
+  padding-top: 0;
+}
+
 /* Loading symbol */
 .loader-frame {
   width: 200px;
   height: 200px;
-  margin: auto;
   margin-top: 15%;
   margin-left: 40%;
   position: relative;
@@ -70,8 +81,15 @@
   top: 10px; left: 10px;
   animation: anticlockwisespin 2s linear infinite;
 }
+/*Font*/
+@font-face {
+    font-family: outrunFuture;
+    src: url('../fonts/outrun_future/outrun-future.otf');
+}
+
 #story-lines{
-  font-family: outrun-future;
+  font-family: outrunFuture;
+  padding: 3vh 0 3vh 3vw;
 }
 
 #login{
@@ -100,10 +118,11 @@ hr {
     margin-top: 10px;
 }
 #card1 {
-    border-radius: 20px;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
+  border-radius: 20px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 #card1.high-priority{
   background-color: #ff3860;
@@ -119,6 +138,12 @@ hr {
 }
 #card1 a:hover{
   color: #fff;
+}
+.card-footer-item:not(:last-child) {
+    border-right: 1px solid #dbdbdb;
+}
+#card1 .card-header-title{
+  justify-content: center;
 }
 a#dropdownShowDetails:hover{
   color: #444;
@@ -402,9 +427,4 @@ form.ng-dirty input.ng-valid {
 @keyframes anticlockwisespin {
    from {transform: rotate(0deg);}
    to {transform: rotate(-360deg);}
-}
-/*Font*/
-@font-face {
- name: outrun-future;
- src: url('fonts/outrun_future/Outrun future.otf');
 }

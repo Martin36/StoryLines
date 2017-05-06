@@ -31,6 +31,10 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: "partials/login.html",
       controller: "LoginController"
     })
+    .when("/home", {
+      templateUrl: "partials/home.html",
+      controller: "SidebarController"
+    })
     .when("/myStories", {
       templateUrl: "partials/my-stories.html",
       controller: "MyStoriesController"

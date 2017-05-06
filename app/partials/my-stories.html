@@ -10,22 +10,13 @@
     <h1 id="rowHeader" class="title">{{board.name}}</h1>
     <hr>
     <div class="columns card-row">
-      <div class="card column is-3" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
-        <div class="card-content" ng-style="myStyle">
-          <p class="card-header-title">
-			      {{card.name}}
-			    </p>
-          <a class="card-header-icon" ng-click="toggleDropdown(card)">
-            <span class="icon">
-              <i class="fa fa-angle-down"></i>
-            </span>
-          </a>
-          <ul class="sub-menu" ng-show="card.showDropdown" click-outside="closeDropdown(card)">
-            <li><a id="dropdownShowDetails" ng-click="showdetails(card)">Details</a></li>
-          </ul>
-        </div>
+      <div class="card column is-2" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
+        <p class="card-header-title">
+          {{card.name}}
+        </p>
         <footer class="card-footer">
-			<a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
+          <a class="card-footer-item" ng-click="showDetails(card)">Details</a>
+			    <a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
         </footer>
       </div>
     </div>

@@ -43,7 +43,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       boards = data;
       for(var i = 0; i < boards.length; i++){
         loadLists(i, cb);
-        //loadCards(i, cb);
       }
     };
     var error = function(errorMsg) {
@@ -61,7 +60,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     var success = function (data) {
       boards[boardIndex].lists = data;
       loadCards(boardIndex, cb);
-      // loadLabels(boardIndex, cb);
     };
     var error = function(errorMsg) {
       console.log(errorMsg);
@@ -174,7 +172,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
         }
       }
     }
-
   }
 
   var cardStats = function (card, cb) {

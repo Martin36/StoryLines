@@ -49,6 +49,7 @@ app.controller('MyStoriesController', function ($scope, CardService) {
         var iE1= angular.element(document.querySelector('#card1'));
         iE1.remove();
     }
+
     $scope.getLabelClass = function(card){
       var label = card.label;
       if(label == undefined){
@@ -67,7 +68,6 @@ app.controller('MyStoriesController', function ($scope, CardService) {
         default:
           return "low-priority";
       }
-
     }
 	//to come out of the popup.
 	$scope.done=function(){

@@ -7,7 +7,21 @@
         Keep track of your projects
       </h2>
       <!-- TODO: Add a menu to make the mobile version navigatable -->
+      <div class="mobile-menu">
+        <nav class="menu">
+          <ul ng-if="showNavigation">
+            <li><a ng-click="changeView('home')">Home</a></li>
+            <li>Overview</li>
+            <li><a ng-click="changeView('plannerHub')">Planner Hub</a></li>
+            <li><a ng-click="changeView('myStories')">My Stories</a></li>
+            <li>Projects</li>
+            <!-- TODO: add the projects here -->
+            <li><a href="#">Home</a></li>
+          </ul>
+          <a class="toggle-nav" ng-click="toggleNavigation()">&#9776;</a>
+        </nav>
 
+      </div>
     </div>
   </div>
 </section>

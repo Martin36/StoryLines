@@ -88,10 +88,11 @@
 }
 
 #story-lines{
-  font-family: outrunFuture;
   padding: 3vh 0 3vh 3vw;
 }
-
+#story-lines .subtitle{
+  font-family: outrunFuture;
+}
 #login{
     /* To center the div*/
     position:absolute;
@@ -108,18 +109,19 @@
 }
 
 .project{
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 20px;
 }
 #lists-container{
   padding: 0 7vw 0 7vw;
 }
 #rowHeader  {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
 }
 hr {
     margin-top: 10px;
 }
+
 #card1 {
   border-radius: 20px;
   margin-left: 10px;
@@ -129,7 +131,6 @@ hr {
   min-width: 200px;
   max-width: 200px;
   position: relative;
-  float: left;
 }
 #card1.high-priority{
   background-color: #ff3860;
@@ -146,18 +147,13 @@ hr {
 #card1 a:hover{
   color: #fff;
 }
-.card-footer-item:not(:last-child) {
-    border-right: 1px solid #dbdbdb;
-}
 #card1 .card-header-title{
   justify-content: center;
 }
-a#dropdownShowDetails:hover{
-  color: #444;
+.card-footer-item:not(:last-child) {
+    border-right: 1px solid #dbdbdb;
 }
-.modal-card{
-box-shadow: 2px 0px 10px #888888;
-}
+
 .card-footer{
     margin-top: auto;
 }
@@ -169,6 +165,15 @@ box-shadow: 2px 0px 10px #888888;
     top: 52%;
     left: 45%;
 }
+
+a#dropdownShowDetails:hover{
+  color: #444;
+}
+
+.modal-card{
+  box-shadow: 2px 0px 10px #888888;
+}
+
 
 #plannerHubView.title {
     margin-bottom: 20px;
@@ -190,6 +195,10 @@ box-shadow: 2px 0px 10px #888888;
   display: inline-flex;
   text-align: left;
   justify-content: flex-end;
+}
+
+.mobile-menu{
+  display: none;
 }
 
 .fixed-height-card{
@@ -292,19 +301,81 @@ box-shadow: 2px 0px 10px #888888;
   #card1{
     margin: auto;
     margin-bottom: 10px;
-    float: initial;    
+    float: initial;
   }
   .card-row{
     justify-content: center;
     margin-right: 0;
     text-align: center;
   }
-  .sidebar{
+  .mobile-menu{
+    display: initial;
+  }
+  .mobile-menu .menu{
+    position: relative;
+    display: inline-block;
+    z-index: 100;
+  }
+  .menu ul.active{
     display: none;
   }
+  .menu ul{
+    width:120px;
+    position:absolute;
+    z-index: 100;
+    top:120%;
+    left:0;
+    padding:10px 18px;
+    box-shadow:0 1px 1px rgba(0,0,0,0.15);
+    border-radius:3px;
+    background:#303030;
+  }
+  .menu ul:after {
+    width:0px;
+    height:0px;
+    position:absolute;
+    top:0%;
+    left:22px;
+    content:'';
+    transform:translate(0%, -100%);
+    border-left:7px solid transparent;
+    border-right:7px solid transparent;
+    border-bottom:7px solid #303030;
+  }
+
+  .menu li {
+    margin:5px 0px 5px 0px;
+    float:none;
+    display:block;
+  }
+
+  .menu a {
+    display:block;
+  }
+
+  .toggle-nav {
+    margin-left: 10px;
+    float:left;
+    display:inline-block;
+    text-shadow:0px 1px 0px rgba(0,0,0,0.5);
+    color:#777;
+    font-size:20px;
+    transition:color linear 0.15s;
+  }
+
+  .toggle-nav:hover, .toggle-nav.active {
+    text-decoration:none;
+    color:#66a992;
+  }
+
   .our-content{
     padding: 0;
   }
+  .sidebar{
+    display: none;
+  }
+
+
 
 }
 

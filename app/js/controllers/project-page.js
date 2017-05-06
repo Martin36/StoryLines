@@ -1,9 +1,8 @@
 // We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
-app.controller('ProjectPageController', function ($scope, $routeParams,
-  $firebaseArray, TrelloService) {
+app.controller('ProjectPageController', function ($scope, $routeParams, TrelloService) {
 
+    // Set reference to board id
     var ref = firebase.database().ref().child($routeParams.boardId);
-    var firebaseBoard = $firebaseArray(ref);
 
     $scope.edit = {
       title: false,
@@ -42,14 +41,15 @@ app.controller('ProjectPageController', function ($scope, $routeParams,
       return TrelloService.getListId($routeParams.boardId, listName);
     };
 
-    // TODO: Add card to specific list in this board with API PUSH
+    // TODO: Add card to specific list in this board with API PUSH.
+    // Also add the label to firebase
     $scope.addCard = function(listName) {
       TrelloService.addNewCard($routeParams.boardId, listName, listName, function (card) {
-        $scope.board = TrelloService.getBoard($routeParams.boardId);
         $scope.$evalAsync();
-        firebaseBoard.$add({
-          boardId : $routeParams.boardId,
-          cardId  : card.id
+        ref.child(card.id).set({
+          label : "low priority"
+        }, function(){
+          card.label = "low priority";
         });
       });
     };
@@ -76,13 +76,16 @@ app.controller('ProjectPageController', function ($scope, $routeParams,
       $scope.showEdit = true;
     };
 
+    // Save changes done in the edit popup window
     $scope.save = function () {
-      //console.log($scope.clickedCard.desc);
       TrelloService.addDescriptionToCard($scope.clickedCard);
       TrelloService.changeNameOfCard($scope.clickedCard);
-      TrelloService.changeLabelOfCard($routeParams.boardId, $scope.clickedCard);
+      ref.child($scope.clickedCard.id).set({
+        label : $scope.clickedCard.label
+      });
       $scope.showEdit = false;
     };
+
     $scope.cancel = function(){
       $scope.showEdit = false;
       $scope.showDelete = false;
@@ -97,8 +100,7 @@ app.controller('ProjectPageController', function ($scope, $routeParams,
     $scope.deleteCard = function(){
       TrelloService.deleteCard($routeParams.boardId, $scope.clickedCard.id);
       $scope.showDelete = false;
-      firebaseBoard.$remove($scope.clickedCard.id);
-  //    $scope.$evalAsync();
+      ref.child($scope.clickedCard.id).remove();
     };
 
     $scope.showDeleteBoardWarning = function() {

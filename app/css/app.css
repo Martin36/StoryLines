@@ -143,8 +143,8 @@ hr {
   overflow-x: hidden;
 }
 .card-content .sub-menu{
-    top: 52%;
-    left: 45%;
+  top: 52%;
+  left: 45%;
 }
 
 a#dropdownShowDetails:hover{
@@ -233,17 +233,17 @@ a#dropdownShowDetails:hover{
   color: hsl(217, 71%, 53%)
 }
 .sub-menu{
-    position: absolute;
-    top: 60%;
-    left: 80%;
-    z-index: 1;
-    box-shadow:0px 2px 3px rgba(0,0,0,0.2);
-    border: 3px;
-    background: white;
-    padding: 10px;
+  position: absolute;
+  top: 60%;
+  left: 80%;
+  z-index: 1;
+  box-shadow:0 2px 3px rgba(0,0,0,0.2);
+  border-radius: 3px;
+  background:#303030;
+  padding: 10px;
 }
 .sub-menu a {
-    color: black;
+    color: white;
 }
 .sub-menu a:hover {
     color: gray;
@@ -292,6 +292,12 @@ a#dropdownShowDetails:hover{
     justify-content: center;
     margin-right: 0;
     text-align: center;
+  }
+  .loader-frame{
+    width: 100px;
+    height: 100px;
+    margin-top: 15%;
+    margin-left: 20%;
   }
   .mobile-menu{
     display: initial;

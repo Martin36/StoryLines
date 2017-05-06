@@ -180,8 +180,16 @@ box-shadow: 2px 0px 10px #888888;
     width: 75%;
 }
 .planner-hub-wrapper{
-    overflow-x: auto;
-    overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.help{
+  width: 100%;
+  padding-right: 50px;
+  display: inline-flex;
+  text-align: left;
+  justify-content: flex-end;
 }
 
 .fixed-height-card{

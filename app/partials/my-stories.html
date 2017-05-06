@@ -5,7 +5,12 @@
     <div class="loader1"></div>
     <div class="loader2"></div>
   </div>
-
+  <!-- Help Button -->
+  <div class="help" ng-if="!loading">
+    <span class="icon is-large is-primary" ng-click="showHelp()">
+      <i class="fa fa-question-circle hover-blue"></i>
+    </span>
+  </div>
   <div id="lists-container">
     <div class="project" ng-repeat="board in boards()" ng-show="!projectEmpty(board)">
       <h1 id="rowHeader" class="title">{{board.name}}</h1>

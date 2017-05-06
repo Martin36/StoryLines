@@ -16,7 +16,8 @@
       <h1 id="rowHeader" class="title">{{board.name}}</h1>
       <hr>
       <div class="columns card-row">
-        <div class="column" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards" ng-if="card.idList!=listId(board.id ,'Done')">
+        <div class="column" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards | orderBy:sortingFunction"
+             ng-if="card.idList!=listId(board.id ,'Done')">
           <p class="card-header-title">
             {{card.name}}
           </p>

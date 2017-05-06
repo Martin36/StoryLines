@@ -89,6 +89,19 @@ app.controller('MyStoriesController', function ($scope, CardService) {
     return board.myCards.length == 0;
   }
 
-
-
+  $scope.sortingFunction = function (card) {
+	  switch (card.label){
+      case "high priority":
+        return 1;
+        break;
+      case "medium priority":
+        return 2;
+        break;
+      case "low priority":
+        return 3;
+        break;
+      default:
+        return 4;
+    }
+  }
 });

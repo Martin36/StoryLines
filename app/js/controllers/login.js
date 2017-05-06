@@ -2,7 +2,7 @@
  * Created by marti on 2017-03-25.
  */
 app.controller('LoginController', function ($cookies, $scope, $location,
-    CardService, FirebaseService) {
+    CardService) {
 
   $scope.login = function () {
     if(CardService.isLoggedIn()){

@@ -109,6 +109,9 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
 
   var myCards = function(boardIndex){
     boards[boardIndex].myCards = [];
+    if(boards[boardIndex].cards == undefined){
+      return;
+    }
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {
       var currentCard = boards[boardIndex].cards[i];
       var memberIds = currentCard.idMembers;

@@ -298,6 +298,10 @@ a#dropdownShowDetails:hover{
 }
 
 @media only screen and (max-width: 600px){
+  .menu a.is-active{
+    color: #00d1b2; !important;
+  }
+
   #card1{
     margin: auto;
     margin-bottom: 10px;

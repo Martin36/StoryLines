@@ -10,13 +10,23 @@
       <div class="mobile-menu">
         <nav class="menu">
           <ul ng-if="showNavigation" click-outside="closeNavigation()">
-            <li><a ng-click="changeView('home')">Home</a></li>
-            <li>Overview</li>
-            <li><a ng-click="changeView('plannerHub')">Planner Hub</a></li>
-            <li><a ng-click="changeView('myStories')">My Stories</a></li>
-            <li>Projects</li>
-            <!-- TODO: add the projects here -->
-            <li><a href="#">Home</a></li>
+            <li><a ng-click="changeView('home')"
+                   ng-class="isActive('/home')">Home</a>
+            </li>
+            <p class="menu-label">Overview</p>
+            <li><a ng-click="changeView('plannerHub')"
+                   ng-class="isActive('/plannerHub')">Planner Hub</a>
+            </li>
+            <li><a ng-click="changeView('myStories')"
+                   ng-class="isActive('/myStories')">My Stories</a>
+            </li>
+            <p class="menu-label">Projects</p>
+            <li ng-repeat="board in boards()">
+              <a ng-click="goProjectPage(board.id)"
+                 ng-class="isActive('/projectPage/{{board.id}}')">
+                {{board.name}}
+              </a>
+            </li>
           </ul>
           <a class="toggle-nav" ng-click="toggleNavigation()">&#9776;</a>
         </nav>

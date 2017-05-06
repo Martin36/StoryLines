@@ -68,4 +68,8 @@ app.controller('SidebarController', function ($scope, $location, TrelloService) 
       $scope.showNavigation = true;
     }
 
+    $scope.closeNavigation = function () {
+      $scope.showNavigation = false;
+    }
+
 });

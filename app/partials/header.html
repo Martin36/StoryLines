@@ -9,7 +9,7 @@
       <!-- TODO: Add a menu to make the mobile version navigatable -->
       <div class="mobile-menu">
         <nav class="menu">
-          <ul ng-if="showNavigation">
+          <ul ng-if="showNavigation" click-outside="closeNavigation()">
             <li><a ng-click="changeView('home')">Home</a></li>
             <li>Overview</li>
             <li><a ng-click="changeView('plannerHub')">Planner Hub</a></li>

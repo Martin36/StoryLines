@@ -22,7 +22,7 @@
 </head>
 <body>
   <!-- Include partials that are shown on most or all pages -->
-  <ng-include src="'partials/header.html'"></ng-include>
+  <ng-include src="'partials/header.html'" ng-controller="SidebarController"></ng-include>
   <ng-include src="'partials/sidebar.html'" ng-controller="SidebarController"></ng-include>
   <div ng-view></div>
 

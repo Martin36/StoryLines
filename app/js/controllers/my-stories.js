@@ -7,15 +7,20 @@ app.controller('MyStoriesController', function ($scope, CardService) {
       $scope.loading = true;
     }
 
-    $scope.showDetails =function (card){
+    $scope.showDetails = function (card){
       $scope.clickedCard = card;
-      $scope.showEdit =true;
+      $scope.showEdit = true;
+    };
+    $scope.toggleHelp = function () {
+      $scope.showHelp = true;
     };
     $scope.done = function () {
       $scope.showEdit = false;
+      $scope.showHelp = false;
     };
     $scope.cancel = function () {
       $scope.showEdit = false;
+      $scope.showHelp = false;
     };
 
     var loadBoards = function () {
@@ -83,5 +88,7 @@ app.controller('MyStoriesController', function ($scope, CardService) {
 	$scope.projectEmpty = function (board) {
     return board.myCards.length == 0;
   }
+
+
 
 });

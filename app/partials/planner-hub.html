@@ -5,7 +5,7 @@
     <div class="loader2"></div>
   </div>
   <div class="help" ng-if="!loading">
-    <span class="icon is-large is-primary" ng-click="showHelp()">
+    <span class="icon is-large is-primary" ng-click="toggleHelp()">
       <i class="fa fa-question-circle hover-blue"></i>
     </span>
   </div>
@@ -23,10 +23,60 @@
         <div class="column is-4 chart-container" ng-repeat="board in boards">
           <canvas id="doughnut" class="chart chart-doughnut"
                   chart-data="board.statsData" chart-labels="labels"
-                  chart-options="options" >
+                  chart-options="options" chart-colors="colors" >
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <!-- This will display on mobile devices -->
+    <div class="planner-hub-mobile">
+      <div class="columns">
+        <!-- Header part -->
+        <div class="column is-4 chart-title" ng-repeat="board in boards">
+          <h1 class="title">{{board.name}}</h1>
+          <canvas class="chart chart-doughnut"
+                  chart-data="board.statsData" chart-labels="labels"
+                  chart-options="options" chart-colors="colors" >
           </canvas>
         </div>
       </div>
     </div>
   </div>
+
+
+
+  <!-- popup window -->
+  <div class="modal is-active" ng-if="showHelp">  <!-- ng-if gets its own scope-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title fixed-width">Planner Hub</p>
+        <button ng-click="cancel()" class="delete"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <label class="label">Help:</label>
+          <p class="control">
+            In the charts are the statistics of the cards that are assigned to you displayed.
+          </p>
+          <br>
+          <p class="control">
+            If you hover over the different parts of the chart you will see a
+            tooltip showing information of how many cards you have assigned to you of that
+            specific priority class.
+          </p>
+          <br>
+          <p class="control">
+            Click on the legends above the charts to remove certain
+            priorities from the charts.
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a class="button is-success" ng-click="cancel()">Done</a>
+      </footer>
+    </div>
+  </div>
+
 </div>

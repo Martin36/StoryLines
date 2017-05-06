@@ -2,15 +2,36 @@
 <section class="hero is-small is-primary">
   <div class="our-content">
     <div id="story-lines">
-      <!--
-      <h1 class="title">
-        StoryLines
-      </h1>
-      -->
       <img src="img/storylines.png">
       <h2 class="subtitle">
         Keep track of your projects
       </h2>
+      <!-- TODO: Add a menu to make the mobile version navigatable -->
+      <div class="mobile-menu">
+        <nav class="menu">
+          <ul ng-if="showNavigation" click-outside="closeNavigation()">
+            <li><a ng-click="changeView('home')"
+                   ng-class="isActive('/home')">Home</a>
+            </li>
+            <p class="menu-label">Overview</p>
+            <li><a ng-click="changeView('plannerHub')"
+                   ng-class="isActive('/plannerHub')">Planner Hub</a>
+            </li>
+            <li><a ng-click="changeView('myStories')"
+                   ng-class="isActive('/myStories')">My Stories</a>
+            </li>
+            <p class="menu-label">Projects</p>
+            <li ng-repeat="board in boards()">
+              <a ng-click="goProjectPage(board.id)"
+                 ng-class="isActive('/projectPage/{{board.id}}')">
+                {{board.name}}
+              </a>
+            </li>
+          </ul>
+          <a class="toggle-nav" ng-click="toggleNavigation()">&#9776;</a>
+        </nav>
+
+      </div>
     </div>
   </div>
 </section>

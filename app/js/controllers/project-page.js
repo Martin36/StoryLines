@@ -4,10 +4,11 @@ app.controller('ProjectPageController', function ($scope, $routeParams, CardServ
     // Set reference to board id
     var ref = firebase.database().ref().child($routeParams.boardId);
 
+
     $scope.edit = {
       title: false,
       titleFocus: false
-    }
+    };
 
     if(!CardService.boardsLoaded()){
       $scope.loading = true;
@@ -33,16 +34,12 @@ app.controller('ProjectPageController', function ($scope, $routeParams, CardServ
 
     $scope.showEdit = false;
     $scope.showDelete = false;
-
-    //$scope.clickedCard;
     $scope.desc = "";
 
     $scope.listId = function(listName) {
       return CardService.getListId($routeParams.boardId, listName);
     };
 
-    // TODO: Add card to specific list in this board with API PUSH.
-    // Also add the label to firebase
     $scope.addCard = function(listName) {
       CardService.addNewCard($routeParams.boardId, listName, listName, function (card) {
         $scope.$evalAsync();

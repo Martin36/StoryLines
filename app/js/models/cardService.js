@@ -1,5 +1,5 @@
 /**
- * Created by marti on 2017-03-26.
+ * Created by martin on 2017-03-26.
  */
 app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
 
@@ -125,9 +125,9 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     myCards(boardIndex);
     //Create array for holding the stats
     boards[boardIndex].cardStats = {
+      highPriority : 0,
       mediumPriority : 0,
-      lowPriority : 0,
-      highPriority : 0
+      lowPriority : 0
     };
     //Get the id of the list named "done"
     var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {

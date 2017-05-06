@@ -8,14 +8,15 @@ app.controller('PlannerHubController', function ($scope, $timeout, CardService) 
       $scope.loading = true;
     }
 
-    $scope.labels = ["Medium Priority", "Low Priority", "High Priority"];
+    $scope.labels = ["High Priority", "Medium Priority", "Low Priority"];
 
     //Displays the legend for the doughnut chart
     $scope.options = {
       legend: {display:true},
       responsive: true
     };
-    $scope.colors = [ '#949FB1', '#4D5360', '#DCDCDC'];
+
+    $scope.colors = [ '#ff3860', '#ffdd57', '#23d160'];
 
     var addBoardsData = function () {
       $scope.boards = CardService.getBoards();
@@ -38,7 +39,11 @@ app.controller('PlannerHubController', function ($scope, $timeout, CardService) 
       loadBoards();
     }
 
-    $scope.showHelp = function(){
+    $scope.toggleHelp = function(){
+      $scope.showHelp = true;
+    }
 
+    $scope.cancel = function () {
+      $scope.showHelp = false;
     }
   });

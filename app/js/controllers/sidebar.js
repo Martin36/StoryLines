@@ -35,7 +35,7 @@ app.controller('SidebarController', function ($scope, $location, CardService) {
     // Determines if the sidebar should be hidden or not
     $scope.shouldIHide = function() {
       var path = "/login";
-      return ($location.path().substr(0, path.length) === path) ? false : true;
+      return $location.path().substr(0, path.length) !== path;
     };
 
     $scope.newProject = function() {
@@ -61,5 +61,15 @@ app.controller('SidebarController', function ($scope, $location, CardService) {
       $scope.currentId = id;
     }
     $scope.showSidebar = false;
+
+    //For the mobile navigation bar
+    $scope.toggleNavigation = function () {
+      //$scope.showNavigation = !$scope.showNavigation;
+      $scope.showNavigation = true;
+    }
+
+    $scope.closeNavigation = function () {
+      $scope.showNavigation = false;
+    }
 
 });

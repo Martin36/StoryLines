@@ -137,42 +137,36 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       var doneListId = doneListIdArray[0].id;
     }
     //Loop through all the cards and add statistics for each
-    for(var j = 0; j < boards[boardIndex].cards.length; j++){
+    for(var j = 0; j < boards[boardIndex].cards.length; j++) {
+      
       var card = boards[boardIndex].cards[j];
       //Check the label of the card
-      var labels = card.labels;
-      if(labels.length == 0){
-        //Give "unlabeled" cards low priority
+      var label = card.label;
+      
+      // If there is no label
+      if(label == undefined){
         boards[boardIndex].cardStats.lowPriority++;
-      }
+        continue;
+      } 
       //Remove all the cards that are in the "done" list
       if(doneListId != undefined){
         if(card.idList == doneListId){
-          break;
+          continue;
         }
       }
-      for(var k = 0; k < labels.length; k++){
-        //Remove the "done cards"
-        if(labels[k].name.toLowerCase() == "done") {
-          break;
-        }
-        if(labels[k].name.toLowerCase() == "high priority"){
-          boards[boardIndex].cardStats.highPriority++;
-          break;
-        }
-        else if(labels[k].name.toLowerCase() == "medium priority"){
-          boards[boardIndex].cardStats.mediumPriority++;
-          break;
-        }
-        else if(labels[k].name.toLowerCase() == "low priority"){
-          boards[boardIndex].cardStats.lowPriority++;
-          break;
-        }
-        else if(k == labels.length-1){
-          //If it is the last label and it is none of the above then give it low priority
-          boards[boardIndex].cardStats.lowPriority++;
-          break;
-        }
+
+      if(label.toLowerCase() == "high priority"){
+        boards[boardIndex].cardStats.highPriority++;
+      }
+      else if(label.toLowerCase() == "medium priority"){
+        boards[boardIndex].cardStats.mediumPriority++;
+      }
+      else if(label.toLowerCase() == "low priority"){
+        boards[boardIndex].cardStats.lowPriority++;
+      }
+      else {
+        //If it is the last label and it is none of the above then give it low priority
+        boards[boardIndex].cardStats.lowPriority++;
       }
     }
   }

@@ -289,6 +289,16 @@ box-shadow: 2px 0px 10px #888888;
 }
 
 @media only screen and (max-width: 600px){
+  #card1{
+    margin: auto;
+    margin-bottom: 10px;
+    float: initial;    
+  }
+  .card-row{
+    justify-content: center;
+    margin-right: 0;
+    text-align: center;
+  }
   .sidebar{
     display: none;
   }

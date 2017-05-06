@@ -378,9 +378,19 @@ a#dropdownShowDetails:hover{
   .sidebar{
     display: none;
   }
+  #story-lines{
+    text-align: center;
+  }
 
+  .planner-hub-wrapper{
+    display: none;
+  }
 
-
+}
+@media only screen and (min-width: 600px){
+  .planner-hub-mobile{
+    display: none;
+  }
 }
 
 .sidebar a {

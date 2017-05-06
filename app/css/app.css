@@ -21,13 +21,11 @@
   padding: 30px;
   box-shadow: 0 0 5px #888;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 #home-container .card h1{
   font-size: 35px;
-}
-#home-container img{
-  cursor: pointer;
 }
 .chart-container{
   padding: 50px;
@@ -70,7 +68,6 @@
 
 #story-lines{
   padding: 3vh 0 3vh 3vw;
-  text-align: center;
 }
 #story-lines .subtitle{
   font-family: outrunFuture;

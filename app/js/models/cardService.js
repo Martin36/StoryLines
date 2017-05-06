@@ -169,7 +169,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
         boards[boardIndex].cardStats.lowPriority++;
       }
     }
-    console.log("Updated card stats");
   }
 
   var cardStats = function (card, cb) {

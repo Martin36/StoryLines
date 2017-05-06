@@ -235,7 +235,7 @@ a#dropdownShowDetails:hover{
 .sub-menu{
   position: absolute;
   top: 60%;
-  left: 80%;
+  left: 60%;
   z-index: 1;
   box-shadow:0 2px 3px rgba(0,0,0,0.2);
   border-radius: 3px;

@@ -4,15 +4,6 @@
 app.controller('LoginController', function ($cookies, $scope, $location,
     $firebaseAuth, TrelloService) {
 
-  // Authenticate with google to firebase
-  // TODO: Custom token from trello login maybe??
-  // var auth = $firebaseAuth();
-  // auth.$signInWithPopup("google").then(function(authData) {
-  //   console.log(authData);
-  // }).catch(function(error){
-  //   console.log(error);
-  // });
-
   $scope.login = function () {
     if(TrelloService.isLoggedIn()){
       $location.path('/home');

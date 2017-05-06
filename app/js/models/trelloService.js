@@ -1,5 +1,5 @@
 /**
- * Created by marti on 2017-03-26.
+ * Created by martin on 2017-03-26.
  */
 app.factory('TrelloService', function ($cookies, $resource) {
 

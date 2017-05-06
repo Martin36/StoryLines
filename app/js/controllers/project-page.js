@@ -1,10 +1,10 @@
-// We might use the term 'project' instead of 'board'(Trello), they mean the same thing.
+
 app.controller('ProjectPageController', function ($scope, $routeParams, TrelloService) {
 
     $scope.edit = {
       title: false,
       titleFocus: false
-    }
+    };
 
     if(!TrelloService.boardsLoaded()){
       $scope.loading = true;
@@ -30,15 +30,12 @@ app.controller('ProjectPageController', function ($scope, $routeParams, TrelloSe
 
     $scope.showEdit = false;
     $scope.showDelete = false;
-
-    //$scope.clickedCard;
     $scope.desc = "";
 
     $scope.listId = function(listName) {
       return TrelloService.getListId($routeParams.boardId, listName);
     };
 
-    // TODO: Add card to specific list in this board with API PUSH
     $scope.addCard = function(listName) {
       TrelloService.addNewCard($routeParams.boardId, listName, listName, function () {
         $scope.board = TrelloService.getBoard($routeParams.boardId);

@@ -120,6 +120,17 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       this.authorize(cb, true);
     }
   };
+  //Returns the id of the list with listName
+  var getListId = function (listName, boardIndex) {
+    var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {
+      return obj.name.toLowerCase() == listName;
+    });
+    if(doneListIdArray.length != 0){
+      return doneListIdArray[0].id;
+    }else{
+      return undefined;
+    }
+  };
 
   //Adds my cards to the board
   var myCards = function(boardIndex){
@@ -129,10 +140,13 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     }
     for(var i = 0; i < boards[boardIndex].cards.length; i++) {
       var currentCard = boards[boardIndex].cards[i];
-      var memberIds = currentCard.idMembers;
-      for(var j = 0; j < memberIds.length; j++){
-        if(memberIds[j] == userId){
-          boards[boardIndex].myCards.push(currentCard);
+      var doneListId = getListId("done", boardIndex);
+      if(currentCard.idList != doneListId){
+        var memberIds = currentCard.idMembers;
+        for(var j = 0; j < memberIds.length; j++){
+          if(memberIds[j] == userId){
+            boards[boardIndex].myCards.push(currentCard);
+          }
         }
       }
     }
@@ -147,22 +161,15 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       lowPriority : 0
     };
     //Get the id of the list named "done"
-    var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {
-      return obj.name.toLowerCase() == "done";
-    });
-    if(doneListIdArray.length != 0){
-      var doneListId = doneListIdArray[0].id;
-    }
+    var doneListId = getListId("done", boardIndex);
     if(boards[boardIndex].cards == undefined){
       return;
     }
     //Loop through all the cards and add statistics for each
     for(var j = 0; j < boards[boardIndex].cards.length; j++) {
-      
       var card = boards[boardIndex].cards[j];
       //Check the label of the card
       var label = card.label;
-      
       // If there is no label
       if(label == undefined){
         boards[boardIndex].cardStats.lowPriority++;
@@ -188,7 +195,7 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
         boards[boardIndex].cardStats.lowPriority++;
       }
     }
-  }
+  };
 
   var cardStats = function (card, cb) {
     for(var i = 0; i < boards.length; i++){
@@ -252,7 +259,7 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     cardStatsOneBoard(boardIndex); // Update cardstats
   };
 
-  this.moveCard =function(card, listName, cb){
+  this.moveCard = function(card, listName, cb){
 		var idList = this.getListId(card.idBoard, listName);
     // If list not found create it first
     if(idList == listTypes) {
@@ -263,18 +270,31 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     }else {
       moveHelper(card, idList, cb);
     }
-	}
+	};
 
+  var removeCardFromMyCards = function (cardId, boardIndex) {
+    for(var i = 0; i < boards[boardIndex].myCards.length; i++){
+      var currentCard = boards[boardIndex].myCards[i];
+      if(currentCard.id == cardId){
+        //Remove the card from the array
+        boards[boardIndex].myCards.splice(i, 1);
+        console.log(boards[boardIndex].myCards);
+      }
+    }
+  }
+  
   var moveHelper = function(card, idList, cb) {
     Trello.put("cards/"+card.id+"/idList?value="+idList);
     for(var i=0; i< boards.length; i++){
       for(var j=0; j< boards[i].cards.length; j++){
-        if(boards[i].cards[j].id == card.id)
-            boards[i].cards[j].idList= idList;
-            cb();
+        if(boards[i].cards[j].id == card.id){
+          boards[i].cards[j].idList= idList;
+          removeCardFromMyCards(card.id, i);
+        }
+        cb();
       }
     }
-  }
+  };
 
   this.deleteCard = function (boardId, cardId) {
     Trello.delete("cards/"+cardId);

@@ -282,7 +282,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       if(currentCard.id == cardId){
         //Remove the card from the array
         boards[boardIndex].myCards.splice(i, 1);
-        console.log(boards[boardIndex].myCards);
       }
     }
   }
@@ -338,7 +337,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
   this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
       for(var i = 0; i < listTypes.length; i++) {
-        console.log(listTypes[i]);
         //Make sure that all the API calls has been done before adding the board
         if(i == listTypes.length-1) {
           Trello.post('/lists?idBoard='+board.id+'&name='+listTypes[i], function () {

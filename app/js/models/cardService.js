@@ -44,6 +44,10 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     // Get all of the information about the boards you have access to
     var success = function(data) {
       boards = data;
+      if(data.length == 0){
+        boardsLoaded = true;
+        cb();
+      }
       for(var i = 0; i < boards.length; i++){
         loadLists(i, cb);
       }

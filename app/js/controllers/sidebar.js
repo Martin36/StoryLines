@@ -12,6 +12,13 @@ app.controller('SidebarController', function ($scope, $location, CardService) {
     }];
 
     $scope.boards = CardService.getBoards;
+    $scope.boardsLoaded = CardService.boardsLoaded;
+    // $scope.boardsLoaded = function(){
+    //   if(CardService.boardsLoaded)
+    //     return true;
+    //   else
+    //     return undefined;
+    // } 
     $scope.currentId = "";
     $scope.loading = false;
 

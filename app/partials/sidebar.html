@@ -4,14 +4,12 @@
     <div class="sidebar">
       <p class="field">
         <a ng-click="newProject()" class="button is-medium is-primary"
-            ng-class="showLoading(loading)">
+            ng-class="showLoading(loading)" ng-attr-disabled="{{ !boardsLoaded() || undefined }}">
           <span ng-if="!loading"  class="icon">
             <i class="fa fa-plus-square"></i>
           </span>
           <span>New Project</span>
         </a>
-      </p>
-
       <div class="column">
         <!-- Home button -->
         <ul class="menu-list">

@@ -32,6 +32,10 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     });
   };
 
+  this.isLoggedIn = function () {
+    return loggedIn;
+  };
+
   this.logout = function () {
     loggedIn = false;
   }
@@ -106,6 +110,18 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     });
   }
 
+  this.loadData = function (cb) {
+    if(loggedIn){
+      //Check if the boards are already loaded
+      if(boardsLoaded){cb();}
+      else{loadBoards(cb);}
+    }else{
+      //Authorize the user if not logged in
+      this.authorize(cb, true);
+    }
+  };
+
+  //Adds my cards to the board
   var myCards = function(boardIndex){
     boards[boardIndex].myCards = [];
     if(boards[boardIndex].cards == undefined){
@@ -123,7 +139,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
   };
 
   var cardStatsOneBoard = function (boardIndex) {
-    //Add my cards to the board
     myCards(boardIndex);
     //Create array for holding the stats
     boards[boardIndex].cardStats = {
@@ -159,7 +174,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
           continue;
         }
       }
-
       if(label.toLowerCase() == "high priority"){
         boards[boardIndex].cardStats.highPriority++;
       }
@@ -184,19 +198,100 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     cb(card);
   };
 
-  this.loadData = function (cb) {
-    if(loggedIn){
-      //Check if the boards are already loaded
-      if(boardsLoaded){cb();}
-      else{loadBoards(cb);}
-    }else{
-      //Authorize the user if not logged in
-      this.authorize(cb, true);
+  this.addNewCard = function(boardId, listName, cardName, cb) {
+    // Go throught all boards
+    for(var i = 0; i < boards.length; i++){
+      // Find board with the correct id
+      if(boards[i].id == boardId) {
+        // Check if the list exist (If board was created on trello)
+        var list = getList(boards[i].lists, listName);
+        // Create list if it didn't exist
+        if(list == null) {
+          Trello.post('/lists?idBoard='+boardId+'&name='+listName, function(newList){
+            boards[findBoardIndex(boardId)].lists.push(newList);
+            addCardToList(newList.id, boardId, cardName, cb);
+          });
+        } else {
+          addCardToList(list.id, boardId, cardName, cb);
+        }
+      }
+    }
+  };
+
+  function addCardToList(listId, boardId, cardName, cb){
+    Trello.post('cards?idList='+listId+"&name="+cardName+'&idMembers='+userId, function (card) {
+      //When the card is added to the API, add the card to our cardService
+      boards[findBoardIndex(boardId)].cards.push(card);
+      cardStats(card, cb);
+    }, function (errorMsg) {
+      console.log(errorMsg)
+    });
+  }
+
+  //Adds description to the card
+  this.addDescriptionToCard = function(card){
+    Trello.put("cards/"+card.id+"/desc?value="+card.desc);
+  };
+
+  this.changeNameOfCard = function (card) {
+    Trello.put("cards/"+card.id +"/name?value="+card.name);
+  };
+
+  var findIndexOfCard = function (boardIndex, cardId) {
+    for(var i = 0; i < boards[boardIndex].cards.length; i++){
+      if(boards[boardIndex].cards[i].id == cardId){
+        return i;
+      }
+    }
+  };
+
+  this.changeLabelOfCard = function (boardId, cardId, label) {
+    var boardIndex = findBoardIndex(boardId);
+    var cardIndex = findIndexOfCard(boardIndex, cardId);
+    boards[boardIndex].cards[cardIndex].label = label;
+    cardStatsOneBoard(boardIndex); // Update cardstats
+  };
+
+  this.moveCard =function(card, listName, cb){
+		var idList = this.getListId(card.idBoard, listName);
+    // If list not found create it first
+    if(idList == listTypes) {
+      Trello.post('/lists?idBoard='+card.idBoard+'&name='+listName, function(newList){
+        boards[findBoardIndex(card.idBoard)].lists.push(newList);
+        moveHelper(card, newList.id, cb);
+      });
+    }else {
+      moveHelper(card, idList, cb);
+    }
+	}
+
+  var moveHelper = function(card, idList, cb) {
+    Trello.put("cards/"+card.id+"/idList?value="+idList);
+    for(var i=0; i< boards.length; i++){
+      for(var j=0; j< boards[i].cards.length; j++){
+        if(boards[i].cards[j].id == card.id)
+            boards[i].cards[j].idList= idList;
+            cb();
+      }
+    }
+  }
+
+  this.deleteCard = function (boardId, cardId) {
+    Trello.delete("cards/"+cardId);
+    //Also delete from cardService
+    for(var i = 0; i < boards.length; i++){
+      if(boards[i].id == boardId){
+        boards[i].cards = boards[i].cards.filter(function (card) {
+          return card.id != cardId;
+        });
+        boards[i].myCards = boards[i].myCards.filter(function (card){
+          return card.id != cardId;
+        });
+      }
     }
   };
 
   this.getBoards = function () {
-    //Check if boards are loaded
     if(boardsLoaded){
       return boards;
     }
@@ -215,15 +310,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
   this.changeBoardName = function(id, newName) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
-
-  // // Add lables to specific board
-  // var addLables = function(boardId, cb) {
-  //   for(var i = 0; i < lables.length; i++){
-  //       var l = lables[i];
-  //       Trello.post('/boards/'+boardId+'/labels?name='+l.name+'&color='+l.color);
-  //   }
-  //   cb();
-  // };
   
   this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
@@ -245,55 +331,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     });
   };
 
-  this.addBoard = function(board) {
-    boards.push(board);
-  };
-
-  // Adds a new card to the api
-  this.addNewCard = function(boardId, listName, cardName, cb) {
-    // Go throught all boards
-    for(var i = 0; i < boards.length; i++){
-      // Find board with the correct id
-      if(boards[i].id == boardId) {
-        // Check if the list exist (If board was created on trello)
-        var list = getList(boards[i].lists, listName);
-        // Create list if it didn't exist
-        if(list == null) {
-          Trello.post('/lists?idBoard='+boardId+'&name='+listName, function(newList){
-            boards[findBoardIndex(boardId)].lists.push(newList);
-            addCardToList(newList.id, boardId, cardName, cb);
-          });
-        } else {
-          addCardToList(list.id, boardId, cardName, cb);
-        }
-      }
-    }
-  };
-
-  // Adds a card to the given list
-  function addCardToList(listId, boardId, cardName, cb){
-    // Add new card to API
-    Trello.post('cards?idList='+listId+"&name="+cardName+'&idMembers='+userId, function (card) {
-      //When the card is added to the API, add the card to our model
-      boards[findBoardIndex(boardId)].cards.push(card);
-      cardStats(card, cb);
-      //cb();
-    }, function (errorMsg) {
-      console.log(errorMsg)
-    });
-  }
-
-  // Return the lists from the board
-  // Return null if it don't exist
-  var getList = function(lists, listName) {
-    for(var i = 0; i < lists.length; i++) {
-      if(lists[i].name == listName){
-        return lists[i];
-      }
-    }
-    return null;
-  }
-
   var findBoardIndex = function(boardId) {
     for(var i = 0; i < boards.length; i++){
       if(boards[i].id == boardId){
@@ -302,13 +339,32 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     }
   }
 
-  this.isLoggedIn = function () {
-    return loggedIn;
+  this.addBoard = function(board) {
+    boards.push(board);
+  };
+
+  this.deleteBoard = function(boardId) {
+    Trello.delete("boards/"+boardId);
+    for(var i = 0; i < boards.length; i++) {
+      if(boards[i].id == boardId){
+        boards.splice(i, 1);
+      }
+    }
   };
 
   this.boardsLoaded = function () {
     return boardsLoaded;
   };
+
+  // Return the lists from the board
+  var getList = function(lists, listName) {
+    for(var i = 0; i < lists.length; i++) {
+      if(lists[i].name == listName){
+        return lists[i];
+      }
+    }
+    return null;
+  }
 
   // Returns the list with the name from the board with the id
   this.getListId = function(boardId, listName) {
@@ -328,110 +384,5 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     return listTypes;
   };
 
-  //Adds description to the card
-  this.addDescriptionToCard = function(card){
-    Trello.put("cards/"+card.id+"/desc?value="+card.desc);
-  };
-
-  this.changeNameOfCard = function (card) {
-    Trello.put("cards/"+card.id +"/name?value="+card.name);
-  };
-
-  // var getLabelId = function (boardId, labelName) {
-  //   var board = boards[findBoardIndex(boardId)];
-  //   var labels = board.labels;
-  //   var correctLabel = labels.filter(function (label) {
-  //     return label.name.toLowerCase() == labelName.toLowerCase();
-  //   })[0];
-  //   return correctLabel.id;
-  // };
-
-  var findIndexOfCard = function (boardIndex, cardId) {
-    for(var i = 0; i < boards[boardIndex].cards.length; i++){
-      if(boards[boardIndex].cards[i].id == cardId){
-        return i;
-      }
-    }
-  };
-
-  // var findLabelColor = function (labelName) {
-  //   for(var i = 0; i < lables.length; i++){
-  //     if(lables[i].name.toLowerCase() == labelName.toLowerCase()){
-  //       return lables[i].color;
-  //     }
-  //   }
-  // };
-
-  this.changeLabelOfCard = function (boardId, cardId, label) {
-    var boardIndex = findBoardIndex(boardId);
-    var cardIndex = findIndexOfCard(boardIndex, cardId);
-    boards[boardIndex].cards[cardIndex].label = label;
-    cardStatsOneBoard(boardIndex); // Update cardstats
-  };
-
-  this.deleteCard = function (boardId, cardId) {
-    Trello.delete("cards/"+cardId);
-    //Also delete from the model
-    for(var i = 0; i < boards.length; i++){
-      if(boards[i].id == boardId){
-        boards[i].cards = boards[i].cards.filter(function (card) {
-          return card.id != cardId;
-        });
-        boards[i].myCards = boards[i].myCards.filter(function (card){
-          return card.id != cardId;
-        });
-      }
-    }
-  };
-
-  this.deleteBoard = function(boardId) {
-    Trello.delete("boards/"+boardId);
-    for(var i = 0; i < boards.length; i++) {
-      if(boards[i].id == boardId){
-        boards.splice(i, 1);
-      }
-    }
-  };
-
-  this.moveCard =function(card, listName, cb){
-		var idList = this.getListId(card.idBoard, listName);
-
-    // If list not found create it first
-    if(idList == listTypes) {
-      Trello.post('/lists?idBoard='+card.idBoard+'&name='+listName, function(newList){
-        boards[findBoardIndex(card.idBoard)].lists.push(newList);
-        moveToDone(card, newList.id, cb);
-      });
-    }else {
-      moveToDone(card, idList, cb);
-    }
-	}
-
-  var moveToDone = function(card, idList, cb) {
-    Trello.put("cards/"+card.id+"/idList?value="+idList);
-    for(var i=0; i< boards.length; i++){
-      for(var j=0; j< boards[i].cards.length; j++){
-        if(boards[i].cards[j].id == card.id)
-            boards[i].cards[j].idList= idList;
-            cb();
-      }
-    }
-  }
-
-
-  // // The different lables that we use
-  // var lables =
-  // [{
-  //   name: 'Low Priority',
-  //   color: 'green'
-  // },
-  // {
-  //   name: 'Medium Priority',
-  //   color: 'yellow'
-  // },
-  // {
-  //   name: 'High Priority',
-  //   color: 'red'
-  // }];
   return this;
 });

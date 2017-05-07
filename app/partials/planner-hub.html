@@ -13,13 +13,13 @@
     <div class="planner-hub-wrapper">
       <!-- Header part -->
       <div class="columns">
-        <div class="column is-4 chart-title" ng-repeat="board in boards()">
+        <div class="column is-4 chart-title" ng-repeat="board in boards()" ng-if="board.cards.length != 0">
           <h1 class="title">{{board.name}}</h1>
         </div>
       </div>
       <!-- Chart part -->
       <div class="columns">
-        <div class="column is-4 chart-container" ng-repeat="board in boards()">
+        <div class="column is-4 chart-container" ng-repeat="board in boards()" ng-if="board.cards.length != 0">
           <canvas id="doughnut" class="chart chart-doughnut"
                   chart-data="board.statsData" chart-labels="labels"
                   chart-options="options" chart-colors="colors" >

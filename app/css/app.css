@@ -297,6 +297,9 @@ a#dropdownShowDetails:hover{
     margin-right: 0;
     text-align: center;
   }
+  .columns{
+    margin: 0; !important;
+  }
   #desktop-menu{
     display: none;
   }

@@ -15,18 +15,6 @@ app.controller('SidebarController', function ($scope, $location, CardService) {
     $scope.boardsLoaded = CardService.boardsLoaded;
     $scope.currentId = "";
     $scope.loading = false;
-    //Creates bug
-    var loadBoards = function () {
-      CardService.loadData(function(){
-        $scope.boards = CardService.getBoards;
-        $scope.loading = false;
-        $scope.$evalAsync();
-      });
-    };
-
-    if(!$scope.boardsLoaded()){
-      loadBoards();
-    }
 
     // Change view to the given page
     $scope.changeView = function(page) {

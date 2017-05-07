@@ -27,7 +27,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
         }else{
           cb();
         }
-        //cb();
       },
       error: function() { console.log('Failed authentication'); }
     });
@@ -217,14 +216,14 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     Trello.put('boards/'+id+'/name?value='+newName);
   }
 
-  // Add lables to specific board
-  var addLables = function(boardId, cb) {
-    for(var i = 0; i < lables.length; i++){
-        var l = lables[i];
-        Trello.post('/boards/'+boardId+'/labels?name='+l.name+'&color='+l.color);
-    }
-    cb();
-  };
+  // // Add lables to specific board
+  // var addLables = function(boardId, cb) {
+  //   for(var i = 0; i < lables.length; i++){
+  //       var l = lables[i];
+  //       Trello.post('/boards/'+boardId+'/labels?name='+l.name+'&color='+l.color);
+  //   }
+  //   cb();
+  // };
   
   this.createNewBoard = function(cb) {
     Trello.post('/boards?name=New Project&defaultLists=false', function(board) {
@@ -338,14 +337,14 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     Trello.put("cards/"+card.id +"/name?value="+card.name);
   };
 
-  var getLabelId = function (boardId, labelName) {
-    var board = boards[findBoardIndex(boardId)];
-    var labels = board.labels;
-    var correctLabel = labels.filter(function (label) {
-      return label.name.toLowerCase() == labelName.toLowerCase();
-    })[0];
-    return correctLabel.id;
-  };
+  // var getLabelId = function (boardId, labelName) {
+  //   var board = boards[findBoardIndex(boardId)];
+  //   var labels = board.labels;
+  //   var correctLabel = labels.filter(function (label) {
+  //     return label.name.toLowerCase() == labelName.toLowerCase();
+  //   })[0];
+  //   return correctLabel.id;
+  // };
 
   var findIndexOfCard = function (boardIndex, cardId) {
     for(var i = 0; i < boards[boardIndex].cards.length; i++){
@@ -355,13 +354,13 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     }
   };
 
-  var findLabelColor = function (labelName) {
-    for(var i = 0; i < lables.length; i++){
-      if(lables[i].name.toLowerCase() == labelName.toLowerCase()){
-        return lables[i].color;
-      }
-    }
-  };
+  // var findLabelColor = function (labelName) {
+  //   for(var i = 0; i < lables.length; i++){
+  //     if(lables[i].name.toLowerCase() == labelName.toLowerCase()){
+  //       return lables[i].color;
+  //     }
+  //   }
+  // };
 
   this.changeLabelOfCard = function (boardId, cardId, label) {
     var boardIndex = findBoardIndex(boardId);
@@ -420,19 +419,19 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
   }
 
 
-  // The different lables that we use
-  var lables =
-  [{
-    name: 'Low Priority',
-    color: 'green'
-  },
-  {
-    name: 'Medium Priority',
-    color: 'yellow'
-  },
-  {
-    name: 'High Priority',
-    color: 'red'
-  }];
+  // // The different lables that we use
+  // var lables =
+  // [{
+  //   name: 'Low Priority',
+  //   color: 'green'
+  // },
+  // {
+  //   name: 'Medium Priority',
+  //   color: 'yellow'
+  // },
+  // {
+  //   name: 'High Priority',
+  //   color: 'red'
+  // }];
   return this;
 });

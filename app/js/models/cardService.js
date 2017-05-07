@@ -139,6 +139,9 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     if(doneListIdArray.length != 0){
       var doneListId = doneListIdArray[0].id;
     }
+    if(boards[boardIndex].cards == undefined){
+      return;
+    }
     //Loop through all the cards and add statistics for each
     for(var j = 0; j < boards[boardIndex].cards.length; j++) {
       

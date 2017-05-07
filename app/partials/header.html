@@ -1,37 +1,40 @@
 <!-- Title for the page -->
-<section class="hero is-small is-primary">
-  <div class="our-content">
-    <div id="story-lines">
-      <img src="img/storylines.png">
+<section id="header" class="hero is-small is-primary">
+  <div id="desktop-menu" class="our-content">
+    <div id="story-lines" >
+      <img id="large-logo" src="img/storylines.png">
       <h2 class="subtitle">
         Keep track of your projects
       </h2>
-      <!-- TODO: Add a menu to make the mobile version navigatable -->
-      <div class="mobile-menu">
-        <nav class="menu">
-          <ul ng-if="showNavigation" click-outside="closeNavigation()">
-            <li><a ng-click="changeView('home')"
-                   ng-class="isActive('/home')">Home</a>
-            </li>
-            <p class="menu-label">Overview</p>
-            <li><a ng-click="changeView('plannerHub')"
-                   ng-class="isActive('/plannerHub')">Planner Hub</a>
-            </li>
-            <li><a ng-click="changeView('myStories')"
-                   ng-class="isActive('/myStories')">My Stories</a>
-            </li>
-            <p class="menu-label">Projects</p>
-            <li ng-repeat="board in boards()">
-              <a ng-click="goProjectPage(board.id)"
-                 ng-class="isActive('/projectPage/{{board.id}}')">
-                {{board.name}}
-              </a>
-            </li>
-          </ul>
-          <a class="toggle-nav" ng-click="toggleNavigation()">&#9776;</a>
-        </nav>
-
       </div>
     </div>
+  </div>
+  <div class="mobile-menu">
+    <img id="small-logo" src="img/storylines-small.png">
+    <h2 class="subtitle">
+      Keep track of your projects
+    </h2>
+    <nav class="menu">
+      <ul ng-if="showNavigation" click-outside="closeNavigation()">
+        <li><a ng-click="changeView('home')"
+               ng-class="isActive('/home')">Home</a>
+        </li>
+        <p class="menu-label">Overview</p>
+        <li><a ng-click="changeView('plannerHub')"
+               ng-class="isActive('/plannerHub')">Planner Hub</a>
+        </li>
+        <li><a ng-click="changeView('myStories')"
+               ng-class="isActive('/myStories')">My Stories</a>
+        </li>
+        <p class="menu-label">Projects</p>
+        <li ng-repeat="board in boards()">
+          <a ng-click="goProjectPage(board.id)"
+             ng-class="isActive('/projectPage/{{board.id}}')">
+            {{board.name}}
+          </a>
+        </li>
+      </ul>
+      <a class="toggle-nav" ng-click="toggleNavigation()">&#9776;</a>
+    </nav>
   </div>
 </section>

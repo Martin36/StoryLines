@@ -21,13 +21,11 @@
   padding: 30px;
   box-shadow: 0 0 5px #888;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 #home-container .card h1{
   font-size: 35px;
-}
-#home-container img{
-  cursor: pointer;
 }
 .chart-container{
   padding: 50px;
@@ -235,7 +233,7 @@ a#dropdownShowDetails:hover{
 .sub-menu{
   position: absolute;
   top: 60%;
-  left: 80%;
+  left: 60%;
   z-index: 1;
   box-shadow:0 2px 3px rgba(0,0,0,0.2);
   border-radius: 3px;
@@ -277,8 +275,14 @@ a#dropdownShowDetails:hover{
     padding-top: 0px;
     padding-bottom: 10px;
 }
+#large-logo{
+  display: block;
+}
+#small-logo{
+  display: none;
+}
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 640px){
   .menu a.is-active{
     color: #00d1b2; !important;
   }
@@ -293,6 +297,22 @@ a#dropdownShowDetails:hover{
     margin-right: 0;
     text-align: center;
   }
+  #desktop-menu{
+    display: none;
+  }
+  #header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 200;
+  }
+  #large-logo{
+    display: none;
+  }
+  .our-content{
+    margin-top: 120px;
+  }
   .loader-frame{
     width: 100px;
     height: 100px;
@@ -301,11 +321,18 @@ a#dropdownShowDetails:hover{
   }
   .mobile-menu{
     display: initial;
+    text-align: center;
+
   }
   .mobile-menu .menu{
     position: relative;
     display: inline-block;
     z-index: 100;
+  }
+  .mobile-menu .subtitle{
+    font-family: outrunFuture;
+    font-size: 14px;
+    margin-bottom: 0;
   }
   .menu ul.active{
     display: none;
@@ -343,7 +370,13 @@ a#dropdownShowDetails:hover{
   .menu a {
     display:block;
   }
-
+  .no-overflow {
+    overflow-y: auto;
+  }
+  #small-logo{
+    margin: auto;
+    display: block;
+  }
   .toggle-nav {
     margin-left: 10px;
     float:left;
@@ -365,10 +398,6 @@ a#dropdownShowDetails:hover{
   .sidebar{
     display: none;
   }
-  #story-lines{
-    text-align: center;
-  }
-
   .planner-hub-wrapper{
     display: none;
   }
@@ -377,7 +406,7 @@ a#dropdownShowDetails:hover{
     margin: 40px;
   }
 }
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 640px){
   .planner-hub-mobile{
     display: none;
   }

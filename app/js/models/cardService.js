@@ -278,7 +278,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       if(currentCard.id == cardId){
         //Remove the card from the array
         boards[boardIndex].myCards.splice(i, 1);
-        console.log(boards[boardIndex].myCards);
       }
     }
   }

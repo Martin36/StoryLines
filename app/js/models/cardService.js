@@ -399,7 +399,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
 
     // If list not found create it first
     if(idList == listTypes) {
-      console.log("List not found, creating new!");
       Trello.post('/lists?idBoard='+card.idBoard+'&name='+listName, function(newList){
         boards[findBoardIndex(card.idBoard)].lists.push(newList);
         moveToDone(card, newList.id, cb);
@@ -415,7 +414,6 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
       for(var j=0; j< boards[i].cards.length; j++){
         if(boards[i].cards[j].id == card.id)
             boards[i].cards[j].idList= idList;
-            console.log(boards[i].cards[j]);
             cb();
       }
     }

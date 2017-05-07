@@ -81,7 +81,9 @@ app.controller('MyStoriesController', function ($scope, CardService) {
 
 	//to move card from one page to another
 	$scope.movecard = function(card, listname){
-		CardService.moveCard(card, listname);
+		CardService.moveCard(card, listname, function(){
+      $scope.$evalAsync();
+    });
 	};
 
 	//Returns true if there is no cards assigned to the user

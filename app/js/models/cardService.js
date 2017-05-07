@@ -394,16 +394,33 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
     }
   };
 
-  this.moveCard =function(card, listTypes){
-		var ListId = this.getListId(card.idBoard, listTypes);
-		Trello.put("cards/"+card.id+"/idList?value="+ListId);
-		for(var i=0; i< boards.length; i++){
-			for(var j=0; j< boards[i].cards.length; j++){
-				if(boards[i].cards[j].id == card.id)
-						boards[i].cards[j].idList= ListId;
-			}
-		}
+  this.moveCard =function(card, listName, cb){
+		var idList = this.getListId(card.idBoard, listName);
+
+    // If list not found create it first
+    if(idList == listTypes) {
+      console.log("List not found, creating new!");
+      Trello.post('/lists?idBoard='+card.idBoard+'&name='+listName, function(newList){
+        boards[findBoardIndex(card.idBoard)].lists.push(newList);
+        moveToDone(card, newList.id, cb);
+      });
+    }else {
+      moveToDone(card, idList, cb);
+    }
 	}
+
+  var moveToDone = function(card, idList, cb) {
+    Trello.put("cards/"+card.id+"/idList?value="+idList);
+    for(var i=0; i< boards.length; i++){
+      for(var j=0; j< boards[i].cards.length; j++){
+        if(boards[i].cards[j].id == card.id)
+            boards[i].cards[j].idList= idList;
+            console.log(boards[i].cards[j]);
+            cb();
+      }
+    }
+  }
+
 
   // The different lables that we use
   var lables =

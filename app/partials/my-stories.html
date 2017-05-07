@@ -1,0 +1,83 @@
+<!-- My stories view -->
+<div class="our-content">
+  <!-- Loading screen -->
+  <div class="loader-frame" ng-if="loading">
+    <div class="loader1"></div>
+    <div class="loader2"></div>
+  </div>
+  <!-- Help Button -->
+  <div class="help" ng-if="!loading">
+    <span class="icon is-large is-primary" ng-click="toggleHelp()">
+      <i class="fa fa-question-circle hover-blue"></i>
+    </span>
+  </div>
+  <div id="lists-container">
+    <div class="project" ng-repeat="board in boards()" ng-show="!projectEmpty(board)">
+      <h1 id="rowHeader" class="title">{{board.name}}</h1>
+      <hr>
+      <div class="columns card-row">
+        <div class="column" ng-class="getLabelClass(card)" id="card1" ng-repeat="card in board.myCards | orderBy:sortingFunction"
+             ng-if="card.idList!=listId(board.id ,'Done')">
+          <p class="card-header-title">
+            {{card.name}}
+          </p>
+          <footer class="card-footer">
+            <a class="card-footer-item" ng-click="showDetails(card)">Details</a>
+            <a class="card-footer-item" ng-click="movecard(card, 'Done')">Done</a>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal showing details for cards -->
+  <div class="modal is-active" ng-if="showEdit">  <!-- ng-if gets its own scope-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title fixed-width">{{clickedCard.name}}</p>
+        <button ng-click="cancel()" class="delete"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <label class="label">Description</label>
+          <p class="control">
+            {{clickedCard.desc}}
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a class="button is-success" ng-click="done()">Done</a>
+      </footer>
+    </div>
+  </div>
+  <!-- Modal showing help for the page -->
+  <div class="modal is-active" ng-if="showHelp">  <!-- ng-if gets its own scope-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title fixed-width">My Stories</p>
+        <button ng-click="cancel()" class="delete"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <p class="control">
+            Here you see a detailed view over <b>your</b> cards, which are cards assigned to you.
+            <br><br>
+            The cards are color coded according to their priority. <b> Red, yellow and green means
+            high, medium and low priority respectively</b>.
+            <br><br>
+            To see details over a card, click on the <b>Details</b> button.
+            <br><br>
+            To mark a card as completed, click on the <b>Done</b> button and this card will be moved
+            to the "Done" column in the project.
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a class="button is-success" ng-click="cancel()">Done</a>
+      </footer>
+    </div>
+  </div>
+</div>

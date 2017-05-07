@@ -1,0 +1,67 @@
+<div ng-controller="SidebarController" ng-if="shouldIHide()">
+  <!-- Sidebar -->
+  <div class="column is-one-quarter">
+    <div class="sidebar">
+      <p class="field">
+        <a ng-click="newProject()" class="button is-medium is-primary"
+            ng-class="showLoading(loading)">
+          <span ng-if="!loading"  class="icon">
+            <i class="fa fa-plus-square"></i>
+          </span>
+          <span>New Project</span>
+        </a>
+      </p>
+
+      <div class="column">
+        <!-- Home button -->
+        <ul class="menu-list">
+          <li>
+            <a ng-click="changeView('home')"
+               ng-class="isActive('/home')">
+                Home
+            </a>
+          </li>
+        </ul>
+        <p class="menu-label">Overview</p>
+        <ul class="menu-list">
+          <li ng-repeat="page in pages">
+            <a ng-click="changeView(page.link)"
+            ng-class="isActive('/{{page.link}}')">
+            {{page.name}}
+          </a>
+          </li>
+        </ul>
+        <p class="menu-label">
+          Projects
+        </p>
+        <ul class="menu-list projects">
+          <!-- Runs the function assigned to board in controller -->
+          <li ng-repeat="board in boards()" class="repeat-project">
+            <a ng-click="goProjectPage(board.id)"
+              ng-class="isActive('/projectPage/{{board.id}}')">
+              {{board.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="columns">
+        <div class="column is-offset-4">
+          <figure class="image is-64x64">
+            <img src="img/storyphants.png">
+          </figure>
+        </div>
+      </div>
+
+      <p id="profile" class="field">
+        <a class="button is-medium" ng-click="logout()">
+          <span class="icon is-medium">
+            <i class="fa fa-sign-out"></i>
+          </span>
+          <span>Log Out</span>
+        </a>
+      </p>
+
+    </div>
+  </div>
+</div>

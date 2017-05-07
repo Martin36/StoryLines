@@ -1,98 +1,74 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+ <html lang="en" ng-app="myApp" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Tab settings -->
   <title>Storylines</title>
   <link rel="shortcut icon" href="img/storyphants.ico"/>
-
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
 
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="bower_components/angular-bulma/dist/angular-bulma.min.css">
-  <link rel="stylesheet" href="app.css">
   <!-- Bulma -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.min.css">
-
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="libraries/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!-- Our stylsheet -->
+  <link rel="stylesheet" href="css/app.css">
 
-  <!-- Created styles -->
-  <link rel="stylesheet" href="login/login.css">
-  <link rel="stylesheet" href="sidebar/sidebar.css">
-  <link rel="stylesheet" href="my-stories/my-stories.css">
-  <link rel="stylesheet" href="planner-hub/planner-hub.css">
-  <link rel="stylesheet" href="project-page/project-page.css">
-
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <!-- Title for the page -->
-  <section class="hero is-small is-primary">
-    <div class="our-content">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            StoryLines
-          </h1>
-          <h2 class="subtitle">
-            Keep track of your projects
-          </h2>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <ng-include src="'sidebar/sidebar.html'" ng-controller="SidebarController"></ng-include>
+  <!-- Include partials that are shown on most or all pages -->
+  <ng-include src="'partials/header.html'" ng-controller="SidebarController"></ng-include>
+  <ng-include src="'partials/sidebar.html'" ng-controller="SidebarController"></ng-include>
   <div ng-view></div>
-
 
   <!-- Angular Files -->
   <script src="https://code.angularjs.org/latest/angular.min.js"></script>
   <script src="https://code.angularjs.org/latest/angular-resource.min.js"></script>
   <script src="https://code.angularjs.org/latest/angular-route.min.js"></script>
   <script src="https://code.angularjs.org/latest/angular-cookies.min.js"></script>
-
   <!-- Angular Charts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
   <script src="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
-
   <!-- Angular Animate -->
   <script src="https://code.angularjs.org/latest/angular-animate.js"></script>
-
-  <!-- Angular Click Outside directive -->
-  <script src="directives/clickoutside.directive.js"></script>
-
   <!-- For Trello API -->
   <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="https://api.trello.com/1/client.js?key=d55de169d8cbf243f781b431c5b458e0"></script>
-
-  <!-- Angular Bulma -->
-  <script src="bower_components/angular-bulma/dist/angular-bulma.min.js"></script>
-  
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-
   <!-- AngularFire -->
   <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 
-  <!-- Project scripts -->
-  <script src="app.js"></script>
-  <script src="model/model.js"></script>
-  <script src="directives/directives.js"></script>
+  <script>
+    // Initialize Firebase
+    var init = {
+      apiKey: "AIzaSyAnGNc08nedi09D3T-vSW-kLN_lFFEjcDA",
+      authDomain: "storylines-784ba.firebaseapp.com",
+      databaseURL: "https://storylines-784ba.firebaseio.com",
+      projectId: "storylines-784ba",
+      storageBucket: "storylines-784ba.appspot.com",
+      messagingSenderId: "631528991893"
+    }
+    firebase.initializeApp(init);
+  </script>
 
-  <script src="login/login.js"></script>
-  <script src="my-stories/my-stories.js"></script>
-  <script src="planner-hub/planner-hub.js"></script>
-  <script src="project-page/project-page.js"></script>
-  <script src="user-screen/user-screen.js"></script>
-  <script src="sidebar/sidebar.js"></script>
-<!--  <script src="http://code.angularjs.org/1.2.6/angular.min.js"></script>-->
+
+  <!-- Project scripts -->
+  <script src="js/app.js"></script>
+  <!-- Models -->
+  <script src="js/models/cardService.js"></script>
+    <!-- Controllers -->
+  <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/home.js"></script>
+  <script src="js/controllers/my-stories.js"></script>
+  <script src="js/controllers/planner-hub.js"></script>
+  <script src="js/controllers/project-page.js"></script>
+  <script src="js/controllers/sidebar.js"></script>
+  <!-- Directives -->
+  <script src="js/directives/clickoutside.directive.js"></script>
+  <script src="js/directives/focusMe.js"></script>
+
 </body>
 </html>

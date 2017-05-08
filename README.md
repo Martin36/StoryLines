@@ -14,3 +14,4 @@ How to run the site locally:
 4.	Navigate to http://localhost:8000 
 
 Link to gh-pages
+https://martin36.github.io/StoryLines/app/

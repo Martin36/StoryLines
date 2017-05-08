@@ -13,12 +13,6 @@ app.controller('SidebarController', function ($scope, $location, CardService) {
 
     $scope.boards = CardService.getBoards;
     $scope.boardsLoaded = CardService.boardsLoaded;
-    // $scope.boardsLoaded = function(){
-    //   if(CardService.boardsLoaded)
-    //     return true;
-    //   else
-    //     return undefined;
-    // } 
     $scope.currentId = "";
     $scope.loading = false;
 
@@ -71,9 +65,8 @@ app.controller('SidebarController', function ($scope, $location, CardService) {
 
     //For the mobile navigation bar
     $scope.toggleNavigation = function () {
-      //$scope.showNavigation = !$scope.showNavigation;
       $scope.showNavigation = true;
-    }
+    };
 
     $scope.closeNavigation = function () {
       $scope.showNavigation = false;

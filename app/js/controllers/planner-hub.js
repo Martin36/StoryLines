@@ -45,5 +45,17 @@ app.controller('PlannerHubController', function ($scope, $timeout, CardService) 
 
     $scope.cancel = function () {
       $scope.showHelp = false;
+    };
+    //Checks if there is no cards to show in the chart
+    $scope.noCardsToShow = function (board) {
+      var doneListId = CardService.getListId(board.id, "Done");
+      for(var i = 0; i < board.cards.length; i++){
+        //Check if the card is not in the list done
+        if(board.cards[i].idList != doneListId){
+          return false;
+        }
+      }
+      //If it didn't return before this, there was no cards in any list except the done list
+      return true;
     }
   });

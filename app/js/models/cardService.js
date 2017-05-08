@@ -126,6 +126,9 @@ app.factory('CardService', function ($cookies, $resource, $firebaseArray) {
   };
   //Returns the id of the list with listName
   var getListId = function (listName, boardIndex) {
+    if(boards[boardIndex].lists == undefined){
+      return undefined;
+    }
     var doneListIdArray = boards[boardIndex].lists.filter(function (obj) {
       return obj.name.toLowerCase() == listName;
     });

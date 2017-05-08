@@ -1,12 +1,10 @@
 # Storylines
 
-### This is a project management system.
+### This is a project management system based on trello
 	
-How to run the site: 
+How to run the site
 
-Login with your Trello Account. 
-
-Prerequistics
+Prerequistics for running site locally
 1.	Node.js
 
 How to run the site locally:
